@@ -51,8 +51,7 @@ public class PlatformBase extends TestBase {
 	 * Intranet
 	 * */
 	public final String ELEMENT_SIGN_IN_LINK = "//b[contains(text(),'Sign in')]";
-	public final By ELEMENT_REFRESH = By.xpath("//div[@class='activityStreamStatus pull-left']");
-	
+	public final By ELEMENT_REFRESH = By.cssSelector("div[class='activityStreamStatus pull-left']");
 
 	/*
 	 * Log in Form - Sign-out 
@@ -181,7 +180,8 @@ public class PlatformBase extends TestBase {
 	/* End Setting Icon*/
 
 	/*--------------- User account Management (Click from user name) ---------------------*/
-	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+	public final By ELEMENT_ACCOUNT_NAME_LINK = By.cssSelector("div[id=UIUserPlatformToolBarPortlet] a");
+//			By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_NAVIGATION_ACCOUNT_AVATAR = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a/img[@alt='avatar']");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_ACME = By.className("LanguageIcon");
@@ -662,7 +662,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_UPLOAD_VERSION_ID = By.xpath("//div[@id='versionHistory']//input[@name='file']");
 
 	//Space > Wiki link
-	public final By ELEMENT_WIKI_LINK_IN_SPACE = By.xpath("//*[@id='spaceMenuTab']/li[3]/a/span[text()='Wiki']");
+	public final By ELEMENT_WIKI_LINK_IN_SPACE = By.cssSelector("i[class='uiIconAppWikiPortlet uiIconDefaultApp']");
 
 	//----------------------Gmail form ---------------------------------------------------
 	public final String GMAIL_URL = "https://mail.google.com";
@@ -682,6 +682,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
 	public final By ELEMENT_GMAIL_SHOW_DETAIL = By.xpath("//img[@aria-label='Show details']");
 	public final String ELEMENT_GMAIL_TO_FIELD = "//td/span[text()='to:']/../..//span[text()='${to}']";
+	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector("a[id='account-chooser-link']");
+	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
 
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
@@ -842,6 +844,10 @@ public class PlatformBase extends TestBase {
 	public By PRODUCTS_LABEL_ENGLISH = By.xpath("//*[text()='Products']");
 	public By PRODUCTS_LABEL_FRENCH = By.xpath("//*[text()='Produits']");
 	public By PRODUCTS_LABEL_GERMAN = By.xpath("//*[text()='Produkte']");
+
+	public PlatformBase(){
+		ieFlag = super.ieFlag;
+	}
 
 	///////////////////
 	//Set view permissions for portal
@@ -1404,13 +1410,21 @@ public class PlatformBase extends TestBase {
 		driver.manage().window().maximize();
 
 		//login to mail
-		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null)
-			click(ELEMENT_GMAIL_SIGN_IN_LINK); 
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
+			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
+				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
+			else{
+				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
+				click(ELEMENT_GMAIL_ADD_ACCOUNT);
+			}
+			
+		}
 
 //		waitForAndGetElement(ELEMENT_GMAIL_USERNAME,60000);
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
+		clearCache();
 		click(ELEMENT_GMAIL_INBOX);
 		Utils.pause(1000);
 	}

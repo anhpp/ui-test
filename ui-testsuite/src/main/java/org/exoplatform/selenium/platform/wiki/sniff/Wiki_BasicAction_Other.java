@@ -32,7 +32,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+//		getDriverAutoSave();
+		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		dialog = new Dialog(driver);

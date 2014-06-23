@@ -22,14 +22,14 @@ public class Permission extends WikiBase{
 	PlatformPermission per;
 	//Button button = new Button(driver);
 
+	public Permission() {
+		ieFlag = super.ieFlag;
+	}
+	
 	public final String ELEMENT_PERMISSION = "//*[@id='UIPermissionGrid']//*[contains(text(),'${user}')]";
 
 	public Permission(WebDriver dr){
 		driver = dr;
-	}
-	
-	public Permission(){
-		
 	}
 	
 	/////
@@ -77,7 +77,7 @@ public class Permission extends WikiBase{
 			break;
 			}		
 			Utils.pause(1000);
-			click(button.ELEMENT_ADD_BUTTON);
+			clickByJavascript(button.ELEMENT_ADD_BUTTON);
 			Utils.pause(1000);
 			button.save();
 		}
@@ -149,10 +149,13 @@ public class Permission extends WikiBase{
 		goToPagePermission();
 
 		info("--Delete permission--");
-		click(Delete);
+
+		if (waitForAndGetElement(Delete,10000,0) != null){
+			clickByJavascript(Delete);
+		}
 		waitForElementNotPresent(Delete);
 		button.save();
-
+		waitForElementNotPresent(ELEMENT_PAGE_PERMISSION_POPUP);
 		Utils.pause(2000);
 	}
 
@@ -309,11 +312,11 @@ public class Permission extends WikiBase{
 
 		if (view){
 			if(!waitForAndGetElement(bViewSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bViewSpace, notDisplay);
+				clickByJavascript(bViewSpace, notDisplay);
 			}
 		}else{
 			if(waitForAndGetElement(bViewSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bViewSpace, notDisplay);
+				clickByJavascript(bViewSpace, notDisplay);
 				Utils.pause(1000);
 				assert !waitForAndGetElement(bEditPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
 				assert !waitForAndGetElement(bAdminPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
@@ -322,11 +325,11 @@ public class Permission extends WikiBase{
 		}
 		if (edit){
 			if(!waitForAndGetElement(bEditPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bEditPage, notDisplay);
+				clickByJavascript(bEditPage, notDisplay);
 			}
 		}else{
 			if(waitForAndGetElement(bEditPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bEditPage, notDisplay);
+				clickByJavascript(bEditPage, notDisplay);
 				Utils.pause(1000);
 				assert !waitForAndGetElement(bAdminPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
 				assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
@@ -334,11 +337,11 @@ public class Permission extends WikiBase{
 		}
 		if (adminPage){
 			if(!waitForAndGetElement(bAdminPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bAdminPage, notDisplay);
+				clickByJavascript(bAdminPage, notDisplay);
 			}
 		}else{
 			if(waitForAndGetElement(bAdminPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bAdminPage, notDisplay);
+				clickByJavascript(bAdminPage, notDisplay);
 				Utils.pause(1000);
 				assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
 			}
@@ -346,11 +349,11 @@ public class Permission extends WikiBase{
 
 		if (adminSpace){
 			if(!waitForAndGetElement(bAdminSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				click(bAdminSpace, notDisplay);
+				clickByJavascript(bAdminSpace, notDisplay);
 			}
 		}else{
 			if(waitForAndGetElement(bAdminSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected())
-				click(bAdminSpace, notDisplay);
+				clickByJavascript(bAdminSpace, notDisplay);
 		}
 
 		button.save();

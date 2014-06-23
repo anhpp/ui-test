@@ -40,7 +40,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_ADD_BUTTON = By.xpath("//*[text()='Add']");
 	public final By ELEMENT_ADD_BUTTON_DISABLED=By.xpath("//*[@id='PermissionTab']//button[@disabled='disabled']");
 	public final By ELEMENT_CATEGORY_CANCEL_BUTTON= By.xpath("//*[@id='UICategoryForm']//button[contains(text(),'Cancel')]");
-	public final By ELEMENT_SELECT_BUTTON = By.xpath("//*[text()='Select']");
+	public final By ELEMENT_SELECT_BUTTON = By.xpath("//button[text()='Select']");
 	public final By ELEMENT_CONFIRM_BUTTON = By.xpath("//*[text()='Confirm']");
 	public final By ELEMENT_CLOSE_WINDOW = By.xpath("//*[contains(@class, 'uiIconClose') and @title = 'Close Window']");
 	//By.className("uiIconClose"); 

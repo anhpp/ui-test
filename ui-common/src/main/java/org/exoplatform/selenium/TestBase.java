@@ -3,6 +3,9 @@ package org.exoplatform.selenium;
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -36,17 +39,18 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+
 public class TestBase {
 
 	public WebDriver driver;
 	public WebDriver newDriver;
-	public static String baseUrl;
-	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
+
+	protected String baseUrl;
+	protected int DEFAULT_TIMEOUT = 60000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  
 	public int loopCount = 0;	
-	protected boolean ieFlag;	 
-	protected boolean chromeFlag;
-	
+	public boolean ieFlag;	 
+	public boolean chromeFlag;
 	/**
 	 * 4.0 : Version 4.0.x.
 	 * 4.1 : Version 4.1.x.
@@ -94,24 +98,33 @@ public class TestBase {
 	/*======== End of Term and conditions =====*/	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
+
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		if("chrome".equals(browser)){
 			driver = new ChromeDriver();
 			chromeFlag = true;
 		} else if ("iexplorer".equals(browser)){
-			driver = new InternetExplorerDriver();
-			ieFlag = true;
+			System.setProperty("webdriver.ie.driver","D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe") ;
+			DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
+			capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
+			driver = new InternetExplorerDriver(capabilitiesIE);
+
+			this.ieFlag = true;
 		} else {
+			System.setProperty("browser", "firefox");
 			FirefoxProfile profile = new FirefoxProfile();
-            profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
-            profile.setPreference("dom.max_script_run_time", 0);
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-            
-			driver = new FirefoxDriver();
+			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
+			profile.setPreference("dom.max_script_run_time", 0);
+			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+
+			driver = new FirefoxDriver(capabilities);
 		}
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		info("Base url is " + baseUrl);
+
 		action = new Actions(driver);
 	}
 
@@ -124,12 +137,14 @@ public class TestBase {
 		if(!firstTimeLogin){
 			info("This is not the first time login");
 			checkPLFVersion();
+			info("ieFlag of TestBase is " + ieFlag);
 		}
 		else{
 			info("This is the first time login");
 			driver.manage().window().maximize();
 			driver.navigate().refresh();
 			Utils.pause(2000);
+			info("ieFlag of TestBase is " + ieFlag);
 			ManageAccount acc = new ManageAccount(driver,this.plfVersion);
 			acc.signOut();
 			firstTimeLogin=false;
@@ -143,11 +158,11 @@ public class TestBase {
 	 */
 	public void termsAndConditions(Object... opParams){
 		Boolean isCreateAccount = (Boolean)(opParams.length>0 ? opParams[0]:true);
-		driver.get(baseUrl);
+		driver.navigate().to(baseUrl);
 		info("Agreement page");
 		if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 3000, 0, 2) != null) {
 			info("-- Checking the terms and conditions agreement... --");
-			click(ELEMENT_AGREEMENT_CHECKBOX, 2);
+			clickByJavascript(ELEMENT_AGREEMENT_CHECKBOX, 2);
 			click(ELEMENT_CONTINUE_BUTTON);
 			waitForTextNotPresent("terms and conditions agreement");
 
@@ -169,7 +184,7 @@ public class TestBase {
 	 * Verify plf version
 	 */
 	public void checkPLFVersion(){
-		waitForTextNotPresent("terms and conditions agreement");
+//		waitForTextNotPresent("terms and conditions agreement");
 		try{
 			info("Verify platform version");
 			String des = driver.findElement(ELEMENT_PLF_INFORMATION).getText();
@@ -177,9 +192,9 @@ public class TestBase {
 				this.plfVersion = "4.0";
 				info("Platform version 4.0.x");
 			}
-			else if(des.contains("v4.1")){
+			else if(des.contains("v4.1") || des.contains("v4.2")){
 				this.plfVersion="4.1";
-				info("Platform version 4.1.x");
+				info("Platform version 4.1.x or 4.2");
 			}
 		}catch(Exception e){
 			info("Unknown platform version. Set to default version 4.1.x.");
@@ -208,7 +223,21 @@ public class TestBase {
 	}
 
 	public WebElement getElement(Object locator, Object... opParams) {
-		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
+		By by = null;
+		String text = "";
+		if (locator instanceof By)
+			by = (By) locator;
+		else
+			if(locator instanceof String){
+				text = (String) locator;
+				if(text.contains("//")){
+					by = By.xpath(text);
+				}
+				else{
+					by = By.cssSelector(text);
+				}
+			}
+
 		WebDriver wDriver = (WebDriver) (opParams.length > 0 ? opParams[0]: driver);	
 		WebElement elem = null;
 		try {
@@ -221,9 +250,23 @@ public class TestBase {
 
 	//return element only in case the element is displayed.
 	public WebElement getDisplayedElement(Object locator, Object... opParams) {
-		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
-		WebDriver wDriver = (WebDriver) (opParams.length > 0 ? opParams[0]: driver);	
+		WebDriver wDriver = (WebDriver) (opParams.length > 0 ? opParams[0]: driver);
 		WebElement e = null;
+		By by = null;
+		String text = "";
+		if (locator instanceof By)
+			by = (By) locator;
+		else
+			if(locator instanceof String){
+				text = (String) locator;
+				if(text.contains("//")){
+					by = By.xpath(text);
+				}
+				else{
+					by = By.cssSelector(text);
+				}
+			}
+
 		try {
 			if(by != null)
 				e = wDriver.findElement(by);
@@ -405,6 +448,16 @@ public class TestBase {
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click by using javascript
+	 * @param locator: locator of element
+	 */
+	public void clickByJavascript(Object locator, Object... opParams){
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
+		WebElement e = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
+	}
+
 	public void clearCache(){
 		Actions actionObject = new Actions(driver);
 		try{
@@ -418,12 +471,12 @@ public class TestBase {
 	//Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
 	public void check(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
-		Actions actions = new Actions(driver);
+		//		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 
 			if (!element.isSelected()) {
-				actions.click(element).perform();
+				clickByJavascript(locator,notDisplayE);
 			} else {
 				info("Element " + locator + " is already checked.");
 			}
@@ -581,12 +634,12 @@ public class TestBase {
 	//un-check a checked-box
 	public void uncheck(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
-		Actions actions = new Actions(driver);
+		//		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 
 			if (element.isSelected()) {
-				actions.click(element).perform();
+				clickByJavascript(locator,notDisplayE);
 			} else {
 				info("Element " + locator + " is already unchecked.");
 			}
@@ -712,11 +765,11 @@ public class TestBase {
 
 		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
 		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
+		//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
 		fp.setPreference("pdfjs.disabled", true); 
-//		fp.setPreference("pdfjs.firstRun", false); 
-//		fp.setPreference("pdfjs.migrationVersion", 1);
-		
+		//		fp.setPreference("pdfjs.firstRun", false); 
+		//		fp.setPreference("pdfjs.migrationVersion", 1);
+
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
@@ -843,6 +896,18 @@ public class TestBase {
 		return (dateFormat.format(cal.getTime()));	
 	}
 
+	public String addTimeToCurrentDateTime(int number, int typeOfTime, String...format){
+		DateFormat dateFormat = format.length > 0 ? new SimpleDateFormat(format[0]) : new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		switch (typeOfTime) {
+		case 1: cal.add(Calendar.SECOND,number); break;
+		case 2:  cal.add(Calendar.MINUTE, number); break;
+		case 3: cal.add(Calendar.HOUR,number); break;
+		default: cal.add(Calendar.MINUTE, number); break;
+		}
+		return (dateFormat.format(cal.getTime()));	
+	}
+
 	/** Get date in format "dd"
 	 * @author thuntn
 	 * @param gap: distance from current date
@@ -854,7 +919,7 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return (dateFormat.format(cal.getTime()));	
 	}
-	
+
 	/** Get day of week
 	 * @author phuongdt
 	 * @param gap: distance from current date
@@ -942,7 +1007,7 @@ public class TestBase {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * get a list of random numbers author quynhpt
 	 * 
@@ -982,7 +1047,7 @@ public class TestBase {
 		element2.click();
 		element2.sendKeys(Keys.chord(Keys.CONTROL, "v"));
 	}
-	
+
 	/**
 	 * Get minute in format "HH" from current date
 	 * @author chinhdtt
@@ -996,7 +1061,7 @@ public class TestBase {
 		int minute = cal.get(Calendar.HOUR);
 		return (minute); 
 	}
-	
+
 	/**
 	 * @author lientm
 	 * @param object
@@ -1013,5 +1078,92 @@ public class TestBase {
 		int scroll = Integer.parseInt(scrollHeight);
 		int offset = Integer.parseInt(offsetHeight);
 		return scroll == offset;
+	}
+
+	/**
+	 * 
+	 * @param element
+	 */
+	public void clickAndSaveFileIE(WebElement element) {
+
+		try {
+			Robot robot = new Robot();
+
+			// Get the focus on the element..don't use click since it stalls the driver         
+			element.sendKeys("");
+
+			//simulate pressing enter           
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+
+			// Wait for the download manager to open           
+			Utils.pause(2000);
+
+			// Switch to download manager tray via Alt+N
+			robot.keyPress(KeyEvent.VK_ALT);
+			robot.keyPress(KeyEvent.VK_N);
+			robot.keyRelease(KeyEvent.VK_N);
+			robot.keyRelease(KeyEvent.VK_ALT);
+
+			// Press S key to save           
+			robot.keyPress(KeyEvent.VK_S);
+			robot.keyRelease(KeyEvent.VK_S);
+			Utils.pause(2000);
+
+			// Switch back to download manager tray via Alt+N
+			robot.keyPress(KeyEvent.VK_ALT);
+			robot.keyPress(KeyEvent.VK_N);
+			robot.keyRelease(KeyEvent.VK_N);
+			robot.keyRelease(KeyEvent.VK_ALT);
+
+			// Tab to X exit key
+			robot.keyPress(KeyEvent.VK_TAB);
+			robot.keyRelease(KeyEvent.VK_TAB);
+
+			robot.keyPress(KeyEvent.VK_TAB);
+			robot.keyRelease(KeyEvent.VK_TAB);
+
+			robot.keyPress(KeyEvent.VK_TAB);
+			robot.keyRelease(KeyEvent.VK_TAB);
+
+			// Press Enter to close the Download Manager
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+		}catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String FindNewWindowHandle(Set<String> existingHandles, int timeout)
+	{
+		Calendar calEnd = Calendar.getInstance();
+		String foundHandle = new String();
+		calEnd.add(Calendar.SECOND, timeout);
+		Date endTime = calEnd.getTime();
+		Calendar calNow = Calendar.getInstance();
+		while (foundHandle.isEmpty() && calNow.getTime().before(endTime))
+		{
+			Set<String> currentHandles = driver.getWindowHandles();
+			if (currentHandles.size() != existingHandles.size())
+			{
+				for (String currentHandle : currentHandles)
+				{
+					if (!existingHandles.contains(currentHandle))
+					{
+						foundHandle = currentHandle;
+						break;
+					}
+				}
+			}
+
+			if (foundHandle.isEmpty())
+			{
+				Utils.pause(250);
+			}
+		}
+
+		// Note: could optionally check for handle found here and throw
+		// an exception if no window was found.
+		return foundHandle;
 	}
 }

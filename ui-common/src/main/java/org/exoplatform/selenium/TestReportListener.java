@@ -44,6 +44,8 @@ public class TestReportListener extends TestListenerAdapter {
 
     @Override
     public void onTestSkipped(ITestResult result) {
+    	String sClassName = result.getTestClass().getName();
+    	Utils.captureScreen(sClassName + ".PNG");
     	logResult(result);
     }
 

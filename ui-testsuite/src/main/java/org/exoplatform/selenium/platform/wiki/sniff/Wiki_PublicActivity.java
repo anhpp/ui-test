@@ -51,7 +51,7 @@ public class Wiki_PublicActivity extends BasicAction {
 		naTool.goToHomePage();
 		activity.checkActivityInfoOfWiki(title, content, "1");
 
-		click(By.linkText(title));
+		clickByJavascript(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
 
@@ -73,7 +73,7 @@ public class Wiki_PublicActivity extends BasicAction {
 		activity.checkActivityInfoOfWiki(newTitle, content, "2");
 		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
-		click(By.linkText(newTitle));
+		clickByJavascript(By.linkText(newTitle));
 		deleteCurrentWikiPage();
 	}
 
@@ -84,28 +84,27 @@ public class Wiki_PublicActivity extends BasicAction {
 	public void test03_EditWikiPageWithComment(){
 		String title = "Wiki_activity_title_03";
 		String content = "Wiki_activity_content_03";
-		String newContent1 = "Wiki_activity_title_03_update1";
+		String newContent1 = "Wiki_activity_title_03_update";
 		String newContent2 = "Wiki_activity_content_03_update2";
 		String comment = "Edit this page";
 
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
-
 		info("Edit wiki page with comment");
 		editPageWithCheckPublicActivity(null, newContent1, comment);		
 		naTool.goToHomePage();
-		activity.checkActivityInfoOfWiki(title, newContent1, "2");
+		activity.checkActivityInfoOfWiki(title, content+newContent1, "2");
 		waitForAndGetElement(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_1.replace("${title}", title).replace("${comment}", comment));
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
 
 		info("Edit wiki page with no comment");
-		click(By.linkText(title));
+		clickByJavascript(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", title));
 		editPageWithCheckPublicActivity(null, newContent2);
 		naTool.goToHomePage();
-		activity.checkActivityInfoOfWiki(title, newContent2, "3");
+		activity.checkActivityInfoOfWiki(title, content+newContent1+newContent2, "3");
 		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
 
-		click(By.linkText(title));
+		clickByJavascript(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
 
@@ -123,7 +122,7 @@ public class Wiki_PublicActivity extends BasicAction {
 		naTool.goToHomePage();
 		activity.checkActivityInfoOfWiki(title, content, "1");
 
-		click(By.linkText(title));
+		clickByJavascript(By.linkText(title));
 		deleteCurrentWikiPage();
 
 		naTool.goToHomePage();
@@ -151,8 +150,8 @@ public class Wiki_PublicActivity extends BasicAction {
 		naTool.goToHomePage();
 		activity.checkCommentAfterMoveWikiPage(title2, "Wiki Home > " + title1 + " > " + title2);
 
-		click(By.linkText(title2));
-		click(By.linkText(title1));
+		clickByJavascript(By.linkText(title2));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", title1));
 		deleteCurrentWikiPage();
 	}
 
@@ -170,8 +169,8 @@ public class Wiki_PublicActivity extends BasicAction {
 		naTool.goToHomePage();
 		activity.checkActivityInfoOfWiki(title, content, "1");
 
-		click(By.linkText(title));
-		waitForTextPresent("Wiki Home");
+		clickByJavascript(By.linkText(title));
+		waitForMessage("Wiki Home");
 		deleteCurrentWikiPage();
 	}
 
@@ -196,7 +195,7 @@ public class Wiki_PublicActivity extends BasicAction {
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newContent));
 
-		click(By.linkText(newTitle));
+		clickByJavascript(By.linkText(newTitle));
 		deleteCurrentWikiPage();
 	}
 }

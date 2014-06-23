@@ -59,6 +59,7 @@ public class Wiki_Search extends Template {
 		waitForAndGetElement(result);
 		
 		click(result);
+		waitForAndGetElement(ELEMENT_ADD_PAGE_LINK);
 		deleteCurrentWikiPage();
 	}
 	
@@ -74,6 +75,7 @@ public class Wiki_Search extends Template {
 		
 		magMem.goToAllSpaces();
 		magMem.addNewSpace(spaceName, "", "Visible", "Validation", "", "");
+		magMem.accessSpace(spaceName);
 		goToWikiFromSpace(spaceName);
 		addWikiPageWithContentMultiLine(title, content);
 		

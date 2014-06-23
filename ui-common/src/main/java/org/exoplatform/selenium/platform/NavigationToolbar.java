@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.social.Notification;
 import org.exoplatform.selenium.platform.social.PeopleConnection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -18,7 +17,6 @@ public class NavigationToolbar extends PlatformBase {
 	BrandingManagement brandMag;
 	PeopleConnection peoCon;
 	HomePageActivity hpAct;
-	Notification noti;
 
 	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
@@ -34,7 +32,6 @@ public class NavigationToolbar extends PlatformBase {
 		brandMag = new BrandingManagement(driver);
 		button = new Button(driver);
 		peoCon = new PeopleConnection(driver);
-		noti = new Notification(driver);
 		
 	} 
 
@@ -445,7 +442,7 @@ public class NavigationToolbar extends PlatformBase {
 	//Function go to Home Page
 	public void goToHomePage(){
 		info("-- Go to home page --");
-		click(ELEMENT_HOME_PAGE);
+		clickByJavascript(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
 		driver.navigate().refresh();
 		waitForAndGetElement(ELEMENT_REFRESH,60000);
@@ -645,6 +642,5 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to notification settings");
 		click(ELEMENT_ACCOUNT_NAME_LINK);
 		click(ELEMENT_NOTIFICATION_SETTING_MENU);
-		waitForAndGetElement(noti.ELEMENT_NOTIFICATION_SETTINGS_TITLE);
 	}
 }

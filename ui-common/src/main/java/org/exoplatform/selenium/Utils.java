@@ -60,6 +60,7 @@ public class Utils {
 	 */
 	public static void captureScreen(String fileName){
 		String path;
+		String fs = File.separator;
 		BufferedImage screenCapture;
 		//		Thread.sleep(3000);
 		pause(3000);
@@ -69,7 +70,7 @@ public class Utils {
 			screenCapture = robot.createScreenCapture(screenSize);
 			// Save as PNG
 			String curDir = System.getProperty("user.dir");
-			path = curDir + "/target/screenshoot/";
+			path = curDir + fs + "target" + fs + "screenshoot" + fs;
 			File f = new File(path);
 			if (!f.exists()) f.mkdir(); 
 			ImageIO.write(screenCapture, "png", new File(path + fileName));
@@ -148,7 +149,8 @@ public class Utils {
 	//This function returns a absolute path from a relative path
 	public static String getAbsoluteFilePath(String relativeFilePath){
 		String curDir = System.getProperty("user.dir");
-		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
+		String fs = File.separator;
+		String absolutePath = curDir + fs + "src" + fs + "main" + fs + "resources" + fs + relativeFilePath;
 		return absolutePath;
 	}
 
@@ -162,6 +164,7 @@ public class Utils {
 		} catch (FileNotFoundException e) {
 			error("Failed to find location of... " + filePath);
 		}
+		@SuppressWarnings("resource")
 		String inputStreamString = new Scanner(fis,"UTF-8").useDelimiter("\\A").next();		
 		return inputStreamString;	
 	}
