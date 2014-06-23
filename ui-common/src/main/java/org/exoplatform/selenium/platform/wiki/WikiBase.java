@@ -14,6 +14,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
+
 /**
  * Provides all methods of managing all WebElements on Wiki.
  * 
@@ -39,22 +41,23 @@ public class WikiBase extends PlatformBase{
 
 	public final By ELEMENT_BLANK_PAGE_LINK_41 = By.xpath ("//i[@class='uiIconAddPage']");
 
-	public final By ELEMENT_WIKI_LINK_PLF41=By.xpath("//*[@data-original-title='Wiki']");
+	public final By ELEMENT_WIKI_LINK_PLF41=By.cssSelector("span[data-original-title='Wiki']");
+//			By.xpath("//*[@data-original-title='Wiki']");
 
 	//Add page menu
 	public final By ELEMENT_ADD_PAGE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(),'Add Page')]");
 	//	public final By ELEMENT_BLANK_PAGE_LINK = By.linkText("Blank Page");
-	public final By ELEMENT_BLANK_PAGE_LINK = By.xpath("//*[@class='uiIconAddPage']");
+	public final By ELEMENT_BLANK_PAGE_LINK = By.className("uiIconAddPage");
 
-	public final By ELEMENT_FROM_TEMPLATE_LINK = By.linkText("From Template...");
+	public final By ELEMENT_FROM_TEMPLATE_LINK = By.xpath("//a[contains(.,'From Template...')]");
 
 	//Edit menu
-	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//li/div[contains(text(), 'Edit')]");;
+	public final By ELEMENT_EDIT_PAGE_LINK= By.cssSelector("div[id='UIWikiPageControlArea_PageToolBar'] i[class='uiIconEditPage uiIconLightGray']");;
 	public final By ELEMENT_EDIT_COMPARE_CHANGE = By.xpath("//*[contains(text(), 'Compare Revisions')]");
 	public final String ELEMENT_EDIT_COMPARE_VERSION = "//*[@class = 'changeVersionInfo' and contains(text(), '${version}')]";
 
 	//More menu
-	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(), 'More')]");
+	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(., 'More')]");
 	//public final By ELEMENT_MORE_LINK = By.xpath("");
 	public final By ELEMENT_DELETE_LINK = By.linkText("Delete Page");
 	public final By ELEMENT_DELETE_LINK_2 = By.className("uiIconDeletePage");
@@ -86,8 +89,8 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_WIKI_HOME_LINK=By.xpath("//a[text()='Wiki Home']");
 	public final By ELEMENT_WIKI_HOME_PAGE=By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
 	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
-	public final String ELEMENT_NODE_WIKI_PAGE = "//*[@class='node']//*[contains(text(), '{$node}')]";
 	public final String ELEMENT_PAGE_NOT_FOUND = "//h3[text()='Page Not Found']";
+	public final String ELEMENT_NODE_WIKI_PAGE = "a[href$= '{$node}']";
 
 	//Space Switcher
 	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
@@ -147,8 +150,8 @@ public class WikiBase extends PlatformBase{
 
 	//Upload file area
 	public By ELEMENT_UPLOAD_FILE = By.xpath("//div[@class='uiUploadInput']//*[@type='file']"); 
-	public final By ELEMENT_FRAME_UPLOAD=By.xpath("//div[@class='uiUploadInput']/iframe");
-	public final String ELEMENT_REMOVE_ATTACHMENT = "//a[text()='{$file}']/../../td/a/i[@class='uiIconDelete uiIconLightGray']";
+
+	public final String ELEMENT_REMOVE_ATTACHMENT = "//a[text()='{$file}']/../../td//i[contains(@class,'uiIconDelete')]";
 	public final String ELEMENT_ATTACHMENT_TITLE = "//*[@class='uiAttachmentUploadListForm clearfix']//*[text()='${fileName}']";
 
 	//Add page from template
@@ -234,7 +237,8 @@ public class WikiBase extends PlatformBase{
 	//Close template list	
 	public By ELEMENT_CLOSE_TEMPLATE_LIST=By.xpath("//*[text()='Select Template']/../a[@class='uiIconClose pull-right']");
 	//Close preview window
-	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//*[contains(@class,'uiIconClose')]");
+
+	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.cssSelector("i[class='uiIconClose uiIconLightGray']");
 	//	Preview template
 	public final String ELEMENT_PREVIEW_NEW_TEMPLATE="//div[text()='${TEMPLATE_TITLE}']/../..//*[contains(@class, 'uiIconPreview')]";
 	// Verify effect
@@ -265,7 +269,8 @@ public class WikiBase extends PlatformBase{
 	public final String ELEMENT_VIEW_PAGE_CHECK = "//*[contains(text(), '{$user}')]/../..//*[@title='View Pages']";
 	public final String ELEMENT_ADMIN_PAGE_CHECK = "//*[contains(text(), '{$user}')]/../..//input[contains(@id, 'ADMINPAGE')]";
 	public final String ELEMENT_ADMIN_SPACE_CHECK = "//*[contains(text(), '{$user}')]/../..//input[contains(@id, 'ADMINSPACE')]"; 
-	public final String ELEMENT_DELETE_PERMISSION = "//tr/td/div[contains(text(),'{$user}')]/../../td/a[@data-original-title='Delete Permission']";
+
+	public final String ELEMENT_DELETE_PERMISSION = "//tr/td/div[contains(text(),'{$user}')]/../../td//i[contains(@class,'uiIconDelete')]";
 
 	//set permission screen
 	public String ELEMENT_USER_CHECKBOX = "//*[text()='${user}']/../..//*[@type='checkbox']"; 
@@ -305,7 +310,8 @@ public class WikiBase extends PlatformBase{
 	public final String ELEMENT_SELECTED_PAGE = "//div[contains(@class,'popupContent')]//*[@id='iconTreeExplorer' and contains(@onclick, 'event')]//a[contains(text(), '${relatedPage}')]"; 
 	public final String ELEMENT_RELATED_PAGE = "//*[text()='Related Pages']/..//a[contains(text(),'${relatedPage}')]";
 	public By ELEMENT_SELECT_SPACE = By.xpath("//*[contains(text(), 'Select the Wiki:')]/..//*[@class='btn dropdown-toggle']");
-	public final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[contains(text(),'${relatedPage}')]/ancestor::table//*[@class='uiIconDelete uiIconLightGray']";
+
+	public final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[contains(text(),'${relatedPage}')]/ancestor::tr//*[contains(@class,'uiIconDelete')]";
 	public By ELEMENT_NO_SPACE_OPTION = By.id("UISpaceSwitcher_nospace");
 	public String ELEMENT_RELATED_PAGE_SPACE = "//td[contains(text(), '${spaceName}')]";
 	public String ELEMENT_RELATED_PAGE_SPACE_DEFAUT = "//*[contains(text(), 'Select the Wiki:')]/..//*[@class='btn dropdown-toggle']//span[text() = '${spaceName}']";
@@ -332,8 +338,15 @@ public class WikiBase extends PlatformBase{
 	//Wiki location
 	public final By ELEMENT_WIKI_LOCATION_DROPDOWN = By.xpath("//div[@class='btn dropdown-toggle']");
 	public final By ELEMENT_WIKI_TITLE_PREVIEW = By.xpath("//div[@class='uiWikiPageTitle']");
-
+	
 	//================== PLF4/Common function for Wiki ==================//
+	public WikiBase(){
+		ieFlag = super.ieFlag;
+	}
+	
+	
+	
+	
 	//////
 	//	/**
 	//	 * @author vuna2
@@ -352,9 +365,9 @@ public class WikiBase extends PlatformBase{
 		info("--Go to Wiki--");
 		Utils.pause(1000);
 		if(waitForAndGetElement(ELEMENT_WIKI_LINK, 5000,0)!=null)
-			click(ELEMENT_WIKI_LINK);
+			clickByJavascript(ELEMENT_WIKI_LINK);
 		else
-			click(ELEMENT_WIKI_LINK_PLF41);
+			clickByJavascript(ELEMENT_WIKI_LINK_PLF41);
 		waitForAndGetElement(ELEMENT_TITLE_WIKI_HOME_LINK);	
 	}
 
@@ -381,7 +394,7 @@ public class WikiBase extends PlatformBase{
 		info("--Go to add blank wiki page--");
 		Utils.pause(500);
 		//mouseOver(ELEMENT_ADD_PAGE_LINK, true);
-		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
+		clickByJavascript(ELEMENT_ADD_PAGE_LINK);
 		if (isElementNotPresent(ELEMENT_BLANK_PAGE_LINK))
 			mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK_41);
 		else
@@ -449,7 +462,7 @@ public class WikiBase extends PlatformBase{
 			Utils.pause(100);
 		}
 		String nodeLast = nodes[length];
-		click(By.linkText(nodeLast));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",nodeLast));
 		Utils.pause(2000);
 	}
 
@@ -536,7 +549,7 @@ public class WikiBase extends PlatformBase{
 		//Utils.pause(2000);
 		if(waitForAndGetElement(ELEMENT_PAGE_PERMISSION_POPUP, 5000, 0) == null) {
 			mouseOverAndClick(ELEMENT_MORE_LINK);
-			mouseOverAndClick(ELEMENT_PAGE_PERMISSION_LINK);	
+			clickByJavascript(ELEMENT_PAGE_PERMISSION_LINK,2);	
 		}
 		Utils.pause(1000);
 		info("-- Go to Page Permissions...successful");
@@ -622,6 +635,7 @@ public class WikiBase extends PlatformBase{
 			Utils.pause(2000);
 		}
 		click(ELEMENT_WIKI_LINK_IN_SPACE);
+		waitForAndGetElement(ELEMENT_WIKI_HOME);
 		Utils.pause(1000);
 	}
 
@@ -648,6 +662,7 @@ public class WikiBase extends PlatformBase{
 	 */
 	public void attachFileInWiki(String link, Integer...type ){
 		int notDisplay = 0;
+		String fs = File.separator;
 		if (type.length > 0){
 			if (!(type[0] instanceof Integer)) {
 				throw new IllegalArgumentException("-- Argument should be an Integer --");
@@ -691,7 +706,7 @@ public class WikiBase extends PlatformBase{
 		}
 
 		switchToParentWindow();
-		waitForAndGetElement(By.linkText(link.replace("TestData/", "")));
+		waitForAndGetElement(By.linkText(link.replace("TestData" + fs, "")));
 	}
 
 	/** 

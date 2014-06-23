@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform;
 
+import static org.exoplatform.selenium.TestLogger.info;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -83,11 +84,17 @@ public class PlatformPermission extends PlatformBase {
 					default:
 						break;
 					}
-					click(ELEMENT_QUICK_SEARCH_BUTTON);
+//					click(ELEMENT_QUICK_SEARCH_BUTTON);
+					clickByJavascript(ELEMENT_QUICK_SEARCH_BUTTON);
 					waitForAndGetElement(ELEMENT_FIRST);
 					waitForElementNotPresent(ELEMENT_SECOND);
 				}
-				check(ELEMENT_USER, 2);
+//				check(ELEMENT_USER, 2);
+				WebElement e = waitForAndGetElement(ELEMENT_USER,DEFAULT_TIMEOUT,1,2);
+				info("test on IE" + e.getAttribute("name"));
+				((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
+//				click(ELEMENT_USER,2);
+				
 			}
 		}
 		click(ELEMENT_ADD_USERS_BUTTON);

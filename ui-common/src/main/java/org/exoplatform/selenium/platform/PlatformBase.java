@@ -51,8 +51,8 @@ public class PlatformBase extends TestBase {
 	 * Intranet
 	 * */
 	public final String ELEMENT_SIGN_IN_LINK = "//b[contains(text(),'Sign in')]";
-	public final By ELEMENT_REFRESH = By.xpath("//div[@class='activityStreamStatus pull-left']");
-	
+
+	public final By ELEMENT_REFRESH = By.cssSelector("div[class='activityStreamStatus pull-left']");
 
 	/*
 	 * Log in Form - Sign-out 
@@ -181,7 +181,8 @@ public class PlatformBase extends TestBase {
 	/* End Setting Icon*/
 
 	/*--------------- User account Management (Click from user name) ---------------------*/
-	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+	public final By ELEMENT_ACCOUNT_NAME_LINK = By.cssSelector("div[id=UIUserPlatformToolBarPortlet] a");
+//			By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_NAVIGATION_ACCOUNT_AVATAR = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a/img[@alt='avatar']");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_ACME = By.className("LanguageIcon");
@@ -662,7 +663,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_UPLOAD_VERSION_ID = By.xpath("//div[@id='versionHistory']//input[@name='file']");
 
 	//Space > Wiki link
-	public final By ELEMENT_WIKI_LINK_IN_SPACE = By.xpath("//*[@id='spaceMenuTab']/li[3]/a/span[text()='Wiki']");
+	public final By ELEMENT_WIKI_LINK_IN_SPACE = By.cssSelector("i[class='uiIconAppWikiPortlet uiIconDefaultApp']");
 
 	//----------------------Gmail form ---------------------------------------------------
 	public final String GMAIL_URL = "https://mail.google.com";
@@ -842,6 +843,10 @@ public class PlatformBase extends TestBase {
 	public By PRODUCTS_LABEL_ENGLISH = By.xpath("//*[text()='Products']");
 	public By PRODUCTS_LABEL_FRENCH = By.xpath("//*[text()='Produits']");
 	public By PRODUCTS_LABEL_GERMAN = By.xpath("//*[text()='Produkte']");
+	
+	public PlatformBase(){
+		ieFlag = super.ieFlag;
+	}
 
 	///////////////////
 	//Set view permissions for portal

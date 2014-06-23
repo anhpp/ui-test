@@ -303,8 +303,9 @@
 						</goals>
 						<configuration>
 							<skip>${maven.test.skip}</skip>
-							<!--<systemPropertyVariables> <webdriver.chrome.driver>chromedriver</webdriver.chrome.driver> 
-								</systemPropertyVariables> -->
+							<systemPropertyVariables> 
+								<webdriver.ie.driver>D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe</webdriver.ie.driver> 
+							</systemPropertyVariables> 
 							<suiteXmlFiles>
 								<suiteXmlFile>${project.build.OutputDirectory}/suites/${testSuite}</suiteXmlFile>
 							</suiteXmlFiles>

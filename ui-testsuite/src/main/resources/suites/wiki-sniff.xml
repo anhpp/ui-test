@@ -7,6 +7,7 @@
 			</run>
 		</groups>
 		<classes>
+<<<<<<< HEAD
 			<class
 				name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_BasicAction_ManagePage" />
 			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_Attachment" />
@@ -21,6 +22,17 @@
 				name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_BasicAction_Other" />
 			<class
 				name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_Information" />
+=======
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_Attachment" />
+			
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_BasicAction_ManagePage" />
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_PublicActivity" />
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_WikiSetting_ManagePermission" />
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_WikiSetting_ManageTemplate" />
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_Search" />
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_BasicAction_Other" />
+			<class name="org.exoplatform.selenium.platform.wiki.sniff.Wiki_Information" /> 
+>>>>>>> f1645fb... FQA-1854: PLF 4.1/4.2 - WIKI Sniff on Internet Explorer
 		</classes>
 	</test>
 	<listeners>

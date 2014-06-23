@@ -11,6 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
 /**
  * @author lientm
  * @date: 1-July-2013
@@ -49,7 +50,7 @@ public class Wiki_Information extends Version {
 		String link = "Wiki_Sniff_Attachment_01.doc";
 		String newTitle = "Wiki_sniff_infor_page_title_01_update";
 		String newContent = "Wiki_sniff_infor_page_content_01_update";
-
+		
 		addBlankWikiPageHasAttachment(title, content, link);
 		editWikiPage(newTitle, newContent, 0);
 
@@ -75,7 +76,6 @@ public class Wiki_Information extends Version {
 
 		addBlankWikiPage(title, content, 0);
 		editWikiPage(newTitle, newContent, 0);
-
 		goToPageInfoFromCurrentPage();
 		viewPageHistory();
 
@@ -84,9 +84,9 @@ public class Wiki_Information extends Version {
 		if (waitForAndGetElement(ELEMENT_LINE_REMOVE.replace("${lineRemove}", content), 3000, 0) == null){
 			waitForAndGetElement(ELEMENT_LINE_REMOVE_AUX.replace("${lineRemove}", content));	
 		}
-		waitForAndGetElement(ELEMENT_LINE_ADD.replace("${lineAdd}", newContent));
+		waitForAndGetElement(ELEMENT_LINE_ADD.replace("${lineAdd}", content+newContent));
 
-		click(By.linkText(newTitle));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",newTitle));
 		deleteCurrentWikiPage();
 	}
 	
@@ -191,7 +191,7 @@ public class Wiki_Information extends Version {
 		waitForAndGetElement(ELEMENT_NO_SPACE_OPTION);
 		but.cancel();
 
-		click(By.linkText(title));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", title));
 		deleteCurrentWikiPage();
 	}
 	
@@ -289,7 +289,7 @@ public class Wiki_Information extends Version {
 		
 		info("Add new attachment -> page's version is not changed");
 		click(ELEMENT_ATTACHMENT_ICON);
-		attachFileInWiki("TestData/" + link, 2);
+		attachFileInWiki("TestData" + java.io.File.separator + link, 2);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
 		

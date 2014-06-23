@@ -45,7 +45,7 @@ public class SpaceManagement extends SocialBase {
 	//Go to My Spaces	> 
 	//Add space Form
 	protected  int DEFAULT_TIMEOUT = 60000;
-	public final By     ELEMENT_ADDNEWSPACE_BUTTON      = By.xpath("//button[text()='Add New Space']");
+	public final By     ELEMENT_ADDNEWSPACE_BUTTON      = By.xpath("//button[contains(.,'Add New Space')]");
 	//("//a[@class='AddSpaceIcon']");
 	public final By     ELEMENT_ADDNEWSPACE_FORM        = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
 	//("//span[@class='PopupTitle' and text()='Add New Space']");
@@ -138,7 +138,7 @@ public class SpaceManagement extends SocialBase {
 		By button = By.xpath("//div[@class='uiAction']/*[text()='" + label + "']");
 		//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
 		waitForAndGetElement(button);
-		click(button);
+		clickByJavascript(button);
 	}
 
 	/**
@@ -213,9 +213,9 @@ public class SpaceManagement extends SocialBase {
 		info("-- Adding a new space --");
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
 		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
-			click(ELEMENT_ADDNEWSPACE_BUTTON);
+			clickByJavascript(ELEMENT_ADDNEWSPACE_BUTTON);
 		}else {
-			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
+			clickByJavascript(By.cssSelector("i[class ~= 'uiIconSocSimplePlus']"));
 		}
 
 		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
@@ -249,6 +249,7 @@ public class SpaceManagement extends SocialBase {
 		}
 		clickButton("Create");
 		waitForAndGetElement(By.linkText(name), iTimeout);
+		waitForElementNotPresent(ELEMENT_ADDNEWSPACE_FORM);
 		Utils.pause(1000);
 		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"), iTimeout);
 	}

@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 
 public class SocialBase extends PlatformBase {
 
-	//SpaceManagement spaceMag = new SpaceManagement();
+//	SpaceManagement spaceMag;
 
 	public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/div/a/i[contains(@class, 'uiIconPLFMan')]");
 	//public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/..//div/a[contains(text(),'Join a space')]");
@@ -112,7 +112,7 @@ public class SocialBase extends PlatformBase {
 	
 	public SocialBase(WebDriver dr, String...plfVersion){
 		dr = driver; 
-		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";		
+		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";	
 	}	
 
 	/**
@@ -134,17 +134,17 @@ public class SocialBase extends PlatformBase {
 		//		goToMySpacePage();
 		goToAllSpaces();
 		waitForAndGetElement(ELEMENT_MY_SPACES_LINK);
-		click(ELEMENT_MY_SPACES_LINK);
+		clickByJavascript(ELEMENT_MY_SPACES_LINK);
 		Utils.pause(500);
 	}
 
 	// Go to All Spaces
 	public void goToAllSpaces(){
 		info("Go to All Spaces");
-		click(ELEMENT_JOIN_SPACE_LINK);
-		if(waitForAndGetElement("//*[contains(text(),'Add New Space')]",DEFAULT_TIMEOUT,0)== null){
+		clickByJavascript(ELEMENT_JOIN_SPACE_LINK);
+		if(waitForAndGetElement("//button[contains(.,'Add New Space')]",DEFAULT_TIMEOUT,0)== null){
 			clearCache();
-			waitForAndGetElement("//*[contains(text(),'Add New Space')]");
+			waitForAndGetElement("//button[contains(.,'Add New Space')]");
 		}
 	}
 

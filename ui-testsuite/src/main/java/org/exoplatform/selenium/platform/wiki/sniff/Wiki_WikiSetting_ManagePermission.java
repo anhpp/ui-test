@@ -67,7 +67,7 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		info("Check user " + user + "have edit page permission");
 		magAc.signIn(user, DATA_PASS);
 		goToWiki();
-		click(By.linkText(title));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", title));
 		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 		magAc.signOut();
 	}
@@ -86,7 +86,7 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		editSpacePermission(user, true, false, false, false, 2);
 		magAc.signOut();
 		
-		checkUserNotHaveWikiAdminPermission(user);
+		checkUserNotHaveWikiAdminPermission(user);	
 		
 		info("Edit permission for user mary");	
 		magAc.signIn(DATA_USER1, DATA_PASS); 
@@ -186,7 +186,8 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		checkUserHaveEditPagePermission(user, title);
 		
 		info("Delete permission");
-		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
+		goToWikiPage(title, ManageAccount.userType.ADMIN);
+		waitForMessage(content);
 		deletePagePermission(user);
 		deleteCurrentWikiPage();
 	}
@@ -202,13 +203,15 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		deletePagePermission("any");
 
 		addPagePermission(2, userGroup);
+		goToWikiPage(title);
 		editPagePermission("developers", true, false, false, 2);
 		magAc.signOut();
 		
 		checkUserHaveOnlyViewPagePermission(user, title);
 		
 		info("Edit permission");
-		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
+		goToWikiPage(title, ManageAccount.userType.ADMIN);
+		waitForMessage(content);
 		editPagePermission("developers", true, true, false, 2);
 		magAc.signOut();
 		
@@ -238,7 +241,8 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		checkUserHaveOnlyViewPagePermission(user, title);
 		
 		info("Edit permission");
-		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
+		goToWikiPage(title, ManageAccount.userType.ADMIN);
+		waitForMessage(content);
 		editPagePermission(path, true, true, false, 2);
 		magAc.signOut();
 		

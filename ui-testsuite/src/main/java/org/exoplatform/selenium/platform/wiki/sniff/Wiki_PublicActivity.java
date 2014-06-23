@@ -90,19 +90,18 @@ public class Wiki_PublicActivity extends BasicAction {
 
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
-
 		info("Edit wiki page with comment");
 		editPageWithCheckPublicActivity(null, newContent1, comment);		
 		naTool.goToHomePage();
-		activity.checkActivityInfoOfWiki(title, newContent1, "2");
+		activity.checkActivityInfoOfWiki(title, content+newContent1, "2");
 		waitForAndGetElement(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_1.replace("${title}", title).replace("${comment}", comment));
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
 
 		info("Edit wiki page with no comment");
-		click(By.linkText(title));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", title));
 		editPageWithCheckPublicActivity(null, newContent2);
 		naTool.goToHomePage();
-		activity.checkActivityInfoOfWiki(title, newContent2, "3");
+		activity.checkActivityInfoOfWiki(title, content+newContent1+newContent2, "3");
 		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
 
 		click(By.linkText(title));

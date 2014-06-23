@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.io.File;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -42,6 +44,7 @@ public class BasicAction extends Permission{
 	
 	public BasicAction(){
 		
+
 	}
 	// Wiki page
 	/*===================== Add Page ====================*/	
@@ -125,6 +128,8 @@ public class BasicAction extends Permission{
 	public void addWikiPageSourceEditor(String title, String content){
 		String[] text ;
 		info("Modify data with source editor");
+		
+		waitForAndGetElement(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		if(title != null){
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		}	
@@ -655,11 +660,12 @@ public class BasicAction extends Permission{
 	 */
 	public void addBlankWikiPageHasAttachment(String title, String content, String link){
 		goToAddBlankPage();
+		String fs = File.separator;
 		info("Add new wiki page having attachment");
 		String[] upload = link.split(";");
 		addWikiPageSourceEditor(title, content);
 		for (int i = 0; i < upload.length; i++){
-			attachFileInWiki("TestData/" + upload[i], 2);
+			attachFileInWiki("TestData" + fs + upload[i], 2);
 		}
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
@@ -682,8 +688,8 @@ public class BasicAction extends Permission{
 		if (comment.length > 0){
 			type(ELEMENT_COMMENT_TEXTBOX, comment[0], true);
 		}
-		check(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		clickByJavascript(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
+		clickByJavascript(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}
 
@@ -731,7 +737,7 @@ public class BasicAction extends Permission{
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/**edit title of wiki page by double click on title
 	 * @author lientm
 	 * @param newTitle

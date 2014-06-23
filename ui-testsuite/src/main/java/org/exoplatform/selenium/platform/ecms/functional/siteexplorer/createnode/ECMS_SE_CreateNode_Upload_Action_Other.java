@@ -309,9 +309,9 @@ public class ECMS_SE_CreateNode_Upload_Action_Other extends PlatformBase{
 	 * Qmetry ID: 74922
 	 * Upload a file with invalid characters in Document
 	 * 
-	 * 
+	 * Pending because file which is used to upload is illegal on Windows
 	 */
-	@Test
+	@Test(groups="pending")
 	public void test12_UploadFileWithInvalidCharactersInDocument(){
 		String FILE_NAME = "ECMS_DMS_SE_Upload_[]'\"Chars";
 		String FILE_NAME_UPDATE = "ECMS_DMS_SE_Upload_----Chars";

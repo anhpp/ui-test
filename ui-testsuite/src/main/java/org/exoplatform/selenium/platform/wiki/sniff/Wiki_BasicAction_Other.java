@@ -32,7 +32,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+//		getDriverAutoSave();
+		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		dialog = new Dialog(driver);
@@ -416,6 +417,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		String title = "Wiki_sniff_permalink_title_13";
 		String content = "Wiki_sniff_permalink_content_13";
 		String user = DATA_USER4;
+
 		
 		info("Create new page at restricted status");
 		addBlankWikiPage(title, content, 0);

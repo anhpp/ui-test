@@ -34,6 +34,7 @@ public class ManageAccount extends PlatformBase {
 
 
 	public ManageAccount(WebDriver dr,String...plfVersion){
+		super();
 		driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 	}
@@ -57,6 +58,13 @@ public class ManageAccount extends PlatformBase {
 			firstTimeLogin = false;
 		}
 		info("--Sign in as " + username + "--");
+
+		if (System.getProperty("browser").equals("iexplorer")){
+			if (waitForAndGetElement(ELEMENT_INPUT_USERNAME,10000,0) == null){
+				info("User logged in already");
+				signOut();
+			}
+		}
 		/*if (isElementPresent(ELEMENT_GO_TO_PORTAL) ){
 			click(ELEMENT_GO_TO_PORTAL);		
 		}
@@ -66,7 +74,7 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_PASSWORD, password, true);
 		click(ELEMENT_SIGN_IN_BUTTON);
 		if(verify)
-			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
+			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON,100000);
 		Utils.pause(2000);
 	}
 
@@ -95,14 +103,14 @@ public class ManageAccount extends PlatformBase {
 				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 				break;
 			}
-			click(ELEMENT_ACCOUNT_NAME_LINK);
+			clickByJavascript(ELEMENT_ACCOUNT_NAME_LINK);
 			if (waitForAndGetElement(ELEMENT_SIGN_OUT_LINK, 5000, 0) != null){
 				info("Element " + ELEMENT_SIGN_OUT_LINK + "... is displayed");
 				break;
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		click(ELEMENT_SIGN_OUT_LINK);
+		clickByJavascript(ELEMENT_SIGN_OUT_LINK,2);
 		Utils.pause(1000);
 		if ( ExpectedConditions.alertIsPresent() != null ){
 			magAlert = new ManageAlert(driver);

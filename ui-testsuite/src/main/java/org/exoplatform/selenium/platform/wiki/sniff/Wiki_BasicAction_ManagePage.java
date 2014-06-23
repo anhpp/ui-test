@@ -69,7 +69,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	/**CaseId: 68837 + 70036 + 70037 -> Add, Edit and Delete page at Rich Text mode
 	 * pending: add image (product has error)
 	 */
-	@Test(priority = 0)
+//	@Test(priority = 0)
 	public void test00_CreatePageRichTextEditor(){
 		String pageLink = "PageLink";
 		String title = "Wiki_manage_page_title_02";
@@ -113,10 +113,10 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	public void test03_AutoSaveWhenAddingPage(){
 		String title = "Wiki_manage_page_title_03";
 		String content = "Wiki_manage_page_content_03";
-
+		
 		goToAddBlankPage();
 		addWikiPageSourceEditor(title, content);
-		Utils.pause(30000);
+		Utils.pause(31000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
 
 		goToManageDraft();
@@ -152,9 +152,9 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	public void test05_PreviewTemplate(){
 		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("{$template}","Two-Column_Layout"));
 		goToAddTemplateWikiPage();	
-		click(eTemplate, 2);
-		click(but.ELEMENT_SELECT_BUTTON);
-		click(ELEMENT_PREVIEW_BUTTON);
+		clickByJavascript(eTemplate, 2);
+		click(ELEMENT_SELECT_BUTTON);
+		clickByJavascript(ELEMENT_PREVIEW_BUTTON);
 		waitForAndGetElement("//*[@class='uiWikiPageTitlePreview' and contains(text(), 'Two-Column Layout')]");
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 	}
@@ -168,8 +168,8 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 
 		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("{$template}","Status_Meeting"));
 		goToAddTemplateWikiPage();	
-		click(eTemplate, 2);
-		click(but.ELEMENT_SELECT_BUTTON);
+		clickByJavascript(eTemplate, 2);
+		click(ELEMENT_SELECT_BUTTON);
 		addWikiPageSourceEditor(title, null);
 
 		Utils.pause(30000);
@@ -186,10 +186,10 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	 */
 	@Test (groups = {"error"})
 	public void test07_ResumeDraft(){
-		String title = "Wiki_manage_page_title_07";
-		String content = "Wiki_manage_page_content_07";
-		String newTitle = "Wiki_manage_page_title_07_update";
-		String newContent = "Wiki_manage_page_content_07_update";
+		String title = "Wiki_manage_page_title_09";
+		String content = "Wiki_manage_page_content_09";
+		String newTitle = "Wiki_manage_page_title_09_update";
+		String newContent = "Wiki_manage_page_content_09_update";
 		String draftTitle = ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}", title);
 
 		goToAddBlankPage();
@@ -203,6 +203,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		click(draftTitle);
 		addWikiPageSourceEditor(newTitle, newContent);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 
 		goToManageDraft();
 		waitForElementNotPresent(draftTitle);
