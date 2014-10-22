@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.siteExplorer;
+package org.exoplatform.selenium.platform.ecms.functional.siteexplorer;
 
 import static org.exoplatform.selenium.TestLogger.info;
 

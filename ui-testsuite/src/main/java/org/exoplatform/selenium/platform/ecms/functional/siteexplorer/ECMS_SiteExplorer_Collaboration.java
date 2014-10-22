@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.siteExplorer;
+package org.exoplatform.selenium.platform.ecms.functional.siteexplorer;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -43,7 +43,6 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 		cTemplate = new ContentTemplate(driver, this.plfVersion);
 		siteExp = new SitesExplorer(driver, this.plfVersion);
 		cMenu = new ContextMenu(driver, this.plfVersion);
-
 
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		driver.navigate().refresh();
@@ -159,8 +158,6 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 		cTemplate.createNewFile(fileName, comment, comment);
 		info("data created");
 		actBar.addComment(comment);
-		waitForAndGetElement(By.xpath("//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']"));
-		waitForAndGetElement(By.xpath("//*[text()='"+comment+"']"));
 		waitForAndGetElement(By.xpath("//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']"));
 		info("Hide/show comment checked");
 		info("Test successful");

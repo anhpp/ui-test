@@ -55,7 +55,7 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.publication.ECMS_SE_Publication" />
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_Publication" />
 		</classes>
 	</test>
 	<test name="ecms-func-se-info" enabled="true">
@@ -77,7 +77,7 @@
 			</run>
 		</groups>
 		<classes>
- 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteExplorer.ECMS_SiteExplorer_OtherChecks" />
+ 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_OtherChecks" />
  		</classes>
 	</test> 
 	
@@ -88,7 +88,7 @@
 			</run>
 		</groups>
 		<classes>
- 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteExplorer.ECMS_SiteExplorer_Collaboration" />
+ 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_Collaboration" />
  		</classes>
 	</test>
 
