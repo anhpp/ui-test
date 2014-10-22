@@ -2,13 +2,16 @@ package org.exoplatform.selenium.platform.wiki.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.testdata.SpaceDatabase;
+import org.exoplatform.selenium.testdata.WikiDatabase;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.Version;
 import org.openqa.selenium.By;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
@@ -20,23 +23,33 @@ public class Wiki_Information extends Version {
 	ManageAccount magAc;
 	Button but;
 	ManageMember magMem;
-
-	@BeforeMethod
-	public void setUpBeforeTest(){
+	WikiDatabase wData;
+	SpaceDatabase sData;
+	
+	@BeforeTest
+	public void setBeforeTest() throws Exception{
 		initSeleniumTest();
+		getDefaultUserPass();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		but = new Button(driver);
 		magMem = new ManageMember(driver);
-		magAc.signIn(DATA_USER1, DATA_PASS); 
-		goToWiki();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		wData = new WikiDatabase();
+		sData = new SpaceDatabase();
+		wData.setWikiData(wikiDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlWiki);
+		sData.setSpaceData(spaceDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlSpace);
 	}
 
-	@AfterMethod
-	public void afterTest(){
-		//magAc.signOut();
+	@AfterTest
+	public void setAfterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
+	}
+	
+	@BeforeMethod
+	public void setBeforeMethod(){
+		goToWiki();
 	}
 	
 	/**
@@ -44,12 +57,13 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test01_ViewPageGeneralInformation(){
-		String title = "Wiki_sniff_infor_page_title_01";
-		String content = "Wiki_sniff_infor_page_content_01";
-		String link = "Wiki_Sniff_Attachment_01.doc";
-		String newTitle = "Wiki_sniff_infor_page_title_01_update";
-		String newContent = "Wiki_sniff_infor_page_content_01_update";
-
+		String title = wData.wikiTitle[index];
+		String content =  wData.wikiContent[index];
+		String newTitle = "newtitle"+wData.wikiTitle[index];
+		String newContent = "newcontent"+wData.wikiContent[index];
+		String link = wData.linkAttach[index];
+		
+		info(link);
 		addBlankWikiPageHasAttachment(title, content, link);
 		editWikiPage(newTitle, newContent, 0);
 
@@ -59,8 +73,9 @@ public class Wiki_Information extends Version {
 		waitForAndGetElement(ELEMENT_VIEW_CHANGE);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "2"));
-
+		
 		deleteCurrentWikiPage();
+		
 	}
 	
 	/**
@@ -68,10 +83,10 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test02_ViewPageHistoryToCompareVersions(){
-		String title = "Wiki_sniff_infor_page_title_02";
-		String content = "Wiki_sniff_infor_page_content_02";
-		String newTitle = "Wiki_sniff_infor_page_title_02_update";
-		String newContent = "Wiki_sniff_infor_page_content_02_update";
+		String title = wData.wikiTitle[index];
+		String content =  wData.wikiContent[index];
+		String newTitle = "newtitle"+wData.wikiTitle[index];
+		String newContent = "newcontent"+wData.wikiContent[index];
 
 		addBlankWikiPage(title, content, 0);
 		editWikiPage(newTitle, newContent, 0);
@@ -95,21 +110,24 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test03_AddRelationDifferentSpace(){
-		String spaceName1 = "relationspace031";
-		String title1 = "Wiki_sniff_relation_title_03_1";
-		String content1 = "Wiki_sniff_relation_content_03_1";
-
-		String spaceName2 = "relationspace032";
-		String title2 = "Wiki_sniff_relation_title_03_2";
-		String content2 = "Wiki_sniff_relation_content_03_2";
+		String spaceName1 = sData.spaceName[index]+"1";
+		String title1 = wData.wikiTitle[index]+"1";
+		String content1 =  wData.wikiContent[index]+"1";
+		
+		String spaceName2 = sData.spaceName[index]+"2";
+		String title2 = wData.wikiTitle[index]+"2";
+		String content2 =  wData.wikiContent[index]+"2";
+		
+		String visible = sData.spaceVis[index];
+		String validate = sData.spaceReg[index+1];
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName1, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName1, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName1);
 		addBlankWikiPage(title1, content1, 0);
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName2, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName2, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName2);
 		addBlankWikiPage(title2, content2, 0);
 
@@ -126,17 +144,20 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test04_AddRelationWithIntranetPortal(){
-		String title1 = "Wiki_relation_title_04_1";
-		String content1 = "Wiki_relation_content_04_1";
-
-		String spaceName = "relationspace04";
-		String title2 = "Wiki_relation_title_04_2";
-		String content2 = "Wiki_relation_content_04_2";
-
+		String spaceName = sData.spaceName[index]+"1";
+		String title1 = wData.wikiTitle[index]+"1";
+		String content1 =  wData.wikiContent[index]+"1";
+		
+		String title2 = wData.wikiTitle[index]+"2";
+		String content2 =  wData.wikiContent[index]+"2";
+		
+		String visible = sData.spaceVis[index];
+		String validate = sData.spaceReg[index+1];
+		
 		addBlankWikiPage(title1, content1, 0);
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName);
 		addBlankWikiPage(title2, content2, 0);
 
@@ -154,14 +175,18 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test05_AddRelationSameSpace(){
-		String spaceName = "relationspace05";
-		String title1 = "Wiki_relation_title_05_1";
-		String content1 = "Wiki_relation_content_05_1";		
-		String title2 = "Wiki_relation_title_05_2";
-		String content2 = "Wiki_relation_content_05_2";
+		String spaceName = sData.spaceName[index]+"1";
+		String title1 = wData.wikiTitle[index]+"1";
+		String content1 =  wData.wikiContent[index]+"1";
+		
+		String title2 = wData.wikiTitle[index]+"2";
+		String content2 =  wData.wikiContent[index]+"2";
+		
+		String visible = sData.spaceVis[index];
+		String validate = sData.spaceReg[index+1];
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName);
 		addBlankWikiPage(title1, content1, 0);
 		goToWikiHome();
@@ -179,9 +204,8 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test06_AddRelation_NoSpace(){
-		String title = "Wiki_sniff_infor_page_title_06";
-		String content = "Wiki_sniff_infor_page_content_06";
-
+		String title = wData.wikiTitle[index];
+		String content =  wData.wikiContent[index];
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		goToWiki();
@@ -200,10 +224,11 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test07_DeleteRelation(){
-		String title1 = "Wiki_sniff_infor_page_title_07_1";
-		String content1 = "Wiki_sniff_infor_page_content_07_1";
-		String title2 = "Wiki_sniff_infor_page_title_07_2";
-		String content2 = "Wiki_sniff_infor_page_content_07_2";
+		String title1 = wData.wikiTitle[index]+"1";
+		String content1 =  wData.wikiContent[index]+"1";
+		
+		String title2 = wData.wikiTitle[index]+"2";
+		String content2 =  wData.wikiContent[index]+"2";
 
 		addBlankWikiPage(title1, content1, 0);
 		goToWikiHome();
@@ -224,11 +249,11 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test08_ViewPageInfo(){
-		String title = "Wiki_sniff_infor_page_title_08";
-		String content = "Wiki_sniff_infor_page_content_08";
+		String title = wData.wikiTitle[index];
+		String content =  wData.wikiContent[index];
 
-		String child1Title = "Wiki_sniff_infor_page_title_08_child1";
-		String child2Title = "Wiki_sniff_infor_page_title_08_child2";
+		String child1Title = "child"+title;
+		String child2Title = "child"+content;
 
 		info("Add wiki page");
 		addBlankWikiPage(title, content, 0);
@@ -268,12 +293,14 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test09_VersionCreation(){
-		String title1 = "Wiki_page_109771";
-		String content1 = "Content page 109771";
-		String title2 = "Wiki_page_109771 update";
-		String content2 = "Content page 109771 update";
-		String link = "Wiki_Sniff_Attachment_01.jpg";
-		String title3 = "Wiki_page_109771 update 2";
+		String title1 = wData.wikiTitle[index]+"1";
+		String content1 =  wData.wikiContent[index]+"1";
+		
+		String title2 = wData.wikiTitle[index]+"2";
+		String content2 =  wData.wikiContent[index]+"2";
+		
+		String link = wData.linkAttach[0];
+		String title3 = wData.wikiTitle[index]+"3";
 
 		info("Create new wiki page -> it has verion 1");
 		addBlankWikiPage(title1, content1, 0);

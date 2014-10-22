@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
+import org.exoplatform.selenium.testdata.WikiDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -18,14 +19,19 @@ import org.testng.annotations.Test;
 public class Wiki_Attachment extends BasicAction {
 
 	ManageAccount magAc;
+	String filePath = "TestData/DataDriven/" + "wiki.xls";
+	String sheet = "wiki";
+	WikiDatabase wData;
 
 	@BeforeMethod
-	public void setUpBeforeTest(){
+	public void setUpBeforeTest() throws Exception{
 		getDriverAutoSave();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS); 
 		goToWiki();
+		wData = new WikiDatabase();
+		wData.setWikiData(wikiDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlWiki);
 	}
 
 	@AfterMethod
@@ -42,13 +48,12 @@ public class Wiki_Attachment extends BasicAction {
 	 */
 	@Test
 	public void test01_UploadDownloadDeleteAttachment(){
-		String title = "Wiki_sniff_attachment_page_title_01";
-		String content = "Wiki_sniff_attachment_page_content_01";
-		String link = "Wiki_Sniff_Attachment_01.doc";
-
-		String newTitle = "Wiki_sniff_attachment_page_title_01_update";
-		String newContent = "Wiki_sniff_attachment_page_content_01_update";
-		String newLink = "Wiki_Sniff_Attachment_01.jpg";
+		String title = wData.wikiTitle[index];
+		String content =  wData.wikiContent[index];
+		String newTitle = "newtitle"+wData.wikiTitle[index];
+		String newContent = "newcontent"+wData.wikiContent[index];
+		String link = wData.linkAttach[0];
+		String newLink = wData.linkAttach[0];
 		By imgElement = By.xpath("//img[contains(@src,"+newLink+")]");
 
 		info("Add new wiki page having attachment");
@@ -77,7 +82,6 @@ public class Wiki_Attachment extends BasicAction {
 		info("Delete attachment");
 		deleteAnAttachment(link);
 		deleteAnAttachment(newLink);
-		//waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
 
 		deleteCurrentWikiPage();	
 	}

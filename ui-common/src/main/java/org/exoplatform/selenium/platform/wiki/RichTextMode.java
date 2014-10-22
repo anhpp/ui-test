@@ -9,6 +9,7 @@ import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
@@ -141,6 +142,13 @@ public class RichTextMode extends Template {
 	public By ELEMENT_ATTACH_FILE_LINK = By.xpath("//*[text()='Attached File...']");
 	public By ELEMENT_ATTACH_FILE_PATH = By.xpath("//input[@name='filepath']");
 	public String ELEMENT_ATTACH_FILE_CEL = "//*[@class='cell']//*[contains(text(), '${file}')]/../..//img[1]";
+	/**
+	 * constructor
+	 * @param dr
+	 */
+	public RichTextMode(WebDriver dr){
+		this.driver=dr;
+	}
 
 	/**
 	 * Add link to a Wiki page

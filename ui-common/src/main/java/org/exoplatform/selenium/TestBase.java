@@ -47,6 +47,21 @@ public class TestBase {
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
 	
+	protected String userDataFile;
+	protected String userSheet;
+	protected String wikiDataFilePath;
+	protected String wikiSheet;
+	protected String spaceDataFilePath;
+	protected Boolean isRandom = true;
+	protected Integer index = 0;
+	protected Boolean isUseFile = true;
+	protected String jdbcDriver = "com.mysql.jdbc.Driver";
+	protected String dbUrl = "jdbc:mysql://localhost:3306/selenium";
+	protected String user = "root";
+	protected String pass = "exo";
+	protected String sqlWiki = "select * from wiki order by id asc";
+	protected String sqlSpace = "select * from space order by id asc";
+	
 	/**
 	 * 4.0 : Version 4.0.x.
 	 * 4.1 : Version 4.1.x.
@@ -63,7 +78,21 @@ public class TestBase {
 	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-
+	public final String DEFAULT_USERFILEURL="TestData/DataDriven/" + "user.xls";
+	public final String DEFAULT_USERSHEET="user";
+	public final String DEFAULT_WIKIFILEURL="TestData/DataDriven/" + "wiki.xls";
+	public final String DEFAULT_SPACEFILEURL="TestData/DataDriven/" + "space.xls";
+	public final String DEFAULT_WIKISHEET="wiki";
+	public final  Boolean DEFAULT_ISRANDOM = true;
+	public final  Integer DEFAULT_INDEX = 0;
+	public final  Boolean DEFAULT_ISUSEFILE = true;
+	public final  String DEFAULT_JDBCDRIVER = "com.mysql.jdbc.Driver";
+	public final  String DEFAULT_DBURL = "jdbc:mysql://localhost:3306/selenium";
+	public final  String DEFAULT_USERMYSQL = "root";
+	public final  String DEFAULT_USERPASS = "exo";
+	public final  String DEFAULT_SQLWIKI = "select * from wiki order by id asc";
+	public final  String DEFAULT_SQLSPACE = "select * from space order by id asc";
+	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -110,7 +139,30 @@ public class TestBase {
 			driver = new FirefoxDriver();
 		}
 		baseUrl = System.getProperty("baseUrl");
+		userDataFile = System.getProperty("userDataFile");
+		userSheet = System.getProperty("userSheet");
+		wikiDataFilePath = System.getProperty("wikiDataFilePath");
+		wikiSheet = System.getProperty("wikiSheet");
+		jdbcDriver = System.getProperty("jdbcDriver");
+		dbUrl = System.getProperty("dbUrl");
+		user = System.getProperty("user");
+		pass = System.getProperty("pass");
+		sqlWiki = System.getProperty("sqlWiki");
+		if (userDataFile==null) userDataFile = DEFAULT_USERFILEURL;
+		if (userSheet==null) userSheet = DEFAULT_USERSHEET;
+		if (wikiDataFilePath==null) wikiDataFilePath = DEFAULT_WIKIFILEURL;
+		if (wikiSheet==null) wikiSheet = DEFAULT_WIKISHEET;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		if (isRandom==null) isRandom = DEFAULT_ISRANDOM;
+		if (index==null) index = DEFAULT_INDEX;
+		if (isUseFile==null) isUseFile = DEFAULT_ISUSEFILE;
+		if (jdbcDriver==null) jdbcDriver = DEFAULT_JDBCDRIVER;
+		if (dbUrl==null) dbUrl = DEFAULT_DBURL;
+		if (user==null) user = DEFAULT_USERMYSQL;
+		if (pass==null) pass = DEFAULT_USERPASS;
+		if (sqlWiki==null) sqlWiki = DEFAULT_SQLWIKI;
+		if (sqlSpace==null) sqlSpace = DEFAULT_SQLSPACE;
+		if (spaceDataFilePath==null) spaceDataFilePath = DEFAULT_SPACEFILEURL;
 		action = new Actions(driver);
 	}
 

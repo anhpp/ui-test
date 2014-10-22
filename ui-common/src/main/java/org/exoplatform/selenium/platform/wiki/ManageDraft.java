@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.wiki;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Provides all methods of managing a draft of wiki's page. 
@@ -10,11 +11,13 @@ import org.openqa.selenium.By;
  * 
  */
 public class ManageDraft extends RichTextMode {
+	public ManageDraft(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
+
 	ManageAlert magAl;
-	
-	public By ELEMENT_DRAFT_NOTIFY = By.xpath("//*[contains(@class, 'uiWikiPageEditForm') and contains(text(), 'Draft saved at')]");
-			//By.xpath("//*[@class='uiWikiPageEditForm_MessageArea pull-left' and contains(text(), 'Draft saved at')]");
-	
+		
 	//Manage Draft screen
 	public String ELEMENT_DRAFT_OF_NEW_PAGE = "//*[@id='UIWikiDraftGrid']//*[contains(text(),'${title} (New Page)')]";
 	public String ELEMENT_DELETE_DRAFT = "//*[contains(text(), '${title}')]/../../..//*[@data-original-title='Delete Draft']";
