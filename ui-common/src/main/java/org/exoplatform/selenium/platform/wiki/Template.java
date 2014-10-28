@@ -16,6 +16,7 @@ import org.openqa.selenium.WebElement;
  */
 public class Template extends BasicAction{
 	public String ELEMENT_WIKI_TITLE_PREVIEW = "//*[@class='uiWikiPageTitlePreview' and contains(text(), '${title}')]"; 
+	public By ELEMENT_SELECT_BUTTON = By.linkText("Select");
 
 	//Dialog dialog = new Dialog(driver);
 	//Button button = new Button(driver);
@@ -38,7 +39,7 @@ public class Template extends BasicAction{
 		goToAddTemplateWikiPage();	
 		info("--Add a wiki page from template--");
 		click(eTemplate, 2);
-		click(button.ELEMENT_SELECT_BUTTON);
+		click(ELEMENT_SELECT_BUTTON);
 		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);

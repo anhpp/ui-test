@@ -346,10 +346,10 @@ public class Gatein_BasicPortlets_Organization_GroupManagement extends PlatformB
 
 	/**
 	 * Check creating page for deleted group
-	 * caseID: 73706
+	 * caseID: 105193
 	 */
 	@Test
-	public void test10_CheckExistenceOfDeletedGroupInPagePermission() {
+	public void test10_CheckCreatingPageForDeletedGroup() {
 		String groupName = "Gateingroup10";
 		String groupLabel = "Group Label 10";
 		String groupDesc = "create new group";		

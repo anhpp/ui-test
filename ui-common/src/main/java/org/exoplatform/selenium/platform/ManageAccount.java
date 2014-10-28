@@ -214,7 +214,7 @@ public class ManageAccount extends PlatformBase {
 		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		driver.navigate().refresh();
 		Utils.pause(2000);
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		if (waitForAndGetElement(ELEMENT_MY_SETTING, 5000, 0) == null){
 			for(int repeat=0;; repeat ++){
 				if (repeat > 1){

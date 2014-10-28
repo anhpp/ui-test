@@ -187,6 +187,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String MSG_EVENT_COMMENT_DELETE_EDITED_EVENT = "Event cancelled for ${date}";
 	public final String MSG_EVENT_REPEAT_EVERYDAY = "Event will be repeated every day.";
 	public final String ELEMENT_EVENT_ACTIVITY_DATE_TIME_INFO = "//div[${index}][contains(@id,'activityContainer')]//*[contains(@id,'ActivityContextBox')]//*[@class='text']/*[@class='dateTime']";
+	public final String ELEMENT_TASK_COMPLETED_ICON = "//*[contains(text(),'${title}')]/../../..//i[@class='uiIconStatus-completed']";
 
 	public HomePageActivity(WebDriver dr, String...plfVersion){
 		driver = dr;

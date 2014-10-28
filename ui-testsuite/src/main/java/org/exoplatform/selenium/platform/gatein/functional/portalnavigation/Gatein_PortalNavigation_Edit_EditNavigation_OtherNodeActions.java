@@ -19,6 +19,8 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.exoplatform.selenium.platform.PortalManagement;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 
 /**
  * 
@@ -40,6 +42,7 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 	PageManagement pageMag;
 	PageEditor pageEditor;
 	UserGroupManagement userGroupMag;
+	PortalManagement portMag;
 
 	public String username = DATA_USER1;
 	public String password = DATA_PASS;
@@ -60,6 +63,7 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 		pageMag = new PageManagement(driver);
 		navMag = new NavigationManagement(driver);
 		pageEditor = new PageEditor(driver);
+		portMag = new PortalManagement(driver);
 		magAc.signIn(username, password);
 		driver.navigate().refresh();
 	}
@@ -507,6 +511,52 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 
 		info("Delete node for Portal");
 		navMag.deleteNode(portalName, parentNode, nodeName, false);
+	}
+	
+	/**
+	 * caseID: 104508
+	 * Check Clone system node
+	 * 
+	 */
+	@Test
+	public void test12_CheckCloneSystemNode(){
+		String portalName = "intranet";
+		String nodeName = "Details";
+
+		magAc.userSignIn(userType.ROOT);
+		info("Go to Administration/Portal Sites");
+		navToolbar.goToPortalSites();
+
+		info("Clone and paste node to some other node ");
+		click(ELEMENT_EDIT_NAVIGATION.replace("${navigation}", portalName));
+		cloneNode(nodeNamelocator.replace("${nodeName}", nodeName));
+		waitForAndGetElement(portMag.ELEMENT_CLONE_SYSTEM_NODE);
+		button.ok();
+		button.save();
+
+	}
+	
+	/**
+	 * caseID: 104518
+	 * Check Cut/Paste a system node
+	 * 
+	 */
+	@Test
+	public void test13_CheckCutPasteSystemNode(){
+		String portalName = "intranet";
+		String nodeName = "Spaces";
+
+		magAc.userSignIn(userType.ROOT);
+		info("Go to Administration/Portal Sites");
+		navToolbar.goToPortalSites();
+
+		info("Clone and paste node to some other node ");
+		click(ELEMENT_EDIT_NAVIGATION.replace("${navigation}", portalName));
+		cutNode(nodeNamelocator.replace("${nodeName}", nodeName));
+		waitForAndGetElement(portMag.ELEMENT_CUT_SYSTEM_NODE);
+		button.ok();
+		button.save();
+
 	}
 }
 

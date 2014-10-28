@@ -194,18 +194,21 @@ public class ECMS_WCM_Others extends PlatformBase{
 	@Test
 	public void test03_AddSEOMetadataWithLocalization() {
 		String seo1 = "test03 AddSEOMetadata 1";
+		String seoFrench = "SEO recherche";
 		
 		info("Add SEO metadata with localization");
 		
 		navToolBar.goToSeoManagement();
-		
 		seo.inputDataSeo(seo1, seo1, "INDEX", "FOLLOW", true, "Daily", "1");
+		seo.addLanguage("French");
+		seo.inputDataSeo(seoFrench, seoFrench, "INDEX", "FOLLOW", true, "Daily", "1");
 		button.closeWindow();
-		
 		driver.navigate().refresh();
-		navToolBar.goToSeoManagement();		
-		assert waitForAndGetElement(seo.ELEMENT_KEYWORD, DEFAULT_TIMEOUT, 0, 2).getAttribute("content").equals(seo1) : "Keywords of metadata is not correct!";
-		assert waitForAndGetElement(seo.ELEMENT_DESCRIPTION, DEFAULT_TIMEOUT, 0, 2).getAttribute("content").equals(seo1) : "Description of metadata is not correct!";
+		
+		Utils.pause(1000);
+		magAcc.changeLanguageForUser("French");
+		assert waitForAndGetElement(seo.ELEMENT_KEYWORD, DEFAULT_TIMEOUT, 0, 2).getAttribute("content").equals(seoFrench) : "Keywords of metadata is not correct!";
+		assert waitForAndGetElement(seo.ELEMENT_DESCRIPTION, DEFAULT_TIMEOUT, 0, 2).getAttribute("content").equals(seoFrench) : "Description of metadata is not correct!";
 		assert waitForAndGetElement(seo.ELEMENT_ROBOT, DEFAULT_TIMEOUT, 0, 2).getAttribute("content").equals("INDEX, FOLLOW") : "Robot of metadata is not correct!";
 		button.closeWindow();
 		
@@ -217,7 +220,7 @@ public class ECMS_WCM_Others extends PlatformBase{
 		//Delete SEO, caseID 69183
 		ecms.goToOverviewPage();
 		navToolBar.goToSeoManagement();
-		seo.deleteSEO("English");
+		seo.deleteSEO("French");
 	}
 	
 	/**

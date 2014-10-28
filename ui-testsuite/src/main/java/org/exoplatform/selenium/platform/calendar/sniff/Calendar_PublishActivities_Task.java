@@ -145,14 +145,14 @@ public class Calendar_PublishActivities_Task extends CalendarBase{
 		sp.deleteSpace(space);
 	}
 
-	/**Update activity for event of Space Calendar - event description
+	/**Update activity for task of Space Calendar - Task Status
 	 * CaseID 74743
 	 */
 	@Test
 	public void test04_UpdateActivityForTaskWhenUpdateTaskStatus() {
 		String space = "Space74737";
 		String task = "Task74737";
-		info("Update activity for event of Space Calendar - event description");
+		info("Update activity for task of Space Calendar - Task status");
 
 		//Add space
 		sp.goToAllSpaces();
@@ -169,6 +169,7 @@ public class Calendar_PublishActivities_Task extends CalendarBase{
 		toolBar.goToHomePage();
 		driver.navigate().refresh();
 		waitForAndGetElement(homeAct.ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", task).replace("${comment}", homeAct.MSG_TASK_COMMENT_UPDATE_STATUS));
+		waitForAndGetElement(homeAct.ELEMENT_TASK_COMPLETED_ICON.replace("${title}",task));
 		
 		//Delete data
 		sp.goToAllSpaces();

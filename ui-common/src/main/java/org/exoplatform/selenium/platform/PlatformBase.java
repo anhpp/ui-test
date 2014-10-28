@@ -842,6 +842,14 @@ public class PlatformBase extends TestBase {
 	public By PRODUCTS_LABEL_ENGLISH = By.xpath("//*[text()='Products']");
 	public By PRODUCTS_LABEL_FRENCH = By.xpath("//*[text()='Produits']");
 	public By PRODUCTS_LABEL_GERMAN = By.xpath("//*[text()='Produkte']");
+	
+	public PlatformBase(){
+		
+	}
+	
+	public PlatformBase(WebDriver dr){
+		driver = dr;
+	}
 
 	///////////////////
 	//Set view permissions for portal

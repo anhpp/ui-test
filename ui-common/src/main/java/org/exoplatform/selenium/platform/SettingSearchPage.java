@@ -122,9 +122,9 @@ public class SettingSearchPage extends PlatformBase {
 	//Search result form
 
 	public final String ELEMENT_RESULT_ITEM_LIST = "//*[@id='result']/*[@class='resultBox clearfix ${item}']//a[text()='${keySearch}']";
-	public final String ELEMENT_RESULT_LOCATION_DATETIME = "//div[@id='resultPage']//a[text()='${item}']/*[contains(text(),'${keySearch}')]/../../../*[@class='detail']";
-	public final String ELEMENT_RESULT_EXCERPT = "//div[@id='resultPage']//a[text()='${item}']/*[contains(text(),'${keySearch}')]/../../../*[@class='excerpt']";
-	public final String ELEMENT_RESULT_ICON = "//div[@id='resultPage']//a[text()='${item}']/*[contains(text(),'${keySearch}')]/../../../../*[contains(@class,'avatar pull-left')]";
+	public final String ELEMENT_RESULT_LOCATION_DATETIME = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../*[@class='detail']";
+	public final String ELEMENT_RESULT_EXCERPT = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../*[@class='excerpt']";
+	public final String ELEMENT_RESULT_ICON = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../../*[contains(@class,'avatar pull-left')]";
 	public final String ELEMENT_RESULT_INDEX = "//*[@id='result']/div[${index}][contains(@class,'${title}')]";
 
 	public final By ELEMENT_RESULT_CONTENT_DETAIL = By.xpath("//*[@class='content']/*[@class='detail']");
@@ -142,17 +142,17 @@ public class SettingSearchPage extends PlatformBase {
 	public final String ELEMENT_SEARCH_RESULT_CONTENT_DETAIL = "//*[@id='result']//div[@class='detail'][contains(.,'${keySearch1}') and contains(.,'${keySearch2}')]";
 
 	// Task page result
-	public final String ELEMENT_RESULT_TASK_ICON = "//div[@id='resultPage']//a[text()='${item}']/*[contains(text(),'${keySearch}')]/../../../..//*[@class='uiIconApp64x64TaskNeedActions']";
+	public final String ELEMENT_RESULT_TASK_ICON = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../..//*[@class='uiIconApp64x64TaskNeedActions']";
 
 	// Event page result
-	public final String ELEMENT_RESULT_EVENT_ICON = "//div[@id='resultPage']//a[text()='${item}']/*[contains(text(),'${keySearch}')]/../../../..//*[@class='calendarBox']";
+	public final String ELEMENT_RESULT_EVENT_ICON = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../..//*[@class='calendarBox']";
 
 	// People page result
 	public final String ELEMENT_RESULT_PEOPLE_ICON = "//*[contains(@class,'avatar pull-left')]";
 	
 	//public final By ELEMENT_RESULT_TITLE = By.xpath("//*[@class='quickSearchResult file']//a");
 
-	public final String ELEMENT_SEARCH_RESULT_TITLE= "//*[@class='content']//a[contains(text(),'${tileName}')]";
+	public final String ELEMENT_SEARCH_RESULT_TITLE= "//*[@class='content']//a[contains(.,'${tileName}')]";
 
 	//public final By ELEMENT_RESULT_TITLE = By.xpath("//*[@class='quickSearchResult file']//a");
 	public final By ELEMENT_RESULT_TITLE = By.xpath("//*[@class='content']//a");

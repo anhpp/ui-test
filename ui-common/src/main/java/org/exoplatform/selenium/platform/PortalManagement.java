@@ -10,6 +10,7 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PortalManagement extends PlatformBase {
@@ -22,7 +23,13 @@ public class PortalManagement extends PlatformBase {
 	public By ELEMENT_PORTAL_NAME_EXIST = By.xpath("//span[contains(text(),'This portal name already exists.')]");
 	public By ELEMENT_POPUP_ADD_PORTAL = By.xpath("//div[@class='UIPopupWindow UIDragObject uiPopup']");
 	public final String MESSAGE_PORTAL_NAME_REQUIRED_FIELD = "The field \"Portal Name\" is required.";
-
+	public final By ELEMENT_CLONE_SYSTEM_NODE = By.xpath("//span[@class='infoIcon' and contains(text(),'Cannot copy or clone a system node.')]");
+	public final By ELEMENT_CUT_SYSTEM_NODE = By.xpath("//span[@class='infoIcon' and contains(text(),'Cannot cut a system node')]");
+	 
+	public PortalManagement(WebDriver dr){
+		this.driver = dr;
+	}
+	
 	public void configPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership, String...template){
 		button = new Button(driver);

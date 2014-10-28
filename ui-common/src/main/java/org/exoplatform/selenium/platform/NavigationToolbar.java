@@ -11,6 +11,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.exoplatform.selenium.platform.ecms.wcm.SEO;
 
 public class NavigationToolbar extends PlatformBase {
 
@@ -19,7 +20,7 @@ public class NavigationToolbar extends PlatformBase {
 	PeopleConnection peoCon;
 	HomePageActivity hpAct;
 	Notification noti;
-
+	
 	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
 	public final By ELEMENT_MENU_EDIT_CONTENT_UNCHECK = By.xpath("//i[@class='quickEditUnchecked']");
@@ -380,13 +381,16 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Function to go to SEO management
 	public void goToSeoManagement(){
+		SEO seo;
+		seo = new SEO(driver);
 		info("Go to SEO management form");
 		Utils.pause(1000);
 		click(ELEMENT_MENU_EDIT_LINK);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-		WebElement seo = waitForAndGetElement(ELEMENT_SEO_MENU,10000,1,2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click()",seo);		
+		WebElement seoMenu = waitForAndGetElement(ELEMENT_SEO_MENU,10000,1,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click()",seoMenu);		
 		Utils.pause(1000);
+		waitForAndGetElement(seo.ELEMENT_SEO_FORM);
 	}
 
 	/** Go to Edit/Page/Add Page

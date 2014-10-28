@@ -46,7 +46,7 @@ public class TestBase {
 	public int loopCount = 0;	
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
-	
+
 	/**
 	 * 4.0 : Version 4.0.x.
 	 * 4.1 : Version 4.1.x.
@@ -91,6 +91,14 @@ public class TestBase {
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
 
+	public TestBase(){
+
+	}
+
+	public TestBase(WebDriver dr){
+		driver = dr;
+	}
+
 	/*======== End of Term and conditions =====*/	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
@@ -102,11 +110,11 @@ public class TestBase {
 			ieFlag = true;
 		} else {
 			FirefoxProfile profile = new FirefoxProfile();
-            profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
-            profile.setPreference("dom.max_script_run_time", 0);
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-            
+			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
+			profile.setPreference("dom.max_script_run_time", 0);
+			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+
 			driver = new FirefoxDriver();
 		}
 		baseUrl = System.getProperty("baseUrl");
@@ -712,11 +720,11 @@ public class TestBase {
 
 		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
 		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
+		//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
 		fp.setPreference("pdfjs.disabled", true); 
-//		fp.setPreference("pdfjs.firstRun", false); 
-//		fp.setPreference("pdfjs.migrationVersion", 1);
-		
+		//		fp.setPreference("pdfjs.firstRun", false); 
+		//		fp.setPreference("pdfjs.migrationVersion", 1);
+
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
@@ -854,7 +862,7 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return (dateFormat.format(cal.getTime()));	
 	}
-	
+
 	/** Get day of week
 	 * @author phuongdt
 	 * @param gap: distance from current date
@@ -942,7 +950,7 @@ public class TestBase {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * get a list of random numbers author quynhpt
 	 * 
@@ -982,7 +990,7 @@ public class TestBase {
 		element2.click();
 		element2.sendKeys(Keys.chord(Keys.CONTROL, "v"));
 	}
-	
+
 	/**
 	 * Get minute in format "HH" from current date
 	 * @author chinhdtt
@@ -996,7 +1004,7 @@ public class TestBase {
 		int minute = cal.get(Calendar.HOUR);
 		return (minute); 
 	}
-	
+
 	/**
 	 * @author lientm
 	 * @param object

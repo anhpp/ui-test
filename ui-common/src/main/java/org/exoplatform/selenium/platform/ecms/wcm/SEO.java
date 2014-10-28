@@ -39,6 +39,8 @@ public class SEO extends EcmsBase{
 	public final By ELEMENT_DESCRIPTION = By.xpath("//meta[@name='description']");
 	public final By ELEMENT_KEYWORD = By.xpath("//meta[@name='keywords']");
 	public final By ELEMENT_ROBOT = By.xpath("//meta[@name='robots']");
+	public final By ELEMENT_SEO_ADD_LANGUAGE = By.xpath("//button[contains(.,'Add Language')]");
+	public final By ELEMENT_SEO_SELECT_LANGUAGE = By.xpath("//select[@name='language']");
 	public final String MSG_SEO_DELETE = "Are you sure you want to delete these SEO data?";
 	public final By ELEMENT_DESC_HELP_ICON = By.id("DescriptionHelp");
 	public final By ELEMENT_KEY_HELP_ICON = By.xpath("//*[@name='keywords']/..//*[@id='DescriptionHelp' or id='KeywordsHelp']");
@@ -93,5 +95,14 @@ public class SEO extends EcmsBase{
 		//click(button.ELEMENT_SAVE_BUTTON);
 		button.closeWindow();
 		Utils.pause(1000);
+	}
+	/**
+	 * Add language for SEO
+	 * @param language: language for SEO, eg: English, French...
+	 */
+	public void addLanguage(String language){
+		info("-- Add language: --"  + language);
+		click(ELEMENT_SEO_ADD_LANGUAGE);
+		select(ELEMENT_SEO_SELECT_LANGUAGE,"French");
 	}
 }

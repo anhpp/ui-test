@@ -519,9 +519,9 @@ public class PLF_UnifiedSearch extends Template {
 	public void test09_SearchEvents(){
 		/*Declare variables*/
 		String searchText = "Search71614";
-		String eventName1 = "Search71614Event";
-		String eventName2 = "event092";
-		String eventName3 = "event093";
+		String eventName1 = "Search71614 Event";
+		String eventName2 = "Search71614 event092";
+		String eventName3 = "Search71614 event093";
 		String timeZone = "(GMT +07:00) Asia/Saigon";
 
 		//Create data
@@ -530,9 +530,9 @@ public class PLF_UnifiedSearch extends Template {
 		evt.setTimezoneForCalendar(timeZone);
 		evt.addQuickEvent(eventName1,eventName1,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 		evt.goToCalendarPage();
-		evt.addQuickEvent(eventName2,eventName2,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName2,eventName2,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 		evt.goToCalendarPage();
-		evt.addQuickEvent(eventName3,eventName3,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName3,eventName3,getDate(-1,"MM/dd/yyyy"),getDate(-1,"MM/dd/yyyy"),true);
 		String eventDate=getDate(1,"MMMM d, yyyy ")+"0:00 AM";
 		/*Step 1: Search events*/
 		//- Login and connect to intranet home page
@@ -555,6 +555,9 @@ public class PLF_UnifiedSearch extends Template {
 		String searchDate = searchTaskDate.substring(searchTaskDate.indexOf(',')+1).trim();
 		assert searchDate.contains(eventDate);
 
+		waitForAndGetElement(qsPage.ELEMENT_SEARCH_RESULT_TITLE.replace("${tileName}", eventName2));
+		waitForElementNotPresent(qsPage.ELEMENT_SEARCH_RESULT_TITLE.replace("${tileName}", eventName3));
+		
 		//- Item in search result is clickable and open it when user click
 		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Event")).click();
 		button.close();
@@ -797,8 +800,8 @@ public class PLF_UnifiedSearch extends Template {
 		/*Declare variables*/
 		String searchText = "Search71613";
 		String taskName1 = "Search71613Task";
-		String taskName2 = "task092";
-		String taskName3 = "task093";
+		String taskName2 = "Search71613 task092";
+		String taskName3 = "Search71613 task093";
 		String timeZone = "(GMT +07:00) Asia/Saigon";
 
 		//Create data
@@ -806,10 +809,25 @@ public class PLF_UnifiedSearch extends Template {
 		evt.goToCalendarPage();
 		evt.setTimezoneForCalendar(timeZone);
 		tsk.addQuickTask(taskName1,taskName1,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
-		evt.goToCalendarPage();
-		tsk.addQuickTask(taskName2,taskName2,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
-		evt.goToCalendarPage();
-		tsk.addQuickTask(taskName3,taskName3,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		
+		//Add task2 with In progress status
+		tsk.goToAddTaskFromActionBar();
+		tsk.inputBasicQuickTask(taskName2,taskName2);
+		tsk.inputFromToTask(getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		click(tsk.ELEMENT_BUTTON_TASK_MORE_DETAILS);
+		tsk.inputOtherFieldsTabDetailsTask("In Progress");
+		click(tsk.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
+		waitForElementNotPresent(tsk.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
+		
+		//Add task3 with In progress status
+		tsk.goToAddTaskFromActionBar();
+		tsk.inputBasicQuickTask(taskName3,taskName3);
+		tsk.inputFromToTask(getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		click(tsk.ELEMENT_BUTTON_TASK_MORE_DETAILS);
+		tsk.inputOtherFieldsTabDetailsTask("Completed");
+		click(tsk.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
+		waitForElementNotPresent(tsk.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
+		
 		String taskDate=getDate(2,"MMMM d, yyyy ")+"11:59 PM";
 		/*Step 1: Search tasks*/
 		//- Login and connect to intranet home page
@@ -831,14 +849,16 @@ public class PLF_UnifiedSearch extends Template {
 		String searchTaskDate = waitForAndGetElement(qsPage.ELEMENT_RESULT_LOCATION_DATETIME.replace("${keySearch}", searchText).replace("${item}", "Task")).getText();
 		String searchDate = searchTaskDate.substring(searchTaskDate.indexOf(',')+1).trim();
 		assert searchDate.contains(taskDate);
+		
+		waitForAndGetElement(qsPage.ELEMENT_SEARCH_RESULT_TITLE.replace("${tileName}", taskName2));
+		waitForElementNotPresent(qsPage.ELEMENT_SEARCH_RESULT_TITLE.replace("${tileName}", taskName3));
 
 		//-Item in search result is clickable and open it when user click
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Task")).click();
+		click(qsPage.ELEMENT_SEARCH_RESULT_TITLE.replace("${tileName}", taskName2));
 		button.close();
 
 		/*clear data*/
 		info("-- Clear data --");
-		evt.goToCalendarPage();
 		evt.deleteEventTask(taskName1);
 		evt.deleteEventTask(taskName2);
 		evt.deleteEventTask(taskName3);

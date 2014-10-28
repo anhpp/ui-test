@@ -36,6 +36,9 @@ public class ContextMenu extends EcmsBase{
 	/*End Added*/
 	
 	public final By ELEMENT_CONTEXT_MENU_LOCK = By.xpath("//*[@class='uiContextMenuContainer']//i[@class='uiIconEcmsLock']"); 
+	public final By ELEMENT_CONTEXT_MENU_COPY = By.xpath("//*[@class='uiContextMenuContainer']//i[@class='uiIconEcmsCopy']");
+	public final By ELEMENT_CONTEXT_MENU_VIEW = By.xpath("//*[@class='uiContextMenuContainer']//i[@class='uiIconEcmsViewInfo']");
+			
 			//By.className("uiIconEcmsLock");
 	public final By ELEMENT_MENU_UNLOCK = By.className("uiIconEcmsUnlock");
 	public final By ELEMENT_MENU_CHECKIN = By.className("uiIconEcmsCheckIn");

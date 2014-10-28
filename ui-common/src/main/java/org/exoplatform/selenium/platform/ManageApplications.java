@@ -88,6 +88,7 @@ public class ManageApplications extends PlatformBase {
 	public final String IMPORT_APPLICATION_CONFIRMATION= "This action will automatically create categories and import all the gadgets and portlets on it.";
 	public final By MESSAGE_CATEGORY_EXISTING = By.xpath("//*[contains(text(),'This category is existing, please enter another one')]");
 	public final By MESSAGE_CATEGORY_DELETE_UNEXIST_CATEGORY = By.xpath("//*[contains(text(),'It's not possible to save the changes because that category doesn't exist')]");
+	public final String ELEMENT_CATEGORY_GADGET = "//*[@id='ApplicationRegistryCategory']//a[contains(.,'${gadget}')]";
 
 	//Add application to category
 	public final By ELEMENT_ADD_APPS_BUTTON = By.xpath("//*[@data-original-title='Add application to category']");

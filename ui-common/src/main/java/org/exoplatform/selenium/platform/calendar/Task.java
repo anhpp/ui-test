@@ -72,7 +72,6 @@ public class Task extends CalendarBase{
 	public String ELEMENT_TITLE_TASK_POPUP = "//div[@class='titleList'] //*[contains(text(),'${task}')]";
 	public String ELEMENT_TASK_ATTACHMENT = "//*[@id='UITaskForm']/..//a[@data-original-title='${file}']";
 
-
 	//----------------------- Task Reminder ---------------------------------------------
 	public By ELEMENT_TAB_REMINDER = By.xpath("//*[@id='UIPopupAddTaskContainer']//a[text()='Reminders']");
 	public By ELEMENT_CHECKBOX_POPUP_REMINDER = By.id("popupReminder");

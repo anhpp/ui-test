@@ -642,7 +642,7 @@ public class CalendarBase extends PlatformBase {
 		button = new Button(driver);
 		waitForAndGetElement(ELEMENT_WORKING_PANE_23H);
 		selectDayOption optDay = (waitForAndGetElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event), 5000,0) == null) ? selectDayOption.ALLDAY : selectDayOption.ONEDAY;
-
+		
 		info("--Delete an Event/Task--");
 		switch (optDay) {
 		case ALLDAY:

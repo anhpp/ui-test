@@ -829,8 +829,8 @@ public class Wiki_Macro_Add extends ManageDraft{
 	@Test(groups="pending")
 	public void test23_InsertBarChartMacro(){
 		String height = " 320";
-		String params = "range:A1-A5;series:columns";
-		String source = "Inline";
+		String params = "range:B2-D5;series:columns;";
+		String source = "inline";
 		String title = "Bar Chart";
 		String type = "bar";
 		String[] content = {"|=|=X|=Y|=Z|Q1|1.2|3.4|1.3|Q2|4.5|3.4|2.3|Q3|1.2|4.5|9.0|Q4|3.4|1.2|1.2"};

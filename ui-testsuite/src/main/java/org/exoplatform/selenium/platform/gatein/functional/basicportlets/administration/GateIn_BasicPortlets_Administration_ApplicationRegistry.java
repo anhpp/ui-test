@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.DashBoard;
@@ -93,13 +94,14 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 	 * Step 1: Show form to add a remote gadget
 	 * Step 2: Add gadget
 	 * Step 3: Copy remote gadget to local repository
-	 * PENDING: Need to remove step 3 on qmetry
+	 *
 	 */
-	@Test (groups = "pending")
+	@Test
 	public void test02_CopyRemoteGadgetToLocalRepository() {
 		/*Declare variables*/
 		String url = "http://www.labpixies.com/campaigns/memory_game/memory_game.xml";
 		String title = "Memory Game";
+		String category = "Collaboration";
 
 		/* Step 1: Show form to add a remote gadget */
 		//Click Add a remote gadget
@@ -114,11 +116,19 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		magApp.addRemoteGadget(url);
 		waitForAndGetElement(magApp.ELEMENT_GADGET_DELETE_ICON.replace("${title}", title));
 
-		/* Step 3: Copy remote gadget to local repository */
-		//- Select added gadget
-		//- Click Copy this gadget to local repository icon in the left pane
-		//- This gadget is saved to local repository
-
+		/* Step 3: - Select added gadget
+		- Click "Click here to add into categories"
+		- Choose category
+		- Click Save
+		- Go to Manage Application
+		
+		Expected outcome: This gadget is displayed in the left panel in the chosen categories*/
+		
+		magApp.addGadgetToCategory(category);
+		click(magApp.ELEMENT_MANAGE_APPLICATION);
+		click(magApp.ELEMENT_CATEGORY_NAME.replace("${categoryName}",category));
+		waitForAndGetElement(magApp.ELEMENT_CATEGORY_GADGET.replace("${gadget}", title));
+		
 		/*Clear data*/
 		info("-- Clear data --");
 		magApp.deleteGadget(title);

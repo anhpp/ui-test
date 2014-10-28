@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -199,7 +200,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	 */
 	@Test
 	public void test06_LockNode() {
-		String node1= "test06LockNode1";
+		String node1= "LockNode65847";
 		By bNode1= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}",node1));
 		info("Lock a node");
 		//Create file document
@@ -208,13 +209,23 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		//Lock node
 		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
-
+		
 		//Check locked node
 		cMenu.isLockedNode(bNode1);
-
+		loginWithAnotherAccOnThesameBrowser(DATA_USER2, DATA_PASS);
+		newDriver.findElement(By.xpath(ELEMENT_LINK_SETUP)).click();
+		
+		newDriver.findElement(ELEMENT_MENU_CONTENT_LINK).click();
+		PlatformBase plfBase = new PlatformBase(newDriver);
+		TestBase testBs = new TestBase(newDriver);
+		
+		plfBase.rightClickOnElement(bNode1);
+		testBs.waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_VIEW);
+		testBs.waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_COPY);
+		
 		//Delete data
 		cMenu.deleteDocument(bNode1);
-
+		newDriver.quit();
 	}
 
 	/**caseID: 67874 - Unlock a node
