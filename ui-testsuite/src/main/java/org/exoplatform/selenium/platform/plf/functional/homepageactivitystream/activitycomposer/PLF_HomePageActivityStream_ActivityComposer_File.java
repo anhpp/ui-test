@@ -162,7 +162,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Browse folders
 	 * REFER: https://jira.exoplatform.org/browse/COMMONS-259
 	 */
-	@Test (groups="error")
+	@Test
 	public void test04_DisplayTheBreadcrumbOfThePath(){
 		/*Declare variables*/
 		String folder1 = "folder777881";
@@ -170,16 +170,16 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		String folder3 = "folder777883";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
-
-		/* Step 1: Open popup "Select File" */
-		//- Connect to Intranet
-		//- From [Activity Composer] box, click on [File]
-		//- The pop up [Select File] is displayed
-		/* Step 2: Browse folders */
-		//- Select a drive from the list [Select Drive]
-		//- Click on a folder (called "folder 1"), then click on the sub-folder (call "sub folder 2"], then click on its sub-folder (ex sub-folder 3)
-		//- The current position in the browsed drive is displayed in breadcrumb
-		//-  Only the folder of the path's root level, plus sub-folder 2, sub-folder 3. the folder 1 is not shown
+//
+//		/* Step 1: Open popup "Select File" */
+//		//- Connect to Intranet
+//		//- From [Activity Composer] box, click on [File]
+//		//- The pop up [Select File] is displayed
+//		/* Step 2: Browse folders */
+//		//- Select a drive from the list [Select Drive]
+//		//- Click on a folder (called "folder 1"), then click on the sub-folder (call "sub folder 2"], then click on its sub-folder (ex sub-folder 3)
+//		//- The current position in the browsed drive is displayed in breadcrumb
+//		//-  Only the folder of the path's root level, plus sub-folder 2, sub-folder 3. the folder 1 is not shown
 		selectFile(driverName,false,folderPath,"","",folder1,false);
 		button.closeWindow();
 		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);
@@ -333,7 +333,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Select a file by double-clicking
 	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
-	@Test(groups="error")
+	@Test
 	public void test09_SelectAFileByASimpleClick(){
 		/*Declare variables*/
 		String uploadFileName = "upload77802.pdf";
@@ -372,7 +372,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 1: Share an attached file
 	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
-	@Test(groups="error")
+	@Test
 	public void test10_ShareAnAttachedFile(){
 		/*Declare variables*/
 		String uploadFileName = "upload77802.pdf";

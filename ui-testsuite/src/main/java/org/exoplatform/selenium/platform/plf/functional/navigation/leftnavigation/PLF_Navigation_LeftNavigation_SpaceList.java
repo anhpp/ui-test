@@ -238,8 +238,8 @@ import org.testng.annotations.*;
 		
 		/*	- Open spaces in turn except random 3 spaces (keep 3 spaces never to be opened)
 			- These 3 spaces is put at the end of the list by ordering them alphabetically.*/ 
-		for (int i = 3; i < 10; i ++){
-			click(ELEMENT_SPACE_IN_MY_SPACE_LIST.replace("${space}", spaceName1 + i));
+		for (int i = 10; i < 8; i ++){
+			click(ELEMENT_SPACE_IN_MY_SPACE_LIST.replace("${space}", spaceName1 + abc[i]));
 			waitForAndGetElement(space.ELEMENT_SPACE_CURRENT_NAME.replace("${spaceName}", spaceName1 + abc[i]));
 			waitForAndGetElement(ELEMENT_SPACE_IN_TOP_MY_SPACE_LIST.replace("${space}", spaceName1 + abc[i]));
 		}

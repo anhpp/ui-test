@@ -313,11 +313,17 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * this issue releated to FORUM-978
 	 */
 
-	@Test(enabled = true)
+	@Test(groups = "error")
 	public void test05_NoDisplayForumForUserNotAllowView() {
-
+		String category1 = "cat104223";
+		String forum1 = "for104223";
+		String topic1 = "top104223";
+		String[] permisionName = { "demo" };
+		
 		// Create data test
-		AddForumForUserWithoutViewPermission();
+		mngFru.goToForums();
+		mngTopic.addCategoryForumForUserWithoutViewPermision(category1, forum1,
+				topic1, topic1, permisionName);
 
 		// -logout
 		magAcc.signOut();
@@ -329,15 +335,18 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 		qsPage.quickSearchType(searchText);
 
 		info("-- Verify not display topic --");
-		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME
-				.replace("${type_Search}", text_Search).replace(
-						"${detail_Name}", topic1));
+		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME.replace("${type_Search}", text_Search).replace("${detail_Name}", topic1));
 		waitForElementNotPresent(By.linkText(topic1));
 
 		info("-- Verify not display topic --");
 		waitForElementNotPresent("//strong[text()='" + forum1 + "']");
 		waitForElementNotPresent(By.linkText(forum1));
-		DeleteData();
+		magAcc.signOut();
+		// -sign in with admin user: here is "john" user
+		magAcc.signIn(DATA_USER1, DATA_PASS);
+		mngFru.goToForums();
+		click(By.linkText(category1));
+		mngCat.deleteCategoryInForum(category1, true);
 	}
 
 	/**
@@ -359,7 +368,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * this issue releated to FORUM-978
 	 */
 
-	@Test(enabled = true)
+	@Test(groups = "error")
 	public void test06_NoDisplayTopicForUserNotAllowRead() {
 		// Create data test
 		AddTopicForUserWithoutReadPermission();

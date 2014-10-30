@@ -58,11 +58,13 @@ public class HomePageGadget extends PlatformBase{
 	public String ELEMENT_VERIFY_SPACE_SUGGESTIONS = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and text()='${spaceName}']";
 	public String ELEMENT_CONNECT_USER_SUGGESTIONS = "//*[@id='peopleSuggest']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]/../..//a[text()='Connect']";
 	public String ELEMENT_REQUEST_SPACE_SUGGESTIONS = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//a[text()='Request']";
+	public String ELEMENT_REQUEST_SPACE_SUGGESTIONS_41 = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//a[text()='Join']";
 	public String ELEMENT_REMOVE_USER_SUGGESTIONS = "//*[@id='peopleSuggest']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]/../..//i[@class='uiIconClose']";
 	public String ELEMENT_REMOVE_SPACE_SUGGESTIONS="//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//i[@class='uiIconClose']";
 	public String ELEMENT_VERIFY_SPACE_SUGGESTIONS_INDEX = "//*[@id='spaceSuggest']//li['${index}']/../..//div[@class='spaceName' and text()='${spaceName}']";
 	public String ELEMENT_VERIFY_STATUS_SPACE_SUGGESTION = "//*[@class='spaceInfo']/div[@class='spaceName' and text()='${spaceName}']/../../../..//div[@class='spaceCommon']";
 	public String ELEMENT_JOIN_SPACE_SUGGESTIONS = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//a[text()='Join']";
+	public String ELEMENT_JOIN_SPACE_SUGGESTIONS_41 = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//a[text()='Request']";
 	public String ELEMENT_VERIFY_USER_SUGGESTIONS_INDEX = "//*[@id='peopleSuggest']//li['${index}']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]";
 
 	//-------------------Who'sOnline Gadget-----------------------------------
@@ -79,14 +81,16 @@ public class HomePageGadget extends PlatformBase{
 	public final By ELEMENT_USER_POPUP_POSITION = By.xpath("//*[@id='tipName']//td[2]/div");
 	public final By ELEMENT_USER_POPUP_AVATAR = By.xpath("//*[@id='tipName']//img[contains(@src, 'UserAvtDefault.png')]");
 	public final String ELEMENT_USER_POPUP_LAST_ACTIVITY = "//*[@id='tiptip_content']//blockquote[contains(text(),'${activity}')]";
+	public final String ELEMENT_USER_POPUP_LAST_ACTIVITY_41 = "//*[@id='tiptip_content']//*[@id='tipName']//*[contains(div, '${post}')]";
 	public final String ELEMENT_USER_POPUP_STATUS_CONNECT = "//*[@id='tiptip_content']//*[@class='uiAction connectAction']/*[text()='${status}']";
+	public final String ELEMENT_USER_POPUP_STATUS_CONNECT_41 = "//*[@id='tiptip_content']//*[contains(text(), '${userName}')]/../../../../..//*[@class='connect btn btn-primary']";
 	//My Profile tab
 	public String ELEMENT_PROFILE_TAB_USER_INFO = "//*[@id='UIUserNavigationPortlet']/ul[@class='nav nav-tabs userNavigation']//a[@href='/portal/intranet/profile/${acc}']";
 	//My activity stream tab
 	public String ELEMENT_MY_AS_TAB = "//*[@id='UIUserNavigationPortlet']//a[@href='/portal/intranet/activities/${acc}']";
 
 	//-------------------Bookmarks gadget-----------------------------------
-	public final By ELEMENT_APPLICATION_BOOKMARKS = By.id("Collaboration/FeaturedPoll");
+	public final By ELEMENT_APPLICATION_BOOKMARKS = By.id("Gadgets/Bookmark");
 	public By ELEMENT_BOOKMARKS_GADGET_CONTENT_LIST = By.id("BookmarkList");
 	public By ELEMENT_BOOKMARKS_GADGET_ADDBOOKMARK_ICON = By.xpath("//*[@data-original-title='Add Bookmark']");
 	public By ELEMENT_BOOKMARKS_GADGET_ADDNAME = By.xpath("//*[@class='editName' and @placeholder='Bookmarks']");
@@ -360,10 +364,10 @@ public class HomePageGadget extends PlatformBase{
 		 */
 		public void acceptSpaceInvitationGadget(String spaceName) {
 			info("-- Accept a space invitation --");
-			mouseOver(ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName), true);
-			waitForAndGetElement(ELEMENT_SPACE_ACCEPT_BUTTON.replace("${namespace}", spaceName));
-			waitForAndGetElement(ELEMENT_SPACE_REMOVE_BUTTON.replace("${namespace}", spaceName));
+			waitForAndGetElement(ELEMENT_SPACE_ACCEPT_BUTTON.replace("${namespace}", spaceName), 5000, 1, 2);
+			waitForAndGetElement(ELEMENT_SPACE_REMOVE_BUTTON.replace("${namespace}", spaceName), 5000, 1, 2);
 			Utils.pause(1000);
+			mouseOver(ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName), true);
 			click(ELEMENT_SPACE_ACCEPT_BUTTON.replace("${namespace}", spaceName));
 			waitForElementNotPresent(ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName));		
 		} 

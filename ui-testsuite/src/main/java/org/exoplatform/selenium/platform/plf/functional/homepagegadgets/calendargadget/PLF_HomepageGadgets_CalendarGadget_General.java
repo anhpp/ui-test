@@ -599,7 +599,7 @@ public class PLF_HomepageGadgets_CalendarGadget_General extends CalendarBase{
 	@Test
 	public  void test13_DisplayTheCalendarGadgetEmpty() {
 		info("Test 13 Display the Calendar Gadget empty");
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat dateFormat = new SimpleDateFormat("MM/d/yyyy");
 		Date date = new Date();
 		/*
 		- Connect to Intranet

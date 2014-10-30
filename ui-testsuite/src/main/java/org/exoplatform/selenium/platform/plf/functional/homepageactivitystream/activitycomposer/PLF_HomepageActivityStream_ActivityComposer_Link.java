@@ -51,7 +51,7 @@ public class PLF_HomepageActivityStream_ActivityComposer_Link extends Activity{
 		info("Test 1: Attach a link"); 
 
 		/*Declare variables*/ 
-		String link = "http://www.apple.com"; 
+		String link = "http://www.ted.com"; 
 		/* Step: Attach a link */
 		//-  Connect to Intranet
 		//- From "Activity Composer" box, click on "Link"
@@ -65,10 +65,11 @@ public class PLF_HomepageActivityStream_ActivityComposer_Link extends Activity{
 		type(ELEMENT_INPUT_LINK_BOX, link, true);
 		waitForAndGetElement(ELEMENT_ATTACH_BUTTON);
 		click(ELEMENT_ATTACH_BUTTON);
+		Utils.pause(10000);
 		waitForAndGetElement(ELEMENT_SHARE_DISPLAY);
 		waitForAndGetElement(ELEMENT_URL_SHARE); 
-		waitForAndGetElement(ELEMENT_PICTURE_SHARE); 
-		waitForAndGetElement(ELEMENT_TITLE_SHARE.replace("${title}", "Apple")); 	
+		waitForAndGetElement(ELEMENT_PICTURE_SHARE);
+		waitForAndGetElement(ELEMENT_TITLE_SHARE.replace("${title}", "TED")); 	
  	}
 
 
@@ -107,7 +108,7 @@ public class PLF_HomepageActivityStream_ActivityComposer_Link extends Activity{
 		info("Test 3: Remove a link to share"); 
 
 		/*Declare variables*/ 
-		String link = "http://www.apple.com"; 
+		String link = "http://www.ted.com"; 
 
 		/* Step1: Open [Select File] popup */
 		//- Connect to Intranet
@@ -124,7 +125,7 @@ public class PLF_HomepageActivityStream_ActivityComposer_Link extends Activity{
 		click(ELEMENT_ATTACH_BUTTON);
 		waitForAndGetElement(ELEMENT_SHARE_DISPLAY,200000);
 		waitForAndGetElement(ELEMENT_PICTURE_SHARE); 
-		waitForAndGetElement(ELEMENT_TITLE_SHARE.replace("${title}", "Apple")); 
+		waitForAndGetElement(ELEMENT_TITLE_SHARE.replace("${title}", "TED")); 
 		waitForAndGetElement(ELEMENT_CROSS_BUTTON); 
 		/* Step3: Cancel attaching file*/
 		// - Click on the cross [x] icon
@@ -144,7 +145,7 @@ public class PLF_HomepageActivityStream_ActivityComposer_Link extends Activity{
 		info("Test 4: Select an image from the link to share"); 
 
 		/*Declare variables*/ 
-		String link = "http://www.apple.com"; 
+		String link = "http://www.ted.com"; 
 
 		/* Step1: Show the field to input URL link */
 		//- Connect to Intranet
@@ -165,7 +166,8 @@ public class PLF_HomepageActivityStream_ActivityComposer_Link extends Activity{
 		/* Step3: Share the link*/
 		// - Choose an image 
 		//- Click on the button [Share]
-		waitForAndGetElement(ELEMENT_THUMBNAIL_SHOW); 		
+		Utils.pause(10000);
+		waitForAndGetElement(ELEMENT_THUMBNAIL_SHOW_41); 		
 		waitForAndGetElement(ELEMENT_NEXT_THUMBNAIL); 
 		click(ELEMENT_NEXT_THUMBNAIL);
 		waitForAndGetElement(ELEMENT_THUMBNAIL_NEXT); 

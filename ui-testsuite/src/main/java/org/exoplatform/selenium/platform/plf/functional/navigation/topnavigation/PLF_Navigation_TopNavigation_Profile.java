@@ -94,6 +94,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(ELEMENT_NAVIGATION_TOOLBAR_HOMEPAGE);
 		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 		waitForAndGetElement(ELEMENT_NAVIGATION_ACCOUNT_AVATAR);
+		click(ELEMENT_ACCOUNT_NAME_LINK);
 		waitForAndGetElement(ELEMENT_NOTIFICATION_SETTING_MENU);
 		assert waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText().equalsIgnoreCase("John Smith");
  	}

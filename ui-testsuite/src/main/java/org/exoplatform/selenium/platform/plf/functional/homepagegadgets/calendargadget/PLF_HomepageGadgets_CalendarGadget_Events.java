@@ -53,7 +53,7 @@ public class PLF_HomepageGadgets_CalendarGadget_Events extends CalendarBase{
 	@Test
 	public void test01_DisplayAPastEventInCalendarGadget(){
 		String Event_11 = "Event 69113";
-		String date = getDate(-1,"M/dd/yyyy");
+		String date = getDate(-1,"M/d/yyyy");
 		info("Go to calendar");
 		goToCalendarPage();
 		info("Add events in calendar");
@@ -114,9 +114,10 @@ public class PLF_HomepageGadgets_CalendarGadget_Events extends CalendarBase{
 	@Test
 	public void test04_DisplayAnEventScheduledOnMultipeDay(){
 		String Event = "event 69104";
-		String date1 = getDate(1,"M/dd/yyyy");
-		String date2 = getDate(2,"M/dd/yyyy");
+		String date1 = getDate(1,"M/d/yyyy");
+		String date2 = getDate(2,"M/d/yyyy");
 		info("Go to Calendar page");
+		
 		goToCalendarPage();
 		info("Add events in calendar");
 		event.addQuickEvent(Event, Event, getDate(1,"MM/dd/yyyy"), getDate(2, "MM/dd/yyyy"), false);
@@ -185,10 +186,10 @@ public class PLF_HomepageGadgets_CalendarGadget_Events extends CalendarBase{
 		String Event_1 = "Display events with multiple day_1";
 		String ELEMENT_VERITY_DATE_OLDER = "//*[contains(@class,'eventsList')]/li[2]//span[text()='${older_date_before}']/../../../../../li[2]//span[text()='${older_date_after}']";
 		String ELEMENT_VERITY_DATE_LASTEST = "//*[contains(@class,'eventsList')]/li[1]//span[text()='${lastest_date_before}']/../../../../../li[2]//span[text()='${lastest_date_after}']";
-		String older_date_before = getDate(-1,"M/dd/yyyy");
-		String older_date_after = getDate(1, "M/dd/yyyy");
-		String lastest_date_before = getDate(0,"M/dd/yyyy");
-		String lastest_date_after = getDate(1, "M/dd/yyyy");
+		String older_date_before = getDate(-1,"M/d/yyyy");
+		String older_date_after = getDate(1, "M/d/yyyy");
+		String lastest_date_before = getDate(0,"M/d/yyyy");
+		String lastest_date_after = getDate(1, "M/d/yyyy");
 		
 		info("Go to Calendar page");
 		goToCalendarPage();

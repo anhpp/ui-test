@@ -66,7 +66,8 @@ public class Activity extends SocialBase {
 	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
 	public final By ELEMENT_NEXT_THUMBNAIL = By.cssSelector("div#NextThumbnail i.uiIconArrowRight.uiIconLightGray");
 	public final By ELEMENT_THUMBNAIL = By.id("Thumbnails"); 
-	public final By ELEMENT_THUMBNAIL_SHOW = By.cssSelector("div#Thumbnails img.thumbnailShown"); 
+	public final By ELEMENT_THUMBNAIL_SHOW = By.cssSelector("div#Thumbnails img.thumbnailShown");
+	public final By ELEMENT_THUMBNAIL_SHOW_41 = By.xpath("//*[@class = 'thumbnailShown']");
 	public final By ELEMENT_THUMBNAIL_NEXT = By.xpath("//div[@id='Thumbnails']/img[2]"); 
 	public final By ELEMENT_CROSS_BUTTON = By.xpath("//a[@class='uiIconClose uiIconLightGray']"); 
 	public final By ELEMENT_SHARE_DISPLAY = By.xpath("//div[@class='uiLinkShareDisplay blastShare']");

@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.plf.functional.homepageactivitystream.
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
@@ -317,7 +318,7 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 	 * Note: not finish test case because this function is fail -> can't locate element to complete test case
 	 * ERROR: Refer https://jira.exoplatform.org/browse/UI-2031
 	 */
-	@Test (groups="error")
+	@Test(groups= "error")
 	public void test05_ExpandTheListOfAvatars(){
 		//Declare variable
 		String activity = "activity 78623";
@@ -328,7 +329,7 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 
 		//Create many user
 		navToolBar.goToNewStaff();
-		for(int i=0; i<15; i++){
+		for(int i=0; i<14; i++){
 			username[i] = getRandomString();
 			String password = username[i];
 			String firstName = username[i];
@@ -365,12 +366,13 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 		//- Avatars of user's likers are displayed
 		//- The link "More" is displayed
 		int j=1;
-		for(int i=14;i>4;i--){
+		Utils.pause(3000);
+		for(int i=9;i>0;i--){
 			String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", String.valueOf(j))).getAttribute("alt");
-			assert(avatarName.contains(username[i]+" "+username[i]));
+			waitForAndGetElement(avatarName.contains(username[i]+" "+username[i]));
 			j++;
 		}
-		for(int i=4;i>=0;i--){
+		for(int i=14;i>=11;i--){
 			waitForElementNotPresent(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", String.valueOf(j)));
 			j++;
 		}

@@ -65,7 +65,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_CONTENT_TYPE_ICON = "//a[@title='@{fileName}']/../..//*[@class='${icon}']";
 	public final String ELEMENT_CONTENT_TYPE_ICON_41 = "//a[@data-original-title='@{fileName}']/../..//*[@class='${icon}']";
 	public final String ELEMENT_CONTENT_TYPE = "//a[@title='@{fileName}']/..//*[@class='versionFile' and contains(text(), '${type}')]";
-	public final String ELEMENT_CONTENT_TYPE_PLF41 = "//*[contains(text(),'${activityText}')]/..//*[@class='versionFile' and contains(text(), '${type}')]";
+	public final String ELEMENT_CONTENT_TYPE_PLF41 = "//*[contains(text(),'${activityText}')]";
 	public final String ELEMENT_CONTENT_DESCRIPTION = "//a[@title='@{fileName}']/..//*[@class='descriptionText' and text()='${des}']";
 	public final String ELEMENT_CONTENT_DESCRIPTION_41 = "//a[@data-original-title='@{fileName}']/..//*[@class='descriptionText' and text()='${des}']";
 	public final String ELEMENT_CONTENT_VERSION = "//a[@title='@{fileName}']/..//*[contains(text(), '${version} -')]";

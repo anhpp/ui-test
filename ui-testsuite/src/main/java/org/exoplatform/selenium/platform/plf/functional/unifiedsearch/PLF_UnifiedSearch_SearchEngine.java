@@ -136,7 +136,6 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 		String content = "a cluster will enhance your service availability";
 		String content1 = "cluster";
 		String content2 = "availability";
-		String searchText = "cluster availability";
 
 		//Pre-condition
 		naviToolbar.goToSiteExplorer();
@@ -154,7 +153,10 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 		info("data created");
 
 		/*Step 1: search for the terms : "cluster availability"*/
-		qsPage.quickSearch(searchText);
+		click(ELEMENT_QUICK_SEARCH_ICON);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "cluster availability", true);
+		Utils.pause(3000);
+		click(ELEMENT_SEE_ALL_SEARCH_RESULTS);
 		info("searching");
 		Utils.pause(1000);
 		waitForAndGetElement(By.xpath((qsPage.ELEMENT_RESULT_SEARCH_ITEM).replace("${item}", name)));

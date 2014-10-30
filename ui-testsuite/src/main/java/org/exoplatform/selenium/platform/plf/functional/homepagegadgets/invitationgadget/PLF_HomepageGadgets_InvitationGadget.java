@@ -39,7 +39,7 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		nav = new NavigationToolbar(driver, this.plfVersion);	
 		pConn = new PeopleConnection(driver, this.plfVersion);
 		mMember = new ManageMember(driver, this.plfVersion);	
-		hGadget = new HomePageGadget(driver);
+		hGadget = new HomePageGadget(driver, this.plfVersion);
 		uGroup = new UserGroupManagement(driver, this.plfVersion);
 		mSpace = new SpaceManagement(driver, this.plfVersion);
 		acc.signIn(DATA_USER1, DATA_PASS);		
@@ -171,9 +171,9 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		acc.userSignIn(userType.DEVELOPER);
 		nav.goToHomePage();
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_USER_INDEX.replace("${index}","1").replace("${nameinvitation}", user));
-		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_SPACE_INDEX.replace("${index}","1").replace("${namespace}", spaceNameB));
-		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_SPACE_INDEX.replace("${index}","1").replace("${namespace}", spaceNameA));	
+		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_USER_INDEX.replace("${index}","1").replace("${nameinvitation}", user), 5000, 1,2);
+		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_SPACE_INDEX.replace("${index}","1").replace("${namespace}", spaceNameB), 5000, 1,2);
+		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_SPACE_INDEX.replace("${index}","1").replace("${namespace}", spaceNameA), 5000, 1,2);	
 
 		//Delete data
 		acc.userSignIn(userType.ADMIN);
@@ -246,10 +246,10 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		acc.userSignIn(userType.DEVELOPER);
 		nav.goToHomePage();
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName1));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName2));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName3));
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), 5000, 1,2);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName1), 5000, 1,2);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName2), 5000, 1,2);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName3), 5000, 1,2);
 		waitForElementNotPresent(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName1));
 
 		//Delete data test
@@ -478,10 +478,10 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		- If the label is partially hidden, it's truncated and appended "..." 		*/ 
 		acc.userSignIn(userType.DEVELOPER);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
-		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_ACCEPTS_BUTTON.replace("${peopleName}", user));
-		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", user));
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), 5000, 1,2);
+//		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
+		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", user), 5000, 1,2);
+		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON_41.replace("${peopleName}", user), 5000, 1,2);
 
 		//Delete data
 		nav.goToConnectionPage();
@@ -516,13 +516,12 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		- Other requests are moving to the top of the gadget
 		- One less request is displayed		*/ 
 		acc.userSignIn(userType.DEVELOPER);
-		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_USER_INDEX.replace("${index}","1").replace("${nameinvitation}", user));
-		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_USER_INDEX.replace("${index}","2").replace("${nameinvitation}", user2));
+		waitForAndGetElement((hGadget.ELEMENT_INVITATION_GADGET_USER_41).replace("${nameinvitation}", user));
+		waitForAndGetElement((hGadget.ELEMENT_INVITATION_GADGET_USER_41).replace("${nameinvitation}", user2));
 		hGadget.removeInvitationGadget(user);
-		waitForElementNotPresent(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));	
-		waitForAndGetElement(hGadget.ELEMENT_CONNECTIONS_REQUEST_USER_INDEX.replace("${index}","1").replace("${nameinvitation}", user2));				
+		waitForAndGetElement((hGadget.ELEMENT_INVITATION_GADGET_USER_41).replace("${nameinvitation}", user2));
 	}
+	
 
 	/**
 	 * Case ID:79670.
@@ -583,17 +582,16 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		- Another request fades in at the end of the gadget to replace the disappearing one		*/ 
 		info("Goto the Gadget Invitation");
 		acc.userSignIn(userType.DEVELOPER);
-		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName4));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName3));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName2));
+		waitForAndGetElement((hGadget.ELEMENT_INVITATION_GADGET_USER_41).replace("${nameinvitation}", user));
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName4), 5000, 1, 2);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName3), 5000, 1, 2);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName2), 5000, 1, 2);
 		waitForElementNotPresent(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName1));
 		info("Remove the top invation");
 		hGadget.removeInvitationGadget(user);
-		waitForElementNotPresent(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
+		waitForElementNotPresent(hGadget.ELEMENT_INVITATION_GADGET_USER_41.replace("${nameinvitation}", user));
 		info("Another request fades in at the end of the gadget");
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName1));
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceName1), 5000, 1, 2);
 
 		//Delete data test
 		acc.userSignIn(userType.ADMIN);
@@ -642,11 +640,11 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		- The Gadget "Invitation" disappears from the Intranet Homepage		*/ 
 		acc.userSignIn(userType.DEVELOPER);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceNameA));
+		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_41.replace("${nameinvitation}", user), 5000, 1, 2);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}", spaceNameA), 5000, 1, 2);
 		info("Remove a connection");
 		hGadget.removeInvitationGadget(user);
-		waitForElementNotPresent(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
+		waitForElementNotPresent(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER_PLF41.replace("${nameinvitation}", user), 5000, 1, 2);
 		info("Click on Accept button a space");
 		hGadget.acceptSpaceInvitationGadget(spaceNameA);
 		driver.navigate().refresh();
@@ -757,11 +755,11 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		- The cross (x) to revoke is displayed		*/
 		acc.userSignIn(userType.DEVELOPER);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
-		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
+		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), 5000, 1, 2);
+//		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
 		Utils.pause(1000);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_ACCEPTS_BUTTON.replace("${peopleName}", user));
-		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", user));
+		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", user), 5000, 1, 2);
+		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON_41.replace("${peopleName}", user), 5000, 1, 2);
 
 		/*
 		- Click on the button "Accept"
@@ -774,7 +772,7 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		 *Expected Outcome: The user is displayed in the list of "My connexions"		*/ 
 		nav.goToConnectionPage();
 		click(pConn.ELEMENT_MY_CONNECTIONS_TAB);
-		waitForAndGetElement(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));
+		waitForAndGetElement(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user), 5000, 1, 2);
 
 		//Delete data test
 		info("Delete connection");
@@ -859,11 +857,11 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		- The cross (x) to revoke is displayed		*/
 		acc.userSignIn(userType.DEVELOPER);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
-		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
+		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_41.replace("${nameinvitation}", user), 5000, 1, 2);
+//		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
 		Utils.pause(1000);
-		waitForAndGetElement(hGadget.ELEMENT_SHOW_ACCEPTS_BUTTON.replace("${peopleName}", user));
-		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", user));
+		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", user), 5000, 1, 2);
+		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON_41.replace("${peopleName}", user), 5000, 1, 2);
 
 		/*
 		- Click on the button (X)

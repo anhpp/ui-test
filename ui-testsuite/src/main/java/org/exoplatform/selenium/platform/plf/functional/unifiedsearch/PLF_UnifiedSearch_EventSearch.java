@@ -64,7 +64,7 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		 * Step 1:Search for Diner, click on an event result
 		 */
 		qsPage.quickSearch(eventName);
-		click(qsPage.ELEMENT_RESULT_ITEM.replace("${keysearch}", eventName));
+		click(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", eventName));
 		
 		waitForAndGetElement(evt.ELEMENT_EVENT_PREVIEW_TITLE.replace("${event}", eventName));
 		button.close();
@@ -126,7 +126,7 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 	 * Step 1: In quick search input 3.5
 	 * PLF-5212
 	 */
-	@Test(groups="error")
+	@Test
 	public void test03_DisplayEventResult(){
 		String eventName="Gatein 35";
 		String researchWord="35";
@@ -138,14 +138,14 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		/*
 		 * Pre conditions
 		 */
-		magMember.goToMySpacePage();
-		magMember.addNewSpace(spaceName, "");
-		info("New space added : "+spaceName);
-		click(spaceMag.ELEMENT_SPACE_CALENDAR_PORTLET);
-		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-		evt.addQuickEvent(eventName,eventDescription,getDate(1,"MM/dd/yyyy 20:00"),getDate(1,"MM/dd/yyyy 23:00"),false);
-		evt.editEvent(eventName,eventName, eventDescription,eventLocation,getDate(1,"MM/dd/yyyy 20:00"), getDate(1,"MM/dd/yyyy 23:00"), false);
-		info("New event "+eventName+" create");
+//		magMember.goToMySpacePage();
+//		magMember.addNewSpace(spaceName, "");
+//		info("New space added : "+spaceName);
+//		click(spaceMag.ELEMENT_SPACE_CALENDAR_PORTLET);
+//		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+//		evt.addQuickEvent(eventName,eventDescription,getDate(1,"MM/dd/yyyy 20:00"),getDate(1,"MM/dd/yyyy 23:00"),false);
+//		evt.editEvent(eventName,eventName, eventDescription,eventLocation,getDate(1,"MM/dd/yyyy 20:00"), getDate(1,"MM/dd/yyyy 23:00"), false);
+//		info("New event "+eventName+" create");
 		
 		/*
 		 * Step 1 : In quick search input 3.5
@@ -154,7 +154,7 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		qsPage.searchInSearchPage(researchWord);
 		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", researchWord));
 		waitForAndGetElement(ELEMENT_SEARCH_EVENT_ICON.replace("${month}", getDate(1, "MMM")).replace("${date}", getDate(1, "dd")));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_LOCATION_DATETIME.replace("${keySearch}", researchWord).replace("${item}", "Gatein "));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", researchWord));
 		String searchTaskDate = waitForAndGetElement(qsPage.ELEMENT_RESULT_LOCATION_DATETIME.replace("${keySearch}", researchWord).replace("${item}", "Gatein ")).getText();
 		String searchDate = searchTaskDate.substring(searchTaskDate.indexOf(',')+1).trim();
 		assert searchDate.contains(getDate(1, "MMM"));

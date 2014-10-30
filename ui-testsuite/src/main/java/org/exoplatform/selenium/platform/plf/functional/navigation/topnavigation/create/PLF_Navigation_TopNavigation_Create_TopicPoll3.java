@@ -343,7 +343,7 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll3 extends CalendarBase
 		click(nav.ELEMENT_SELECT_FORUM);
 		waitForAndGetElement(ELEMENT_FILTER_FORUM);
 		type(ELEMENT_FILTER_FORUM,searchInput,true);
-		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
+//		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
 		waitForAndGetElement(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum1));
 		waitForAndGetElement(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat1));
 		waitForAndGetElement(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum2));
@@ -355,8 +355,9 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll3 extends CalendarBase
 		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat4));
 
 		//Filter category
+		click(nav.ELEMENT_SELECT_FORUM);
 		type(ELEMENT_FILTER_FORUM,searchCat,true);
-		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
+//		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum1));
 		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat1));
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum2));
@@ -454,7 +455,7 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll3 extends CalendarBase
 		click(nav.ELEMENT_SELECT_FORUM);
 		waitForAndGetElement(ELEMENT_FILTER_FORUM);
 		type(ELEMENT_FILTER_FORUM,searchInput,true);
-		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
+//		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
 		waitForAndGetElement(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum1));
 		waitForAndGetElement(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat1));
 		waitForAndGetElement(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum2));
@@ -467,7 +468,7 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll3 extends CalendarBase
 
 		//Filter category
 		type(ELEMENT_FILTER_FORUM,searchCat,true);
-		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
+//		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum1));
 		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat1));
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum2));

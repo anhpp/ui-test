@@ -677,7 +677,7 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll2 extends CalendarBase
 		mngTopic.addCategoryForumTopic(titleCat2, titleForum2, titleTop2,titleTop2);
 		mngTopic.addCategoryForumTopic(titleCat3, titleForum3, titleTop3,titleTop3);
 		//Lock forum 3
-		mngFru.actionOnForum(2);
+		mngFru.actionOnForum(1);
 		nav.goToHomePage();
 
 		/*Step Number: 1
@@ -793,7 +793,8 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll2 extends CalendarBase
 		click(nav.ELEMENT_SELECT_FORUM);
 		waitForAndGetElement(ELEMENT_FILTER_FORUM);
 		type(ELEMENT_FILTER_FORUM,titleForum3,true);
-		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
+		type(ELEMENT_FILTER_FORUM, Keys.SPACE.toString(), false);
+		type(ELEMENT_FILTER_FORUM, Keys.BACK_SPACE.toString(), false);
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum1));
 		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat1));
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum2));
@@ -877,7 +878,8 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll2 extends CalendarBase
 		click(nav.ELEMENT_SELECT_FORUM);
 		waitForAndGetElement(ELEMENT_FILTER_FORUM);
 		type(ELEMENT_FILTER_FORUM,titleForum3,true);
-		type(ELEMENT_FILTER_FORUM, Keys.ENTER.toString(), false);
+		type(ELEMENT_FILTER_FORUM, Keys.SPACE.toString(), false);
+		type(ELEMENT_FILTER_FORUM, Keys.BACK_SPACE.toString(), false);
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum1));
 		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_ITEM.replace("${catName}", titleCat1));
 		waitForElementNotPresent(ELEMENT_SELECT_FORUM_ITEM.replace("${forumName}", titleForum2));

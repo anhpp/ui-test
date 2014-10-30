@@ -95,7 +95,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		Utils.pause(800);
 			
 		info("Connect with mary ");
-		magAcc.signIn("DATA_USER2", "DATA_PASS");
+		magAcc.signIn(DATA_USER2, DATA_PASS);
 		
 		ba.goToWiki();
 		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
@@ -104,12 +104,12 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		ba.addBlankWikiPage(wikiMary, texteWiki, 0);
 		ba.addSpacePermission(1, userGroupToAddPermission);
 		
-		info("Disconnect Mary");
+//		info("Disconnect Mary");
 		magAcc.signOut();
-		Utils.pause(800);
+//		Utils.pause(800);
 		
 		info("Connect with James ");
-		magAcc.signIn("DATA_USER3", "DATA_PASS");
+		magAcc.signIn(DATA_USER3, DATA_PASS);
 		
 		ba.goToWiki();
 		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
@@ -305,7 +305,8 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		 */
 		click(ELEMENT_QUICK_SEARCH_ICON);
 		Utils.pause(2000);
-		type(ELEMENT_QUICK_SEARCH_TEXTBOX,"3.5",true);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX,"3",true);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX,".5",false);
 		waitForAndGetElement((qsPage.ELEMENT_QUICK_SEARCH_BOX_RESULTS.replace("{$result}", titleWikiPage).replace("{$position}", "1")));
 		/*
 		 * Delete data

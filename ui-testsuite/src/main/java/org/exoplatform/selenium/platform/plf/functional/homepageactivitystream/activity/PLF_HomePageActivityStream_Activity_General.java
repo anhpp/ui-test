@@ -282,7 +282,6 @@ public class PLF_HomePageActivityStream_Activity_General extends Activity{
 		String folderPath = "Personal Documents";
 		String uploadFileName = "upload78611.pdf";
 		String folder = "Folder78611";
-		String contentType = ".pdf";
 		/*
 		- Connect to Intranet with User A
 		- Share an activity
@@ -294,8 +293,9 @@ public class PLF_HomePageActivityStream_Activity_General extends Activity{
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
 		waitForAndGetElement(By.xpath(home.ELEMENT_ACTIVITY.replace("${activityText}", uploadFileName)));
 		//Activity type 
-		waitForAndGetElement(home.ELEMENT_CONTENT_TYPE_PLF41.replace("${activityText}", uploadFileName).replace("${type}", contentType));
+		waitForAndGetElement(home.ELEMENT_CONTENT_TYPE_PLF41.replace("${activityText}", uploadFileName));
 		//delete data
+		mouseOverAndClick(By.xpath("//*[@class='heading']"));
 		home.deleteActivity(uploadFileName);
 		nav.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);

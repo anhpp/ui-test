@@ -5,6 +5,9 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -30,19 +33,20 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
-		acc = new ManageAccount(driver);
-		hg = new HomePageGadget(driver);
-		peopleC = new PeopleConnection(driver);
+		initSeleniumTest();
+		driver.get(baseUrl);
+		acc = new ManageAccount(driver, this.plfVersion);
+		//hg = new HomePageGadget(driver, this.plfVersion);
+		peopleC = new PeopleConnection(driver, this.plfVersion);
 		peopleS = new PeopleSearch(driver);
-		navToolBar = new NavigationToolbar(driver);
-		acc.signIn(DATA_USER1, DATA_PASS);		
+		navToolBar = new NavigationToolbar(driver, this.plfVersion);
+		acc.signIn(DATA_USER1, DATA_PASS);
 	}
 
 	@AfterMethod
 	public void afterTest(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
+//		driver.manage().deleteAllCookies();
+//		driver.quit();
 	}
 
 	/**
@@ -61,7 +65,15 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 		newDriver.navigate().refresh();
 
 		info("USER2: 79683 - Check pop-up information of online user");
-		hg.checkUserInfoOnWhoisOnlineGadget(DATA_USER1, false, "", false, false);
+		waitForAndGetElement(hg.ELEMENT_WHOISONLINE_GADGET,5000,1,2,newDriver);
+		Utils.pause(3000);
+		WebElement myElement =newDriver.findElement(By.xpath(".//*[@class='avatarXSmall' and @href='/portal/intranet/profile/john']"));
+		Actions builder = new Actions(newDriver);
+		builder.moveToElement(myElement).build().perform();
+		info("Confirm user avatar");
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}","john"), 5000, 1, 2, newDriver);
+		info("Confirm user name");
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}", "john"), 5000, 1, 2, newDriver);
 
 		info("USER2: Go to My Connection");
 		navToolBar = new NavigationToolbar(newDriver);
@@ -85,6 +97,7 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 		Utils.pause(500);
 		newDriver.manage().deleteAllCookies();
 		newDriver.quit();
+		this.driver.quit();
 
 	}
 
@@ -110,7 +123,7 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 
 		info("USER2: Switch to other window to login");
 		loginWithAnotherAccOnThesameBrowser(DATA_USER2, DATA_PASS);
-		hg=new HomePageGadget(newDriver);
+		hg=new HomePageGadget(newDriver, this.plfVersion);
 
 		info("USER2: 79686 - Check popup information of online user when receiving a connection request");
 		hg.checkUserInfoOnWhoisOnlineGadget(DATA_USER1, true, activity, true, true);
@@ -123,8 +136,8 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 
 		info("Restore data");
 		info("--Cancel Connection--");
-		peopleC = new PeopleConnection(newDriver);
-		navToolBar = new NavigationToolbar(newDriver);
+		peopleC = new PeopleConnection(newDriver, this.plfVersion);
+		navToolBar = new NavigationToolbar(newDriver, this.plfVersion);
 		navToolBar.goToConnectionPage();
 		peopleS.searchPeople(true,"John Smith");
 		peopleC.removeConnection("John Smith");
@@ -132,6 +145,7 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 		Utils.pause(500);
 		newDriver.manage().deleteAllCookies();
 		newDriver.quit();
+		this.driver.quit();
 	}
 
 	/**
@@ -151,7 +165,7 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 
 		info("USER2: Switch to other window to login");
 		loginWithAnotherAccOnThesameBrowser(DATA_USER2, DATA_PASS);
-		hg=new HomePageGadget(newDriver);
+		hg=new HomePageGadget(newDriver, this.plfVersion);
 		newDriver.navigate().refresh();
 
 		info("USER2: Check updated long status of user acc 1");
@@ -162,8 +176,8 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 
 		info("Restore data");
 		info("--Cancel Connection--");
-		peopleC = new PeopleConnection(newDriver);
-		navToolBar = new NavigationToolbar(newDriver);
+		peopleC = new PeopleConnection(newDriver, this.plfVersion);
+		navToolBar = new NavigationToolbar(newDriver, this.plfVersion);
 		navToolBar.goToConnectionPage();
 		peopleS.searchPeople(true,"John Smith");
 		peopleC.removeConnection("John Smith");
@@ -171,6 +185,7 @@ public class PLF_HomepageGadgets_WhoIsOnline extends Activity {
 		Utils.pause(500);
 		newDriver.manage().deleteAllCookies();
 		newDriver.quit();
+		this.driver.quit();
 	}
 
 	/**@date 24/4/2014

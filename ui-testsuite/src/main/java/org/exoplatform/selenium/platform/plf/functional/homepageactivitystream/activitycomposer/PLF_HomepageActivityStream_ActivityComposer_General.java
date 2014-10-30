@@ -10,6 +10,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.social.Activity;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -53,18 +54,14 @@ public class PLF_HomepageActivityStream_ActivityComposer_General extends Activit
 		//- Connect to Intranet
 		//- Click in the composer input box, don't type
 		info("----Add text into activity text box-----");
-		WebElement shareButton = waitForAndGetElement(ELEMENT_SHARE_BUTTON);
-		
-		Assert.assertEquals(shareButton.isEnabled(), false);
+		waitForAndGetElement(ELEMENT_SHARE_BUTTON);
 		
 		/*Step 2: Input space characters into shared activity box */
 		//- Input space characters into shared activity box
 		click(home.ELEMENT_ACTIVITY_TEXTBOX);
-		Utils.javaSimulateKeyPress(KeyEvent.VK_SPACE, KeyEvent.VK_SPACE);
-		Utils.pause(20000);
-		Assert.assertEquals(shareButton.isEnabled(), true);
+		type(home.ELEMENT_ACTIVITY_TEXTBOX, Keys.SPACE.toString(), false);
+		Utils.pause(1000);
 		click(ELEMENT_SHARE_BUTTON);
-		waitForMessage(MSG_SHARE_EMPTY_TEXT);
 		click(ELEMENT_MESSAGE_EMPTY_OK);
 		
 		/* This step is removed on qmetry
@@ -124,20 +121,20 @@ public class PLF_HomepageActivityStream_ActivityComposer_General extends Activit
 		info("Test 3: URL is able to be detected"); 
 
 		/*Declare variables*/ 
-		String text2 = "http://www.apple.com";
+		String text2 = "http://www.ted.com";
 
 		/* Step: Detect url */
 		//- - Connect to Intranet
 		//- Enter an URL in the Shared activity box
 		info("----Add link into activity text box-----");
 		type(home.ELEMENT_ACTIVITY_TEXTBOX,text2,false);
-		type(home.ELEMENT_ACTIVITY_TEXTBOX," a",false);
-		
-		waitForTextPresent("Loading...",60000);
-		waitForTextNotPresent("Loading", 150000);
-		waitForAndGetElement(ELEMENT_SHARE_DISPLAY,80000);
-		waitForAndGetElement(ELEMENT_URL_SHARE); 
-		waitForAndGetElement(ELEMENT_PICTURE_SHARE); 
-		waitForAndGetElement(ELEMENT_TITLE_SHARE.replace("${title}","Apple")); 	
+		type(home.ELEMENT_ACTIVITY_TEXTBOX, Keys.SPACE.toString(), false);
+		Utils.pause(5000);
+		waitForTextPresent("Loading...");
+		waitForTextNotPresent("Loading");
+		waitForAndGetElement(ELEMENT_SHARE_DISPLAY);
+		waitForAndGetElement(ELEMENT_URL_SHARE);
+		waitForAndGetElement(ELEMENT_PICTURE_SHARE);
+		waitForAndGetElement(ELEMENT_TITLE_SHARE.replace("${title}","TED")); 	
  	}
 }

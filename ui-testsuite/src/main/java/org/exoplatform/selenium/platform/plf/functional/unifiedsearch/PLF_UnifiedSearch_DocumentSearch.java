@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.plf.functional.unifiedsearch;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -165,8 +166,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * 2.d.The location
 	 * 2.e.The last modified date
 	 */
-	@Test(enabled = true)
-	public void test02_DisplayDocInSearPageResult() throws Exception {
+	@Test
+	public void test02_DisplayDocInSearPageResult() {
 
 		// Create data test
 		documentNameDes = "prefix_number";//"document" + " " + prefix_number;
@@ -180,8 +181,15 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 
 		/* Step 2: Quick search */
 		// - Type some text into search box
-		qsPage.quickSearchType(documentNameDes);
-
+		click(By.xpath("//*[@class='uiIconPLF24x24Search']"));
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "prefix_", true);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.SPACE.toString(), false);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.BACK_SPACE.toString(), false);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "number", false);
+		Utils.pause(2000);
 		// - Click on "See all search results" link
 		click(ELEMENT_QUICK_SEARCH_SEE_ALL_SEARCH_RESULTS);
 		// - Uncheck "All content types" checkbox
@@ -193,34 +201,21 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		// ofResults
 		// The document type icon, title, excerpt,location,last modified date
 		info("-- Verify the document icon --");
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_ICON.replace(
-				"${name_document}", documentNameDes));
+		waitForAndGetElement(By.xpath("//div[contains(@class,'resultBox')]/..//*[@class='uiIcon64x64TemplateFolderDefault uiIcon64x64Templateexo_webContent']"));
 
 		info("-- Verify the document title --");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
-						"${name_document}", documentNameDes)).getText()
-				.contains(documentNameDes);
+		waitForAndGetElement(By.xpath((qsPage.ELEMENT_RESULT_TITLE_41).replace("${name}", "prefix")));
 
 		info("-- Verify the document name on excerpt and location --");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT.replace(
-						"${name_document}", documentNameDes)).getText()
-				.contains("Managed Sites");
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT_41.replace("${name_document}", "prefix")).getText().contains("Managed Sites");
 
 		info("-- Verify the document date --");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT.replace(
-						"${name_document}", documentNameDes)).getText()
-				.contains(getCurrentDate("EEEEE, MMMMM d, yyyy"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT_41.replace("${name_document}", "prefix")).getText().contains(getCurrentDate("EEEEE, MMMMM d, yyyy"));
 
 		// - Items in search result is clickable and open it when user click
-		waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
-						"${name_document}", documentNameDes)).click();
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace("${name_document}", "prefix")).click();
 
-		waitForAndGetElement(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
+		waitForAndGetElement(siteExp.ELEMENT_SE_NODE.replace("{$node}","prefix_number"));
 		
 		info("-- Clear data --");
 		// Delete file
@@ -249,8 +244,7 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * 
 	 */
 	@Test(enabled = true)
-	public void test09_NotDisDocFromFloatSearResultIfNotDocTyp()
-			throws Exception {
+	public void test09_NotDisDocFromFloatSearResultIfNotDocTyp() {
 		/* Declare variables */
 		String qsGadget = "Quick Search";
 		String pageName = "QuickSearch70831";
@@ -322,7 +316,7 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * 
 	 */
 
-	@Test(enabled = true)
+	@Test (groups = "error")
 	public void test03_DisplayDocInFloatResultByPertinence() {
 		// Create Data test
 		String prefix_number = getRandomNumber();
@@ -347,21 +341,30 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		Utils.pause(3000);
 
 		// Type some text into search box
-		qsPage.quickSearchType(documentNameDes);
-
+		click(By.xpath("//*[@class='uiIconPLF24x24Search']"));
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "document", true);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.SPACE.toString(), false);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.BACK_SPACE.toString(), false);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, prefix_number, false);
+		Utils.pause(2000);
+		// - Click on "See all search results" link
+		click(ELEMENT_QUICK_SEARCH_SEE_ALL_SEARCH_RESULTS);
+		// - Uncheck "All content types" checkbox
+		uncheck(qsPage.ELEMENT_FILTER_SEARCH_ALL_CONTENTTYE_CHECKBOX, 2);
+		// - Check "Document" checkbox
+		check(qsPage.ELEMENT_FILTER_SEARCH_DOCUMENT_CHECKBOX, 2);
+		
 		// - Verify expected outcome: The documents are displayed in the
 		// Floating Result in the following
 		// order: Doc 1, Doc 2
 		info("-- Verify the order of first document --");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_FLOATING_RESULTS_DOCUMENT_ORDER.replace(
-						"${number_order}", "1")).getText().contains(
-				documentNameDes);
+		waitForAndGetElement(qsPage.ELEMENT_QUICKSEARCH_RESULT.replace("${number}", "0").replace("${name}", documentNameDes));
 
 		info("-- Verify the order of second document--");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_FLOATING_RESULTS_DOCUMENT_ORDER.replace(
-						"${number_order}", "2")).getText().contains(contentDoc);
+		waitForAndGetElement(qsPage.ELEMENT_QUICKSEARCH_RESULT.replace("${number}", "1").replace("${name}", "test pertinence"));
 
 		info("-- Clear data --");
 		// Delete file
@@ -387,9 +390,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * Expected:
 	 * The Document"document" is not displayed in the Floating Result
 	 */
-	@Test(enabled = true)
-	public void test04_NoDisDocFromFloatSearResultWithoutReadPermission()
-			throws Exception {
+	@Test
+	public void test04_NoDisDocFromFloatSearResultWithoutReadPermission() {
 		// Create data test
 		String prefix_number = getRandomNumber();
 		documentNameDes = "document" + " " + prefix_number;
@@ -501,9 +503,9 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 */
 
 	// This test case need to confirm about displaying published document
-	@Test(enabled = true)
+	@Test (groups= "error")
 	public void test06_DisPubDocInNotMemberWCM() {
-		String prefix_number = getRandomNumber();
+		String prefix_number = "104234";
 		documentNameDes = "document" + prefix_number;
 		String documentNameDesNotPublished = "document"
 				+ prefix_number + "not";
@@ -539,7 +541,13 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		magAcc.signIn(DATA_USER4, DATA_PASS);
 
 		// - Type some text into search box
-		qsPage.quickSearchType(documentNameDes);
+		click(By.xpath("//*[@class='uiIconPLF24x24Search']"));
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, documentNameDes, true);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.SPACE.toString(), false);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.BACK_SPACE.toString(), false);
+		Utils.pause(2000);
 
 		// - Click on "See all search results" link
 		click(ELEMENT_QUICK_SEARCH_SEE_ALL_SEARCH_RESULTS);
@@ -549,10 +557,7 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		check(qsPage.ELEMENT_FILTER_SEARCH_DOCUMENT_CHECKBOX, 2);
 
 		info("-- Verify the document in Search results page --");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
-						"${name_document}", documentNameDes)).getText()
-				.contains(documentNameDes);
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace("${name_document}", "document"+prefix_number));
 		
 		info("-- logout normal user and login with admin user --");
 		magAcc.signOut();
@@ -585,7 +590,7 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * 2. The search page is displayed in Edit mode
 	 * 3. Documents having any publication status are returned as search results
 	 */
-	@Test(enabled = true)
+	@Test(groups = "error")
 	public void test07_DisAllDocWithMemberWCM() {
 		String prefix_number = getRandomNumber();
 		documentNameDes = "document" + prefix_number;

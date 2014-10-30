@@ -133,6 +133,7 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 		waitForAndGetElement(homeGad.ELEMENT_UPLOAD_A_DOCUMENT);
 		click(homeGad.ELEMENT_UPLOAD_A_DOCUMENT);
 //		driver.navigate().refresh();
+		click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK);
 		
 		info("79582: Display Home page from Getting started gadget");
