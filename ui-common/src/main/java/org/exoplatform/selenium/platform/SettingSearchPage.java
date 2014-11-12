@@ -264,13 +264,13 @@ public class SettingSearchPage extends PlatformBase {
 				uncheck(ELEMENT_SEARCH_FILES_CHECKBOX, 2);
 		}
 		if (checkboxes.length > 3) {
-			if (checkboxes[4])
+			if (checkboxes[3])
 				check(ELEMENT_SEARCH_WIKI_CHECKBOX, 2);
 			else
 				uncheck(ELEMENT_SEARCH_WIKI_CHECKBOX, 2);
 		}
 		if (checkboxes.length > 4) {
-			if (checkboxes[3])
+			if (checkboxes[4])
 				check(ELEMENT_SEARCH_DOCUMENTS_CHECKBOX, 2);
 			else
 				uncheck(ELEMENT_SEARCH_DOCUMENTS_CHECKBOX, 2);

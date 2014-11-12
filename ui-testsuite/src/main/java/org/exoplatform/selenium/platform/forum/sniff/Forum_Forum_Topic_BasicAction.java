@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info; 
+
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
@@ -60,9 +62,10 @@ public class Forum_Forum_Topic_BasicAction extends ForumBase {
 
 		//Check if topic is created in forum
 		waitForAndGetElement(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
-
+		Utils.pause(3000);
 		//Delete data
 		click(By.linkText(titleCat));
+		Utils.pause(3000);
 		mngCat.deleteCategoryInForum(titleCat, true);
 
 	}

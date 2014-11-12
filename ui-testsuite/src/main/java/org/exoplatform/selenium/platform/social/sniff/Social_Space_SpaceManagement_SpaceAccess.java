@@ -159,7 +159,7 @@ public class Social_Space_SpaceManagement_SpaceAccess  extends SocialBase{
 		//Message is :  You must be invited by an administrator to the Closed space to access this page.
 		info("-- Verify Access Denied page --");
 		waitForAndGetElement(spaceMag.ELEMENT_ACCESS_DENIED_SPACE_PAGE);
-		String verifyText = "You must be invited by an administrator to the "+spaceName+" space to access this page.";
+		String verifyText = "You must be invited by an administrator to the space "+spaceName+" to access this page.";
 		Assert.assertTrue(waitForAndGetElement(spaceMag.ELEMENT_SPACE_ACCESS_INFO).getText().contains(verifyText));
 		
 		/*Clear data*/

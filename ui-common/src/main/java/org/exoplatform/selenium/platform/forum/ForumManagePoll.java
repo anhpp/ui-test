@@ -60,7 +60,7 @@ public class ForumManagePoll extends ForumBase {
 	public final By ELEMENT_SELECT_GROUP = By.xpath("//img[@title='Select Group']");
 	public final By ELEMENT_SELECT_GROUP_1=By.xpath("//*[@data-original-title='Select Group']/i[@class='uiIconAddIcon uiIconLightGray']");
 	public final String ELEMENT_GROUP_PATH = "//a[@class='NodeIcon GroupAdminIcon' and @title='${groupTitle}']";
-	public final By ELEMENT_VOTE_NOW_BUTTON = By.xpath("//*[@id='UIPoll']//button[contains(text(),'Vote Now')]");
+	public final By ELEMENT_VOTE_NOW_BUTTON = By.xpath("//*[@class='btn LightBlueStyle' and contains(text(),'Vote Now')]");
 	public final By ELEMENT_VOTE_AGAIN = By.linkText("Vote Again");
 	public final By ELEMENT_HOME_LINK = By.linkText("Home");
 	public final By ELEMENT_SELECT_THIS_GROUP_LINK = By.linkText("Select this Group");

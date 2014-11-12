@@ -81,29 +81,38 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 	 */
 	@Test
 	public void test02_ChangeSiteConfigOfPortal_FromEditLayout(){
-		String portalName = "Sniffportalnavigation02";
-		String label = "sniff portal lable 02";
-		String description = "sniff portal descriptrion 02";
+		String portalName = "Sniffportalnavigation2";
+		String label = "sniff portal lable 2";
+		String description = "sniff portal descriptrion 2";
 		
 		info("Add new portal");
 		navTool.goToPortalSites();
 		addNewPortal(portalName, null, null, null, null, "On Demand", true, null, "Platform /Content Management ", "*");
+		Utils.pause(30000);
+		driver.navigate().refresh();
+		magAc.signOut();
+		magAc.signIn(DATA_USER1,DATA_PASS);
+		navTool.goToPortalSites();
 		waitForAndGetElement(ELEMENT_PORTAL.replace("${siteName}", portalName));
 		
 		info("Edit layout of portal");
 		goToPortalEditLayout(portalName);
+		Utils.pause(3000);
 		click(ELEMENT_SWITCH_PORTAL_CONFIG);
-		
+		Utils.pause(3000);
 		info("Config portal");	
 		configPortal(null, label, description, "French", null, "Always", true, null, "Development ", "member");
 		pageE.finishEditLayout();
 		
 		info("Check config portal successfully");
 		goToEditSiteConfiguration(portalName);
+		Utils.pause(3000);
 		assert getValue(ELEMENT_PORTAL_LABEL).equalsIgnoreCase(label);
 		assert getValue(ELEMENT_PORTAL_DESCRIPTION).equalsIgnoreCase(description);
 		click(ELEMENT_PERMISSION_SETTING_TAB);
+		Utils.pause(3000);
 		click(ELEMENT_EDIT_PERMISSION_SETTING);
+		Utils.pause(3000);
 		waitForTextPresent("/developers");
 		but.cancel();
 		Utils.pause(1000);

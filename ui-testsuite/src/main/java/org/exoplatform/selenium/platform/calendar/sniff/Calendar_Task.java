@@ -77,6 +77,7 @@ public class Calendar_Task extends CalendarBase {
 		task.checkSuggestionTaskTime("07:00", 30);
 		task.inputDataTask(task1, null, null, null, false, calendar);
 		task.editTask(task1, newTask, note, getDate(0,"MM/dd/yyyy") + " 12:00", getDate(0,"MM/dd/yyyy") + " 13:00", false, "/TestData/Winter.jpg");
+		Utils.pause(3000);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", newTask)));
 
 		task.deleteEventTask(newTask);
@@ -104,6 +105,7 @@ public class Calendar_Task extends CalendarBase {
 		task.checkSuggestionTaskTime("07:00", 30);
 		task.inputDataTask(task1, null, null, null, false, calendar);
 		task.editTask(task1, newTask, note, getDate(0,"MM/dd/yyyy") + " 12:00", getDate(0,"MM/dd/yyyy") + " 13:00", false, "/TestData/Winter.jpg");
+		Utils.pause(3000);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", newTask)));
 
 		task.deleteEventTask(newTask);
@@ -131,6 +133,7 @@ public class Calendar_Task extends CalendarBase {
 		task.checkSuggestionTaskTime("07:00", 30);
 		task.inputDataTask(task1, null, null, null, false, calendar);
 		task.editTask(task1, newTask, note, getDate(0,"MM/dd/yyyy") + " 12:00", getDate(0,"MM/dd/yyyy") + " 13:00", false, "/TestData/Winter.jpg");
+		Utils.pause(3000);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", newTask)));
 
 		task.deleteEventTask(newTask);
@@ -140,7 +143,7 @@ public class Calendar_Task extends CalendarBase {
 	/** 
 	 * Check pop-up reminder of a task
 	 * CaseID: 68654
-	 * PENDING: refer https://jira.exoplatform.org/browse/FQA-1352
+	 * find a solution to check the pop up of the event.
 	 */
 	@Test(groups={"pending"})
 	public void test04_CheckPopupReminderOfTask() {
@@ -157,13 +160,16 @@ public class Calendar_Task extends CalendarBase {
 		task.inputFromToTask(getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 		info("Setting reminder for task");
 		task.gotoSetPopupReminder();
-		click(task.ELEMENT_BUTTON_TASK_SAVE);
+		click(task.ELEMENT_CHECKBOX_POPUP_REMINDER);
+		click(task.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
 
 		info("Check pop-up reminder appear");
 		//TO-DO: need to add confirmation here after finishing setting reminder methods
 
+		
+		
 		info("Restore data");
-		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${taskTitle}", CALENDAR02)));
+		Utils.pause(3000);
 		deleteEventTask(CALENDAR02,selectDayOption.ONEDAY);
 
 	}
@@ -171,9 +177,9 @@ public class Calendar_Task extends CalendarBase {
 	/** 
 	 * Check E-mail reminder of a task
 	 * CaseID: 68655
-	 * PENDING: refer https://jira.exoplatform.org/browse/FQA-1352
+	 * 
 	 */
-	@Test(groups={"pending"})
+	@Test
 	public void test05_CheckEmailReminderOfTask() {
 
 		String CALENDAR03 = "CALENDAR_03";
@@ -194,7 +200,7 @@ public class Calendar_Task extends CalendarBase {
 		info("Setting reminder for task");
 		task.gotoSetEmailReminder();
 		//TO-DO: update after finishing setting reminder methods
-		click(task.ELEMENT_BUTTON_TASK_SAVE);
+		click(task.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
 		Utils.pause(3000);
 
 		info("Check if e-mail is sent");
@@ -204,6 +210,7 @@ public class Calendar_Task extends CalendarBase {
 		switchToParentWindow();
 
 		info("Restore data");
+		Utils.pause(3000);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${taskTitle}", CALENDAR03)));
 		deleteEventTask(CALENDAR03,selectDayOption.ONEDAY);
 	}
@@ -224,6 +231,7 @@ public class Calendar_Task extends CalendarBase {
 		task.addQuickTask(CALENDAR06,CALENDAR06,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 
 		info("Drag & drop a task");
+		Utils.pause(3000);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", CALENDAR06)));
 		dragAndDropToObject(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", CALENDAR06)),ELEMENT_TARGET_DATE);
 
@@ -234,7 +242,7 @@ public class Calendar_Task extends CalendarBase {
 	/** 
 	 * Resize a task
 	 * CaseID: 75250
-	 * PENDING: refer https://jira.exoplatform.org/browse/FQA-1351
+	 *
 	 */
 	@Test(groups={"pending"})
 	public void test07_ResizeTask(){
@@ -247,7 +255,8 @@ public class Calendar_Task extends CalendarBase {
 		task.goToAddTaskFromActionBar();
 		task.inputBasicQuickTask(CALENDAR07,CALENDAR07);
 		task.inputFromToTask(getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
-		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${taskTitle}", CALENDAR07)));
+		Utils.pause(3000);
+		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", CALENDAR07))); // bug
 
 		info("Resize a task to change date-time");
 		//TO-DO: update later
@@ -291,6 +300,7 @@ public class Calendar_Task extends CalendarBase {
 		info("Check default date");
 		String dateFrom = getValue(task.ELEMENT_INPUT_TASK_FROM);
 		String dateTo = getValue(task.ELEMENT_INPUT_TASK_TO);
+		Utils.pause(3000);
 		assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
 		assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
 
@@ -359,6 +369,7 @@ public class Calendar_Task extends CalendarBase {
 		Utils.pause(1000);
 		info("Check To time is automatically set = From Time + 30min");
 		info(getValue(task.ELEMENT_ADD_EDIT_TASK_TO_TIME_IN));
+		Utils.pause(3000);
 		assert getValue(task.ELEMENT_ADD_EDIT_TASK_TO_TIME_IN).equals("12:30");
 
 		/*Step 2: Save
@@ -426,6 +437,7 @@ public class Calendar_Task extends CalendarBase {
 		info("Check default date");
 		String dateFrom = getValue(task.ELEMENT_INPUT_TASK_FROM);
 		String dateTo = getValue(task.ELEMENT_INPUT_TASK_TO);
+		Utils.pause(3000);
 		assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
 		assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
 
@@ -506,6 +518,7 @@ public class Calendar_Task extends CalendarBase {
 		Utils.pause(1000);
 		info("Check To time is automatically set = From Time + 30min");
 		info(getValue(task.ELEMENT_ADD_EDIT_TASK_TO_TIME_IN));
+		Utils.pause(3000);
 		assert getValue(task.ELEMENT_ADD_EDIT_TASK_TO_TIME_IN).equals("10:30");
 
 		/*

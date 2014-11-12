@@ -707,16 +707,20 @@ public class Social_HomePage_Activity extends Activity {
 		//- Check homepage
 		navToolBar.goToHomePage();
 		//- an activity is added into activity stream
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_ACTIVITY_AUTHOR_SPACENAME.replace("${activityText}", spaceName));
 
 		//- Informations displayed in the featured content are :
 		//1. Space's avatar
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_AVATAR_SPACE_ACTIVITY.replace("${activityText}", spaceName));
 
 		//2. Space's description
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_DESCRIPTION_SPACE_ACTIVITY.replace("${activityText}", spaceName).replace("${description}", spaceDesc));
 
 		//3. Number of members.
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_NUMBER_MEMBER_SPACE_ACTIVITY.replace("${activityText}", spaceName).replace("${numbermember}", "1"));
 
 		/*Step 2: - Invite other user*/
@@ -724,12 +728,14 @@ public class Social_HomePage_Activity extends Activity {
 		//- Click [select user] icon and select  user B  to invite
 		//- Click [Invite] Icon
 		//- User is added into the table below and status in [Actions] column is [Cancel request]
+		Utils.pause(1000);
 		magMember.managerInviteUserToJoinSpace(userType.ADMIN,spaceName,userType.PUBLISHER,false);
 
 		/*Step 3: - User B join space*/
 		//- Log in as user B
 		//- Click [Join a space]
 		//- Click [accept] to join the space
+		Utils.pause(3000);
 		magMember.userAcceptInvitationToJoinSpace(true,userType.PUBLISHER,spaceName);
 
 		//- Check homepage

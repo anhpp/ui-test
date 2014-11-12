@@ -263,9 +263,9 @@ public class PLF_UnifiedSearch extends Template {
 		//On filter area, click on fields that you want to search
 		uncheck(qsPage.ELEMENT_FILTER_SEARCH_SPACE_CHECKBOX,2);
 		//The page will search only selected fields for results
-		waitForElementNotPresent(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "S"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "W"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "C"));
+		waitForElementNotPresent(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText+"S"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText+"W"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText+"C"));
 
 		/*clear data*/
 		info("-- Clear data --");

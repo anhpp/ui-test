@@ -64,8 +64,7 @@ public class Forum_Administration extends ForumBase {
 		addBBCode(tag, replace, description, example, false);
 		editBBcode(tag, tagnew, replaceUpdate, descriptionUpdate, exampleUpdate, true);
 		deleteBBcode(tagnew);
-		click(ELEMENT_BBCODE_CLOSE_BUTTON);
-		waitForElementNotPresent(ELEMENT_BBCODE_CLOSE_BUTTON);
+
 	}
 	
 	/**CaseId: 68917 -> Ban IP

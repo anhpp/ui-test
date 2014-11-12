@@ -26,6 +26,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.calendar.CalendarBase;
@@ -53,6 +54,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		acc.signIn(DATA_USER1, DATA_PASS);
 		button = new Button(driver, plfVersion);
 		goToCalendarPage();
+		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 	}
 
 	@AfterMethod
@@ -112,9 +114,11 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		 *Expected Outcome: 
 			- Edit form appears
 			- Attachment is deleted*/ 
+		Utils.pause(3000);
 		event.goToEditEventForm(name);
 		click(event.ELEMENT_ADD_EVENT_DELETE_ATTACH.replace("${file}", "English.docx"));
 		waitForElementNotPresent(event.ELEMENT_ADD_EVENT_FILE_ATTACHED);
+		Utils.pause(3000);
 		click(event.ELEMENT_ADD_EVENT_SAVE_BUTTON);
 
 		event.deleteEventTask(name);
@@ -136,7 +140,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		String mainHandle = driver.getWindowHandle();
 		acc.userSignIn(userType.PUBLISHER);
 		acc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
-		acc.userSignIn(userType.ADMIN);
+		acc.userSignIn(userType.ADMIN); 
 		goToCalendarPage();
 		/*Step Number: 12
 		 *Step Name: Step 1: Open add/edit event pop up
@@ -168,6 +172,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		click(event.ELEMENT_ADD_EVENT_MORE_DETAILS_BUTTON);
 		event.inputParticipantTab("mary",2,1,2);
 		click(event.ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		Utils.pause(3000);
 		acc.userSignIn(userType.PUBLISHER);
 		goToCalendarPage();
 
@@ -177,22 +182,22 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		 * If the participants agree to participate (by clicking Yes in their received invitation emails), their statuses will be yes.
 		 * If the participants do not agree to participate (by clicking No), their statuses will be no.
 		 * If the participants have not decided to take part in the event (by clicking Not sure), their statuses will be pending.*/
-
+		Utils.pause(3000);
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		String mailHandle = driver.getWindowHandle();
-
+		Utils.pause(3000);
 		click(By.xpath(ELEMENT_GMAIL_TITLE.replace("{$title}", "[Invitation] "+ name)),300000);
 		click(By.linkText("Yes"));
 
 		/*Case ID:111858.
 		 * - Event is saved with new privacy option */
 		driver.switchTo().window(mainHandle);
-
+		Utils.pause(3000);
 		event.goToEditEventForm(name);
 		click(event.ELEMENT_PARTICIPANTS_TAB);
 		info("check is "+waitForAndGetElement(event.ELEMENT_PARTICIPANT_PRIVATE_RADIO,DEFAULT_TIMEOUT,1,2).getAttribute("checked"));
-		assert waitForAndGetElement(event.ELEMENT_PARTICIPANT_PRIVATE_RADIO,DEFAULT_TIMEOUT,1,2).getAttribute("checked").equalsIgnoreCase("true");
-		assert waitForAndGetElement(event.ELEMENT_PARTICIPANT_STATUS.replace("${user}", "Mary Williams")).getText().contains("Yes");
+		waitForAndGetElement(event.ELEMENT_PARTICIPANT_PRIVATE_RADIO,DEFAULT_TIMEOUT,1,2).getAttribute("checked").equalsIgnoreCase("true");
+		waitForAndGetElement(event.ELEMENT_PARTICIPANT_STATUS.replace("${user}", "Mary Williams")).getText().contains("Yes");
 		click(event.ELEMENT_ADD_DETAIL_EVENT_CLOSE);
 
 		driver.switchTo().window(mailHandle);
@@ -201,7 +206,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		driver.switchTo().window(mainHandle);
 		event.goToEditEventForm(name);
 		click(event.ELEMENT_PARTICIPANTS_TAB);
-		assert waitForAndGetElement(event.ELEMENT_PARTICIPANT_STATUS.replace("${user}", "Mary Williams")).getText().contains("Pending");
+		waitForAndGetElement(event.ELEMENT_PARTICIPANT_STATUS.replace("${user}", "Mary Williams")).getText().contains("Pending");
 		click(event.ELEMENT_ADD_DETAIL_EVENT_CLOSE);
 
 		driver.switchTo().window(mailHandle);
@@ -210,7 +215,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		driver.switchTo().window(mainHandle);
 		event.goToEditEventForm(name);
 		click(event.ELEMENT_PARTICIPANTS_TAB);
-		assert waitForAndGetElement(event.ELEMENT_PARTICIPANT_STATUS.replace("${user}", "Mary Williams")).getText().contains("No");
+		waitForAndGetElement(event.ELEMENT_PARTICIPANT_STATUS.replace("${user}", "Mary Williams")).getText().contains("No");
 		click(event.ELEMENT_ADD_DETAIL_EVENT_CLOSE);
 
 		event.deleteEventTask(name);
@@ -312,6 +317,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 			- John is displayed in list with busy time is same as event created at step 1*/ 
 		acc.userSignIn(userType.PUBLISHER);
 		goToCalendarPage();
+		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 		event.addQuickEvent(name, name, from, to, false);
 		acc.userSignIn(userType.ADMIN);
 		goToCalendarPage();
@@ -321,6 +327,7 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		event.inputParticipantTab("mary", 2);
 
 		click(event.ELEMENT_SCHEDULE_TAB);
+		Utils.pause(3000);
 		assert waitForAndGetElement(event.ELEMENT_SCHEDULE_TIME.replace("${user}", "mary").replace("${index}", "38")).getAttribute("class")
 		.contains("busyDotTime"):"Wrong busy time";
 		assert waitForAndGetElement(event.ELEMENT_SCHEDULE_TIME.replace("${user}", "mary").replace("${index}", "39")).getAttribute("class")

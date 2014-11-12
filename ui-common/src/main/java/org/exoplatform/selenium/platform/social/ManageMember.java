@@ -773,7 +773,9 @@ public class ManageMember extends SpaceManagement {
 	 */
 	public void leaveFromSpace(String spaceName,String userName){
 		goToMySpacePage();
+		Utils.pause(2000);
 		doAction("Leave", spaceName);
+		Utils.pause(2000);
 		waitForElementNotPresent(By.xpath(ELEMENT_LEFT_PANEL_SPACE_ITEM.replace("${spaceName}", spaceName)));
 	}
 

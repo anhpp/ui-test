@@ -371,12 +371,11 @@ public class Social_People extends SocialBase {
 
 		/*Step 1: View Connections list*/ 
 		//Click on name or avatar
-		peoPro.goToUserProfile(user);
-
-		//Click on My network tab
-		click(peoConn.ELEMENT_CONNECTION_OF_USER);
 		click(peoConn.ELEMENT_MY_CONNECTIONS_TAB);
-
+		click(By.linkText(user));
+		
+		//Click connection of user
+		click(peoConn.ELEMENT_CONNECTION_OF_USER);
 		//Display user's relation
 		waitForAndGetElement(peoConn.ELEMENT_PEOPLE_SEARCH.replace("${peopleName}", user1));
 		waitForAndGetElement(peoConn.ELEMENT_PEOPLE_SEARCH.replace("${peopleName}", user2));

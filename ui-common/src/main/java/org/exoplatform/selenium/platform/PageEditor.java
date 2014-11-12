@@ -71,8 +71,10 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_CONTENT_SEARCH_FORM_TAB = By.xpath("//div[@class='MiddleTab' and text() = 'Content Search Form']");
 	public final By ELEMENT_MULTI_CONTENT_SELECT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Multiple Content Selector Pane']");
 	public final By ELEMENT_CONTENT_ADD_PATH = By.xpath("//i[@class='uiIconAddPath uiIconLightGray']");
+	public final By ELEMENT_BY_CONTENT_MODE=By.xpath("//*[contains(text(),'By Content')]");
 	public final String ELEMENT_CONTENT_BROWSER_NODE = "//span[@class='nodeName' and contains(text(), '${node}')]";
 	public final String ELEMENT_PORTLET_DRAGGED = "//div[contains(@class,'portletLayoutDecorator') and contains(text(),'${portlet}')]";
+	
 		
 	//Add Path > Right Workspace 
 	public final String ELEMENT_RIGHT_WORKSPACE_NODE = "//*[@class='rightWorkspace']//*[text()='${node}']";
@@ -239,7 +241,8 @@ public class PageEditor extends PlatformBase {
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		String[] node = path.split("/");
 		for (int i = 0; i < node.length; i ++){
-			click(By.xpath("//*[@data-original-title='" + node [i] + "']"));
+			Utils.pause(3000);
+			click(By.xpath(".//*[@class='node']//*[contains(text(),'" + node [i] + "')]"));
 		}
 		click(ELEMENT_SELECT_CLV_PATH);
 		if (mode.length >0){ 
@@ -304,6 +307,7 @@ public class PageEditor extends PlatformBase {
 					click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 				}
 			}
+
 			waitForAndGetElement(By.xpath("//*[@id='BreadcumbsContainer']//*[@class='uiIconHome uiIconLightGray']"));
 			/*info("-- Load frame 1 --");
 			if(waitForAndGetElement(By.id("UIContentSelectorOne"),DEFAULT_TIMEOUT,0)==null){
@@ -326,9 +330,12 @@ public class PageEditor extends PlatformBase {
 					 isExpandIconA = waitForAndGetElement(pathToSelectA).getAttribute("class").equalsIgnoreCase("expandIcon");
 				
 				if(isExpandIcon || isExpandIconA)
-					click(By.linkText(pathNames[i]));				
+					click(By.linkText(pathNames[i]));
+				info("oki1");
 			}
+			info("oki2");
 			click(ELEMENT_RIGHT_WORKSPACE_NODE.replace("${node}", pathNames[pathNames.length - 1]));
+			info("oki");
 			//wait 1s
 			Utils.pause(1000);
 			button.save();
@@ -342,6 +349,7 @@ public class PageEditor extends PlatformBase {
 				button.close();
 				waitForElementNotPresent(button.ELEMENT_CLOSE_BUTTON);
 			}
+
 		}
 		else{
 			selectContentPath(contentPath);

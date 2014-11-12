@@ -157,7 +157,9 @@ public class DashBoard extends PlatformBase {
 	public void dragDropGadget(String gadget){
 		info("Drag drop " + gadget + " gadget to dashboard");
 		click(ELEMENT_ADD_GADGETS_LINK);
+		Utils.pause(1000);
 		dragAndDropToObject(By.xpath(ELEMENT_GADGET_NAME.replace("${name}", gadget)), ELEMENT_GADGET_CONTAINER);
+		Utils.pause(1000);
 		waitForAndGetElement(ELEMENT_GADGET_ON_CONTAINER.replace("${name}", gadget));
 	}
 

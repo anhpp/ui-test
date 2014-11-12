@@ -256,7 +256,7 @@ public class Activity extends SocialBase {
 		{
 			if(selectFileName!=""){
 				click(By.linkText(selectFileName));
-				waitForAndGetElement(ecms.ELEMENT_BREADCUMBSCONTAINER.replace("${fileName}", selectFileName));
+				waitForAndGetElement(ecms.ELEMENT_LISTRECORDS.replace("${fileName}", selectFileName));
 				Utils.pause(500);
 			}
 		}

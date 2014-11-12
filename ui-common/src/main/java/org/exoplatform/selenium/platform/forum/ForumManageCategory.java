@@ -246,8 +246,9 @@ public class ForumManageCategory extends ForumBase {
 	 */
 	public void deleteCategoryInForum(String title, boolean...verify){
 		boolean check = verify.length > 0 ? verify[0] : true;
-
+		Utils.pause(2000);
 		click(ELEMENT_MANAGE_CATEGORY);
+		Utils.pause(2000);
 		info("Delete category");
 		if(plfVersion =="4.1"){
 			click (ELEMENT_DELETE_CATEGORY_PLF4_1);

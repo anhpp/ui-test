@@ -57,8 +57,10 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 	/**
 	 * CaseID: 75281
 	 * Edit a poll
+	 * Edit form of poll does not display
+	 * Jira : https://jira.exoplatform.org/browse/FORUM-998
 	 */
-	@Test
+	@Test(groups="pending")
 	public void test01_EditPoll(){
 		String titleCat = "Category 01";
 		String titleForum = "Forum 01";

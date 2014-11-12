@@ -90,9 +90,9 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		insertTable2WikiPage("2", "2");
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		//waitForAndGetElement(By.xpath("//a[@title='Go to pageLink' and contains(text(), 'Link to pageLink')]"));
-		//waitForAndGetElement(activity.ELEMENT_CONTENT_NAME.replace("@{fileName}", "Go to pageLink"));
-		waitForAndGetElement(By.linkText("Link to pageLink"));
+//		waitForAndGetElement(By.xpath("//a[@title='Go to pageLink' and contains(text(), 'Link to pageLink')]"));
+//		waitForAndGetElement(activity.ELEMENT_CONTENT_NAME.replace("@{fileName}", "Go to pageLink"));
+		waitForAndGetElement(By.linkText("PageLink"));
 		waitForAndGetElement(By.xpath("//*[@style='color:red;' and contains(text(),'" + message + "')]"));
 
 		info("Edit page");
@@ -182,9 +182,9 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	}
 
 	/**CaseId: 70336 -> Resume a draft with save as normal
-	 * pending because issue WIKI-493
+	 * 
 	 */
-	@Test (groups = {"error"})
+	@Test
 	public void test07_ResumeDraft(){
 		String title = "Wiki_manage_page_title_07";
 		String content = "Wiki_manage_page_content_07";
@@ -194,10 +194,11 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 
 		goToAddBlankPage();
 		addWikiPageSourceEditor(title, content);
-		Utils.pause(30000);
+		Utils.pause(32000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
 
 		goToManageDraft();
+		Utils.pause(3000);
 		waitForAndGetElement(draftTitle);
 
 		click(draftTitle);
@@ -205,6 +206,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 
 		goToManageDraft();
+		Utils.pause(3000);
 		waitForElementNotPresent(draftTitle);
 
 		goToWikiHome();
@@ -332,9 +334,9 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	 */
 	@Test
 	public void test12_01_RenamePageInLine(){
-		String title = "Wiki_manage_page_title_12_01";
-		String content = "Wiki_manage_page_content_12_01";
-		String newTitle = "Wiki_manage_page_title_12_01_update";
+		String title = "Wiki_manage__12_01";
+		String content = "Wiki_manage_t_12_01";
+		String newTitle = "Wiki_manage_12_01_update";
 
 		info("Add new wiki page");	
 		addBlankWikiPage(title, content, 0);
@@ -342,6 +344,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		info("Rename page");
 		doubleClickOnElement(ELEMENT_PAGE_TITLE_INFO);
 		type(ELEMENT_PAGE_TITLE_EDIT_TEXTBOX, newTitle, true);
+		Utils.pause(2000);
 		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
 
 		waitForTextPresent(newTitle);

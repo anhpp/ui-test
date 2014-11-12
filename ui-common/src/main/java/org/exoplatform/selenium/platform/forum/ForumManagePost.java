@@ -698,7 +698,7 @@ public class ForumManagePost extends ForumBase {
 			inputDataToFrameInFrame(ELEMENT_POST_MESSAGE_FRAME_1,
 					ELEMENT_POST_MESSAGE_FRAME_2, content, false);
 		else
-			inputDataToFrame(ELEMENT_POST_MESSAGE_FRAME_CKEDITOR, content);
+			waitForAndGetElement(ELEMENT_POST_MESSAGE_FRAME_CKEDITOR).sendKeys(content);
 		switchToParentWindow();
 
 		click(magTopic.ELEMENT_SUBMIT_BUTTON);

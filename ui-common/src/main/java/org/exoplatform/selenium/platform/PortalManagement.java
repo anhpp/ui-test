@@ -114,6 +114,7 @@ public class PortalManagement extends PlatformBase {
 	public void goToPortalEditLayout(String portalName){
 		info("Go to edit layout of portal" + portalName);
 		click(ELEMENT_PORTAL_EDIT_LAYOUT.replace("${siteName}", portalName));
+		Utils.pause(3000);
 		waitForAndGetElement(ELEMENT_EDIT_INLINE_COMPOSER);
 	}
 

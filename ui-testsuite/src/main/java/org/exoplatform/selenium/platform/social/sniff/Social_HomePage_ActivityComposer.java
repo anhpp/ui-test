@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -116,6 +117,7 @@ public class Social_HomePage_ActivityComposer extends Activity {
 		//Upload a file to the driverName/folderPath
 		info("Go to Persional Documents");
 		navToolBar.goToPersonalDocuments();
+		Utils.pause(2000);
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "Admin", "Admin");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.goToAddNewContent();

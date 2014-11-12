@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.social.Activity;
@@ -166,6 +167,7 @@ public class Social_Space_MemberManagement extends Activity{
 		//- Go to My space page
 		//- Select a space and Click on Leave button on space
 		//- Space is disappeared from list and moved to All spaces list, user is not member of space
+		Utils.pause(3000);
 		magMember.leaveFromSpace(spaceName, user1);
 
 		/*Clear data*/
@@ -191,14 +193,17 @@ public class Social_Space_MemberManagement extends Activity{
 
 		/*Step 1: Remove user*/ 
 		//- Invite a user become member of space
+		Utils.pause(3000);
 		magMember.managerInviteUserToJoinSpace(userType.ADMIN,spaceName,userType.PUBLISHER,false);
 		//- User accept invitation
 		//- User become member of Space
+		Utils.pause(3000);
 		magMember.userAcceptInvitationToJoinSpace(true,userType.PUBLISHER,spaceName);
 
 		//- Managers of space go to Space settings -> member
 		//- Select user and click on Remove icon
 		//- User is remove out space. User is not display on Member list
+		Utils.pause(3000);
 		magMember.managerRemoveMemberFromSpace(userType.ADMIN, spaceName, user1);
 
 		/*Clear data*/

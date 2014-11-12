@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationManagement;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -440,9 +441,9 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 	 * 
 	 * Qmetry ID: 70612
 	 * Delete container when edit page properties of node
-	 * 
+	 * Error: Selenium can't select the right layout. ( mouse over )
 	 */
-	@Test
+	@Test(groups={"error"})
 	public void test00_AddEditMoveAndDeleteContainerWhenEditPagePropertiesOfNode(){
 		String portalName = "intranet";
 		String nodeLink = ELEMENT_NODE_LINK.replace("${nodeLabel}", "Documents");
@@ -464,7 +465,11 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		click(ELEMENT_SWITCH_VIEW_MODE);
 
 		info("Edit a container...");
-		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
+		click(pageEditor.ELEMENT_CONTAINER_TAB);
+		Utils.pause(3000);
+		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT_NEW, true);
+		Utils.pause(3000);
+		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT_NEW, true);
 		click(ELEMENT_EDIT_CONTAINER_ICON);
 		waitForAndGetElement(ELEMENT_CONTAINER_SETTING_TAB);
 		type(ELEMENT_CONTAINER_TITLE, containerTitle, true);

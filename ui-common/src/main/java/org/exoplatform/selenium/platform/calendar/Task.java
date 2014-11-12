@@ -155,7 +155,6 @@ public class Task extends CalendarBase{
 		Utils.pause(3000);
 		click(ELEMENT_TAB_REMINDER);
 		Utils.pause(3000);
-		click(ELEMENT_CHECKBOX_POPUP_REMINDER);
 	}
 
 	/**

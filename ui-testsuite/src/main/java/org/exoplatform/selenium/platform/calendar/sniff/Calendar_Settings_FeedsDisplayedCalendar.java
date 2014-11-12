@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.calendar.CalendarBase;
 import org.exoplatform.selenium.platform.calendar.Event;
@@ -120,16 +121,16 @@ public class Calendar_Settings_FeedsDisplayedCalendar extends CalendarBase{
 
 		info("--Add event--");
 		evt.addQuickEvent(eventName,eventName,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),false);
-
+		Utils.pause(3000);
 		info("--Add new feeds --");
 		addFeeds(namefeed, userGroup,2);
-
+		Utils.pause(3000);
 		info("--edit feeds--");
 		editFeeds(namefeed,newfeed, userGroup, 2);
-
+		Utils.pause(3000);
 		info("--Delete feeds--");
 		deleteFeeds(newfeed);
-
+		Utils.pause(3000);
 		info("--Delete event--");
 		deleteEventTask(eventName, selectDayOption.ONEDAY);
 	}

@@ -75,7 +75,7 @@ public class PLF_HomePageGadget_InvitationGadget extends Activity{
 		String number_gadget = "4";
 		String status = "Private Space";
 		String eInvitationUser;
-		String username = "test75079";
+		String username = "test75079_1";
 		String pass = "gtngtn";
 		String name = "TestMot";
 
@@ -95,7 +95,7 @@ public class PLF_HomePageGadget_InvitationGadget extends Activity{
 		magMember.addNewSpace(spaceName1, "");
 		magMember.managerInviteUserToJoinSpace(userType.PUBLISHER,spaceName1,userType.NEW_USER,false, name);
 		navToolBar.goToConnectionPage();
-		peoConn.connectPeople(name + " " + name);
+		peoConn.connectPeople(name);
 		acc.signOut();
 
 		//Demo request connect and invite user in space
@@ -104,7 +104,7 @@ public class PLF_HomePageGadget_InvitationGadget extends Activity{
 		magMember.addNewSpace(spaceName2, "");
 		magMember.managerInviteUserToJoinSpace(userType.PUBLISHER,spaceName2,userType.NEW_USER,false, name);
 		navToolBar.goToConnectionPage();
-		peoConn.connectPeople(name + " " + name);
+		peoConn.connectPeople(name);
 		acc.signOut();
 		
 		//Login with new user check invitation gadget

@@ -54,8 +54,11 @@ public class Gatein_Dashboard extends DashBoard {
 	@Test
 	public void test01_DragDropGadget_DeleteGadget(){
 		navTool.goToDashboard();
+		Utils.pause(3000);
 		dragDropGadget("Services Management");
+		Utils.pause(3000);
 		click(ELEMENT_CLOSE_ADD_GADGET_WINDOW);
+		Utils.pause(3000);
 		actionOnGadgetOnDashboard("Services Management","Delete Gadget");
 	}
 

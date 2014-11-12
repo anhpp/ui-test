@@ -575,10 +575,12 @@ public class ActionBar extends EcmsBase{
 		String tab = (String) (params.length > 1 ? params[1] : "Authoring");
 		WebElement element = waitForAndGetElement(eItem, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		Utils.pause(2000);
 		if (element != null){
 			info(item + " tab is already displayed --");
 		}else if (more != null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			Utils.pause(2000);
 			if (waitForAndGetElement(eItem, 5000, 0) != null){
 				info(item + " tab is already displayed --");
 			}else{
@@ -588,6 +590,7 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}else {
+			Utils.pause(2000);
 			magView.setup2ShowViewAction(item, view, tab);
 			magAcc.signOut();
 			magAcc.signIn(DATA_USER1, DATA_PASS);

@@ -330,6 +330,7 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON = ".//*[@id='PermissionInfo']//a/strong[contains(text(),'${nameMess}')]//..//..//../td/a[@class='actionIcon']";
 	public final String ELEMENT_PRIVATE_MESSAGE_REPLY_ICON = "//*[text()='${message}']//ancestor::tr//i[@class='uiIconReply uiIconLightGray' and @data-original-title='Reply Message']";
 	public final String ELEMENT_PRIVATE_MESSAGE_DELETE_ICON = ".//*[@id='PermissionInfo']//a/strong[contains(text(),'${nameMess}')]//..//..//..//i[@class='uiIconDelete uiIconLightGray']";
+	public final String ELEMENT_PRIVATE_MESSAGE_DELETE_ICON_INBOX = ".//*[@id='PermissionInfo']//a[contains(text(),'${nameMess}')]//..//..//..//i[@class='uiIconDelete uiIconLightGray']";
 	public final String ELEMENT_PRIVATE_MESSAGE = "//form[@id='UIPrivateMessageForm']//td//*[text()='${message}']";
 	public final String ELEMENT_PRIVATE_MESSAGE_CONTENT = "//div[@id='UIListInBoxPrivateMessage']//p[contains(text(),'${message}')]";
 
@@ -1462,10 +1463,22 @@ public class ForumBase extends PlatformBase {
 	 *
 	 * @author thuntn
 	 * @param titleMessage
+	 * @param if read =true, delete a read message, if false, delete a not read message
 	 */
-	public void deletePrivateMessage(String titleMessage){
+	public void deletePrivateMessage(String titleMessage, boolean...read){
 		info("Delete message");
-		click(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON.replace("${nameMess}",titleMessage ));
+		
+		if (read.length > 0) {
+			if (read[0])
+				click(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON_INBOX.replace("${nameMess}",titleMessage ));
+			else
+				click(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON.replace("${nameMess}",titleMessage ));
+		}else
+		{
+			click(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON.replace("${nameMess}",titleMessage ));
+		}
+		
+		
 		waitForMessage(MSG_PRIVATE_MESSAGE_DELETE);
 		click(ELEMENT_PRIVATE_MESSAGE_DELETE_OK);
 		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_DELETE_OK);
@@ -1481,7 +1494,7 @@ public class ForumBase extends PlatformBase {
 		info("Forward a private message");
 
 		click(ELEMENT_PRIVATE_MESSAGE_SENT_TAB);
-		click(ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON.replace("${message}", titleMessage));
+		click(ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON.replace("${nameMess}", titleMessage));
 		inputPrivateMessage(receiver, null, fwdMessage);
 		waitForMessage(MSG_PRIVATE_MESSAGE_COMPOSE);
 		click(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);

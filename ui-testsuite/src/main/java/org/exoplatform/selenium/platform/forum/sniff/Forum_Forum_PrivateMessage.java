@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.testng.annotations.AfterMethod;
@@ -46,7 +48,7 @@ public class Forum_Forum_PrivateMessage extends ForumBase{
 		//Check if receiver can receive the message
 		loginForum(DATA_USER2);
 		goToPrivateMessage();
-		checkPrivateMessage(message, contentMessage);
+
 		deletePrivateMessage(message);
 
 		//Delete message
@@ -77,7 +79,7 @@ public class Forum_Forum_PrivateMessage extends ForumBase{
 		//Check if user1 can receive the reply message
 		loginForum(DATA_USER1);
 		goToPrivateMessage();
-		checkPrivateMessage("Reply:" + message, replyMessage);
+
 
 		//Delete data
 		deletePrivateMessage("Reply:" + message);
@@ -88,6 +90,7 @@ public class Forum_Forum_PrivateMessage extends ForumBase{
 		goToPrivateMessage();
 		deletePrivateMessage(message);
 		click(ELEMENT_PRIVATE_MESSAGE_SENT_TAB);
+		Utils.pause(3000);
 		deletePrivateMessage("Reply:" + message);
 	}
 
@@ -112,22 +115,25 @@ public class Forum_Forum_PrivateMessage extends ForumBase{
 		loginForum(DATA_USER2);
 		goToPrivateMessage();
 		checkPrivateMessage("Forward:" + message, fwdMessage);
-		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE_CONTENT.replace("${message}", contentMessage));
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE_CONTENT.replace("${message}", fwdMessage));
 
 		//Delete data
-		deletePrivateMessage("Forward:" + message);
+		deletePrivateMessage("Forward:" + message,true);
 
 		//Check if demo can receive the message and delete data
 		loginForum(DATA_USER4);
 		goToPrivateMessage();
+		Utils.pause(3000);
 		deletePrivateMessage(message);
 
 		//Delete data
 		loginForum(DATA_USER1);
 		goToPrivateMessage();
 		click(ELEMENT_PRIVATE_MESSAGE_SENT_TAB);
-		deletePrivateMessage(message);
+		Utils.pause(3000);
 		deletePrivateMessage("Forward:" + message);
+		Utils.pause(3000);
+		deletePrivateMessage(message);
 	}
 
 	public void loginForum(String user){

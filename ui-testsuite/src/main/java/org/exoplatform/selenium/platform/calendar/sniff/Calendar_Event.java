@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.openqa.selenium.By;
 import org.exoplatform.selenium.Utils;
 import org.testng.annotations.AfterMethod;
@@ -199,7 +200,6 @@ public class Calendar_Event extends CalendarBase {
 		String CAL_03 = "calendar_99379";
 		String EVENT_CATEGORY = "All";
 		String USER_GROUP = "root";
-		String USER_GROUP_PASS = DATA_PASS;
 		String CAL_GROUP = "/platform/administrators";
 		String newEvent = "event_99379_update";
 		String note = "Update new event";
@@ -211,7 +211,8 @@ public class Calendar_Event extends CalendarBase {
 		acc.signOut();
 
 		info("Add event with user in group");
-		acc.signIn(USER_GROUP, USER_GROUP_PASS);
+		acc.userSignIn(userType.ROOT);
+		Utils.pause(2000);
 		goToCalendarPage();
 		evt.goToAddEventFromCalendar(CAL_03);
 		evt.checkSuggestionEventTime(null, 60);

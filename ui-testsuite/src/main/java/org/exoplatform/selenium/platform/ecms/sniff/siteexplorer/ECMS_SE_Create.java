@@ -45,7 +45,7 @@ public class ECMS_SE_Create extends PlatformBase {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		template = new ContentTemplate(driver,this.plfVersion);
-		actBar = new ActionBar(driver,this.plfVersion);
+		actBar = new ActionBar(driver);
 		magAcc = new ManageAccount(driver,this.plfVersion);
 		navToolBar = new NavigationToolbar(driver,this.plfVersion);
 		cMenu = new ContextMenu(driver,this.plfVersion);
@@ -116,6 +116,7 @@ public class ECMS_SE_Create extends PlatformBase {
 		
 		info("Delete web content");
 		cMenu.deleteData(elementWeb);
+		Utils.pause(3000);
 		
 		info("Restore data");
 		actBar.undoDeletion(name);

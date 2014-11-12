@@ -70,7 +70,9 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		mngTopic.actionOnTopic(4);
 
 		//Delete data
+		Utils.pause(3000);
 		click(By.linkText(titleCat));
+		Utils.pause(3000);
 		mngCat.deleteCategoryInForum(titleCat, true); 
 	}
 
@@ -87,11 +89,13 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
+		Utils.pause(3000);
 		mngTopic.voteTopic(2,true);
-
+		Utils.pause(3000);
 
 		//Delete data
 		click(By.linkText(titleCat));
+		Utils.pause(3000);
 		mngCat.deleteCategoryInForum(titleCat, true); 
 	}
 

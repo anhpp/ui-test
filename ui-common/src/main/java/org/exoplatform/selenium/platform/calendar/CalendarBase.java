@@ -869,7 +869,6 @@ public class CalendarBase extends PlatformBase {
 		click(ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH);
 		info("----Confirm search result displayed----");
 		Utils.pause(3000);
-		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 	}
 
 	/** 

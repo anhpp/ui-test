@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.social.ApplicationManagement;
@@ -68,16 +69,22 @@ public class PLF_Navigation_SpaceNavigation extends PlatformBase {
 		//- All applications dedicated to the space are shown on space menu
 		//- Click on each applications, the application will show up in the main page
 		spaceMag.goToSpaceMenu("Activity Stream");
+		Utils.pause(1000);
 		waitForAndGetElement(spaceMag.ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET);
 		spaceMag.goToSpaceMenu("Forums");
+		Utils.pause(1000);
 		waitForAndGetElement(spaceMag.ELEMENT_SPACE_FORUM_PORTLET);
 		spaceMag.goToSpaceMenu("Wiki");
+		Utils.pause(1000);
 		waitForAndGetElement(spaceMag.ELEMENT_SPACE_WIKI_PORTLET);
 		spaceMag.goToSpaceMenu("Documents");
+		Utils.pause(1000);
 		waitForAndGetElement(spaceMag.ELEMENT_SPACE_DOCUMENTS_PORTLET);
 		spaceMag.goToSpaceMenu("Space Setting");
+		Utils.pause(1000);
 		waitForAndGetElement(spaceMag.ELEMENT_SPACE_SETTING_PORTLET);
 		spaceMag.goToSpaceMenu("Members");
+		Utils.pause(1000);
 		waitForAndGetElement(spaceMag.ELEMENT_SPACE_MEMBER_PORTLET);
 
 		/*Clear data*/

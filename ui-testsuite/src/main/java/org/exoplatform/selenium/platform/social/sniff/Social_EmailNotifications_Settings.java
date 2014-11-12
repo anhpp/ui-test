@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -71,9 +72,11 @@ public class Social_EmailNotifications_Settings extends Notification {
 		+ Weekly : to include the notifications of this type in the weekly digest email		*/
 		navToolBar.goToNotificationSettings();
 		waitForAndGetElement(ELEMENT_NEVER_NOTIFY_ME,DEFAULT_TIMEOUT,1,2);
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_NOTIFY_COLUMN.replace("${column}", MSG_SETTINGS_COLUMN_INCLUDE_DIGEST));
 		waitForAndGetElement(ELEMENT_NOTIFY_COLUMN.replace("${column}", MSG_SETTINGS_COLUMN_NOFITY_WHEN));
 		waitForAndGetElement(ELEMENT_NOTIFY_COLUMN.replace("${column}", MSG_SETTINGS_COLUMN_SEND_RIGHT));
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_NOTIFY_RIGHT_INPUT.replace("${activity}", MSG_ACTIVITY_COMMENT),DEFAULT_TIMEOUT,1,2);
 		waitForAndGetElement(ELEMENT_NOTIFY_RIGHT_INPUT.replace("${activity}", MSG_ACTIVITY_JOIN_INTRANET),DEFAULT_TIMEOUT,1,2);
 		waitForAndGetElement(ELEMENT_NOTIFY_RIGHT_INPUT.replace("${activity}", MSG_ACTIVITY_JOIN_SPACE),DEFAULT_TIMEOUT,1,2);
@@ -83,6 +86,7 @@ public class Social_EmailNotifications_Settings extends Notification {
 		waitForAndGetElement(ELEMENT_NOTIFY_RIGHT_INPUT.replace("${activity}", MSG_ACTIVITY_POST_MY_STREAM),DEFAULT_TIMEOUT,1,2);
 		waitForAndGetElement(ELEMENT_NOTIFY_RIGHT_INPUT.replace("${activity}", MSG_ACTIVITY_RECEIVE_SPACE_INVITATION),DEFAULT_TIMEOUT,1,2);
 		waitForAndGetElement(ELEMENT_NOTIFY_RIGHT_INPUT.replace("${activity}", MSG_ACTIVITY_SEND_CONNECTION_REQUEST),DEFAULT_TIMEOUT,1,2);
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_NOTIFY_DIGEST_EMAIL.replace("${activity}",MSG_ACTIVITY_COMMENT));
 		waitForAndGetElement(ELEMENT_NOTIFY_DIGEST_EMAIL.replace("${activity}",MSG_ACTIVITY_JOIN_INTRANET));
 		waitForAndGetElement(ELEMENT_NOTIFY_DIGEST_EMAIL.replace("${activity}",MSG_ACTIVITY_JOIN_SPACE));

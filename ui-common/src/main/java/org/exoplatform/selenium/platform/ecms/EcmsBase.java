@@ -358,6 +358,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SELECT_DOCUMENT_BUTTON = By.xpath("//*[text()='Select Document']");
 	public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
 	public final String ELEMENT_BREADCUMBSCONTAINER = "//*[@id='BreadcumbsContainer']//a[text()='${fileName}']";
+	public final String ELEMENT_LISTRECORDS=(".//*[@id='ListRecords']//*[text()='${fileName}']");
 	public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
 	public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
 	public final String ELEMENT_REF_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='${fileName}']";

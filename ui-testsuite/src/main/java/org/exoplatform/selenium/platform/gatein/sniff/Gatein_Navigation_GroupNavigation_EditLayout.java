@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.GroupNavigation;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -92,7 +93,7 @@ public class Gatein_Navigation_GroupNavigation_EditLayout extends GroupNavigatio
 	 */
 	@Test
 	public void test02_MoveAppWhenEditLayout_GroupPage(){
-		String pageName = "Sniffgroupnavigationlayout02";
+		String pageName = "Sniffgroupnavigationlayout_2";
 		String ELEMENT_PORTLET_1 = "//*[contains(@id, 'UIPortlet')][1]";
 		String ELEMENT_PORTLET_2 = "//*[contains(@id, 'UIPortlet')][2]";
 		
@@ -105,14 +106,17 @@ public class Gatein_Navigation_GroupNavigation_EditLayout extends GroupNavigatio
 
 		navTool.goToEditPageEditor();
 		waitForAndGetElement(ELEMENT_PORTLET_1 + "//div[contains(text(),'Wiki Portlet')]");
+		Utils.pause(3000);
 		mouseOver(ELEMENT_PORTLET_2, true);
+		Utils.pause(3000);
 		if(this.plfVersion.contains("4.0"))
 			dragAndDropToObject(ELEMENT_PORTLET_2 + ELEMENT_PORTLET_DRAG_DROP_ICON, ELEMENT_PORTLET_1);
 		else
 			dragAndDropToObject(ELEMENT_PORTLET_2 + ELEMENT_PORTLET_DRAG_DROP_ICON_PLF41, ELEMENT_PORTLET_1);
+		
+		Utils.pause(3000);
 		waitForAndGetElement(ELEMENT_PORTLET_1 + "//div[contains(text(),'Answers Portlet')]");
-		click(ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(ELEMENT_PORTLET_2 + "//*[@id='UIWikiPortlet']");
+		waitForAndGetElement(ELEMENT_PORTLET_2 + "//*[contains(text(),'Wiki Portlet')]");
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		pageE.finishEditLayout();
 		

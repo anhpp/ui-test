@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -66,6 +67,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		info("Move a topic");
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop);
+		Utils.pause(3000);
 		click(By.linkText(titleCat));
 		waitForElementNotPresent(ELEMENT_BREAD_FORUM.replace("${forum}", titleForum));
 		
@@ -74,7 +76,9 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		//Move topic
 		click(By.linkText(titleCat));
+		Utils.pause(3000);
 		click(By.linkText(titleForum));
+		Utils.pause(3000);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		waitForAndGetElement(mngPost.ELEMENT_POST_REPLY_BUTTON);
 		mngTopic.moveTopic(titleTop, forum2);
@@ -84,9 +88,9 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		hpgAct.checkCommentAfterMoveTopic(titleTop, titleCat + ">" + forum2);
 		
 		//Delete data
-		goToForums();
-		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);	
+		goToForums();Utils.pause(3000);
+		click(By.linkText(titleCat));Utils.pause(3000);
+		mngCat.deleteCategoryInForum(titleCat, true);
 	}
 	
 	/**

@@ -108,7 +108,7 @@ public class Forum_Setting extends ForumBase {
 		
 		goToForums();
 		goToUserManagement(DATA_USER4);
-		settingUserManagementProfile("Jack Miller Update", "User", catName, forumName, "Thanks. Jack Miller", true, true, true);
+		settingUserManagementProfile("Jack Miller Update", "User", catName,catName+"/"+forumName, "Thanks. Jack Miller", true, true, true);
 		forumsSettings("+7.00", "dd-MM-yyyy", "EEEE,=MMMM dd, yyyy", "24-hour", "5", "15", "false");
 		banUser(true, null, "abc");
 		click(ELEMENT_USER_MANAGEMENT_TOPIC_TAB);

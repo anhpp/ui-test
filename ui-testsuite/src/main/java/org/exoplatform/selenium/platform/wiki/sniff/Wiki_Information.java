@@ -3,8 +3,10 @@ package org.exoplatform.selenium.platform.wiki.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.social.ManageMember;
+import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.exoplatform.selenium.platform.wiki.Version;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -20,6 +22,7 @@ public class Wiki_Information extends Version {
 	ManageAccount magAc;
 	Button but;
 	ManageMember magMem;
+	BasicAction ba;
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -29,6 +32,7 @@ public class Wiki_Information extends Version {
 		but = new Button(driver);
 		magMem = new ManageMember(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS); 
+		ba  = new BasicAction(driver);
 		goToWiki();
 	}
 
@@ -182,12 +186,10 @@ public class Wiki_Information extends Version {
 		String title = "Wiki_sniff_infor_page_title_06";
 		String content = "Wiki_sniff_infor_page_content_06";
 
-		magAc.signOut();
-		magAc.signIn(DATA_USER2, DATA_PASS);
-		goToWiki();
 		addBlankWikiPage(title, content, 0);
 		goToAddRelation();
 		click(ELEMENT_SELECT_SPACE);
+		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_NO_SPACE_OPTION);
 		but.cancel();
 

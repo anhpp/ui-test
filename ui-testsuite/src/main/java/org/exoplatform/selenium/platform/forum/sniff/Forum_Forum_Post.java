@@ -113,7 +113,7 @@ public class Forum_Forum_Post extends ForumBase{
 		String topic = "test03_topic_93514";
 		String post = "test03_post_93514";
 		String titleQuote = "title Quote";
-		String contentQuote = "Content Quote";
+		String contentQuote = "";
 		info("Quote a post");
 		
 		//Add category, forum, topic

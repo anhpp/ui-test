@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -53,7 +54,7 @@ public class Calendar_Search extends CalendarBase{
 
 		info("Search an event");
 		quickSearchCalendar(EVENT_NAME_01);
-
+		Utils.pause(3000);
 		info("Restore data");
 		click(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 		waitForAndGetElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", EVENT_NAME_01));
@@ -78,7 +79,7 @@ public class Calendar_Search extends CalendarBase{
 
 		info("Advance Search an event");
 		advanceSearchCalendar(EVENT_NAME_02);
-
+		Utils.pause(3000);
 		info("Restore data");
 		click(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 		waitForAndGetElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", EVENT_NAME_02));

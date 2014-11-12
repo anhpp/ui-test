@@ -132,7 +132,7 @@ public class Forum_Forum_Category extends ForumBase {
 	/**CaseId: 68913 -> Watch/Unwatch category
 	 * 
 	 */
-	@Test (groups = {"email"})
+	@Test
 	public void test04_WatchUnwatchCategory(){
 		String catName = "Category 68913";
 		String description = "Add new category in forum";

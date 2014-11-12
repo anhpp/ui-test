@@ -121,7 +121,7 @@ public class Forum_Forum_BasicAction extends ForumBase{
 		
 		//Watch forum
 		mngFru.watchItem(true);
-		mngTopic.startTopic(topic1, topic1, "", 0, permission, false, false, false);
+		mngTopic.quickStartTopic(topic1, topic1);
 		
 		//Check email after watching
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);

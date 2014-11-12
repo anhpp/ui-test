@@ -511,6 +511,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.id("UIPage");
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL = By.xpath("//*[text() = 'Portal Page']/..");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
+	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT_NEW = By.xpath("//div[@class='UIRowContainer EmptyContainer' and not(div)]");
 	public final By ELEMENT_NAVIGATION_BODY_LEFT = By.xpath("//*[@id='NavigationBody']//*[@id='LeftNavigation']");
 	public final By ELEMENT_NAVIGATION_BODY_RIGHT = By.xpath("//*[@id='NavigationBody']//*[@id='RightBody']");
 	public final By ELEMENT_PAGE_PORTAL = By.xpath("//*[text() = 'Portal Page']");

@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
@@ -57,11 +58,14 @@ public class Forum_Forum_Topic_ManagePoll extends ForumBase{
 		String titleTop = "Topic 01";
 		String poll = "Poll of topic 01";
 		String[] options =  {"Option 01","Option 02"};
+		
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop); 
+		Utils.pause(3000);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		
 		info("Add a new poll");
 		mngPoll.addPoll(poll, options, "2", true, true);
+		Utils.pause(3000);
 		
 		click(By.linkText(titleCat));
 		mngCat.deleteCategoryInForum(titleCat, true);
@@ -69,8 +73,10 @@ public class Forum_Forum_Topic_ManagePoll extends ForumBase{
 	
 	/**Edit a poll
 	 * CaseID: 71202
+	 * Edit poll button does not works .
+	 * Jira : https://jira.exoplatform.org/browse/FORUM-998
 	 */
-	@Test
+	@Test(groups="pending")
 	public void test02_EditPoll() {
 		String titleCat = "Category 02";
 		String titleForum = "Forum 02";

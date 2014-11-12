@@ -225,10 +225,13 @@ public class ECMS_WCM_Viewer extends PlatformBase{
 		ecms.enableEditMode(true);
 
 		info("-- Latest news: Open Content List Preference --");
+		
 		cList.goToContentListPreference(ecms.ELEMENT_RSS_ICON, cList.ELEMENT_PREFERENCE_LATEST_NEWS_ICON);
+		
 		//Edit properties
 		cList.setDisplayOptions(cList.ELEMENT_SHOW_DATE);
 		click(cList.ELEMENT_CONTENT_SELECTION_TAB);
+		click(pEditor.ELEMENT_BY_CONTENT_MODE,2);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		pEditor.selectContentPathInEditMode(pCLVPath, true, false, false);
 		waitForAndGetElement(ecms.ELEMENT_CLV_TITLE.replace("${title}", cName), DEFAULT_TIMEOUT, 0, 2);

@@ -53,6 +53,7 @@ public class Social_Space_SpaceManagement_Applications extends SocialBase{
 		String spaceName = "space67663";
 		String categoryName = "Adoption";
 		String applicationTitle = "Forum Statistics";
+		String appliTitleSearch="ForumsStatistic";
 
 		//- Create new space
 		magMember.goToMySpacePage();
@@ -64,7 +65,7 @@ public class Social_Space_SpaceManagement_Applications extends SocialBase{
 		//- Application is added on space. Name of application is display on right of space menu portlet
 		spaceMag.goToSpaceMenu("Space Settings");
 		appMag.addApplication(categoryName, applicationTitle);
-		spaceMag.goToSpaceMenu(applicationTitle);
+		spaceMag.goToSpaceMenu(appliTitleSearch);
 		
 		/*Clear data*/
 		magMember.goToAllSpaces();
