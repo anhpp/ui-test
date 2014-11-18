@@ -11,8 +11,9 @@ import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.social.SocialBase;
 import org.exoplatform.selenium.platform.wiki.Permalink;
-import org.exoplatform.selenium.testdata.SpaceDatabase;
-import org.exoplatform.selenium.testdata.WikiDatabase;
+import org.exoplatform.selenium.testdata.SpaceRegistrationDatabase;
+import org.exoplatform.selenium.testdata.SpaceVisibilityDatabase;
+import org.exoplatform.selenium.testdata.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -31,8 +32,9 @@ public class Wiki_BasicAction_Other extends Permalink {
 	ManageMember magMem;
 	PlatformPermission per;
 	SocialBase socBase;
-	WikiDatabase wData;
-	SpaceDatabase sData;
+	TextBoxDatabase txData;
+	SpaceVisibilityDatabase sVisData;
+	SpaceRegistrationDatabase sRegData;
 	
 	@BeforeMethod
 	public void setUpBeforeTest() throws Exception{
@@ -44,14 +46,14 @@ public class Wiki_BasicAction_Other extends Permalink {
 		magMem = new ManageMember(driver,this.plfVersion);
 		per = new PlatformPermission(driver,this.plfVersion);
 		socBase = new SocialBase(driver,this.plfVersion);
-
+		txData = new TextBoxDatabase();
+		sVisData = new SpaceVisibilityDatabase();
+		sRegData = new SpaceRegistrationDatabase();
 		magAc.signIn(DATA_USER1, DATA_PASS); 
 		goToWiki();
-		wData = new WikiDatabase();
-		sData = new SpaceDatabase();
-		wData.setWikiData(wikiDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlWiki);
-		sData.setSpaceData(spaceDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlSpace);
-
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		sVisData.setSpaceVisibleData(spaceVisibleFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		sRegData.setSpaceRegistrationData(spaceRegistrationFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 	}
 
 	@AfterMethod
@@ -61,8 +63,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	}
 
 	public void addWikiForSpace(String spaceName, String title, String content){
-		String visible = sData.spaceVis[index];
-		String validate = sData.spaceReg[index+1];
+		String visible = sVisData.getSpaceVisible(0);
+		String validate = sRegData.getSpaceRegistration(1);
 		magMem.goToAllSpaces();
 		magMem.addNewSpace(spaceName, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName);
@@ -75,8 +77,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test(groups="pending")
 	public void test01_ExportPDF(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 
 		addBlankWikiPage(title, content, 0);
 		//		click(By.linkText(title));
@@ -92,11 +94,10 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test02_MovePage(){
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
-
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 		info("Add new 2 wiki pages at Wiki Home");		
 		addBlankWikiPage(title1, content1, 0);
@@ -115,13 +116,13 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test03_MovePageDifferentSpace(){
-		String spaceName1 = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
+		String spaceName1 = txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
 
-		String spaceName2 = sData.spaceName[index]+"2";
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String spaceName2 = txData.getContentByTypeRandom(1)+"2";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 
 		addWikiForSpace(spaceName1, title1, content1);
@@ -145,12 +146,11 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test04_MovePageFromSpaceToPortal(){
-		String spaceName = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
-
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String spaceName = txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 
 		addBlankWikiPage(title1, content1, 0);
@@ -175,12 +175,11 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test05_MovePageInSameSpace(){
-		String spaceName = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
-
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String spaceName = txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 		addWikiForSpace(spaceName, title1, content1);
 		goToWikiHome();
@@ -198,12 +197,11 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test06_MovePageFromPortalToSpace(){		
-		String spaceName = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
-
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String spaceName =txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 		addWikiForSpace(spaceName, title1, content1);
 		goToWiki();
@@ -226,13 +224,14 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test(priority = 0)
 	public void test00_MovePageDuplicateName(){
-		String spaceName1 = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
+		String spaceName1 = txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
 
-		String spaceName2 = sData.spaceName[index]+"2";
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String spaceName2 = txData.getContentByTypeRandom(1)+"2";
+
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 
 		addWikiForSpace(spaceName1, title1, content1);
@@ -260,12 +259,12 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test08_MovePageWhenNotHaveEditPermissionAtDestPage(){
-		String spaceName = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
+		String spaceName = txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
 
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 
 		goToWiki();
 		addBlankWikiPage(title1, content1, 0);		
@@ -293,12 +292,12 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test08_MovePageInSpaceWikiWhenNotHaveEditPermissionAtDestPage(){
-		String spaceName = sData.spaceName[index]+"1";
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 =  wData.wikiContent[index]+"1";
+		String spaceName = txData.getContentByTypeRandom(1)+"1";
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
 
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
+		String title2 = "newtitle"+txData.getContentByTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByTypeRandom(1)+"2";
 		String[] userGroup = {"mary"};
 		socBase = new SocialBase(driver, this.plfVersion);
 		addWikiForSpace(spaceName, title1, content1);
@@ -333,8 +332,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test09_CheckPermalinkWithMemberOfPage(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 
 		addBlankWikiPage(title, content, 0);
 		goToPermalink();
@@ -353,8 +352,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test10_CheckPermalinkWithNotMemberOfPage(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 
 		addBlankWikiPage(title, content, 0);
 		deletePagePermission("any");
@@ -374,9 +373,9 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test11_CheckPermalinkWithUserMemberOfSpace(){
-		String spaceName = sData.spaceName[index]+"1";
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String spaceName = txData.getContentByTypeRandom(1)+"1";
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 
 		magMem.goToAllSpaces();
 		magMem.addNewSpace(spaceName, "", "Visible", "Open", "", "");
@@ -409,9 +408,9 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test12_CheckPermanlinkWithUserNotMemberOfSpace(){
-		String spaceName = sData.spaceName[index]+"1";
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String spaceName = txData.getContentByTypeRandom(1)+"1";
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 
 		addWikiForSpace(spaceName, title, content);
 		goToPermalink();
@@ -431,8 +430,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test13_CheckWhenChangePermalinkStatus(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 		String user = DATA_USER4;
 
 		info("Create new page at restricted status");
@@ -467,8 +466,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test14_ChangePermissionOfPageInPermalink_SelectUser(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 		String[] userGroup1 = {DATA_USER2};
 
 		addBlankWikiPage(title, content, 0);
@@ -492,8 +491,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 
 	@Test(priority = 0)
 	public void test14_ChangePermissionOfPageInPermalink_SelectGroup(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 		String userGroup2 = "Development/Select this Group";
 
 		addBlankWikiPage(title, content, 0);
@@ -517,8 +516,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 
 	@Test
 	public void test14_ChangePermissionOfPageInPermalink_SelectMembership(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 		String[] userGroup3 = {"Platform/Content Management", "author"}; 
 
 		addBlankWikiPage(title, content, 0);
@@ -547,10 +546,10 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 */
 	@Test
 	public void test15_WatchUnwatchPage(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+title;
+		String newContent = "newcontent"+content;
 
 		magAc.updateUserProfile(null, null, null, "exomailtest01@gmail.com");
 

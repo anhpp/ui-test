@@ -48,8 +48,17 @@ public class ExcelUtils {
 				HSSFCell cell = row.getCell(j);
 				if(cell==null)
 					continue;
-				String value =  cell.getStringCellValue();
-				xData[i][j] = value;
+				else{
+					if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC){
+						String value = String.valueOf((int)Math.round(cell.getNumericCellValue()));
+						xData[i][j] = value;
+					}
+					else{//(cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+						String value =  cell.getStringCellValue();
+						xData[i][j] = value;
+					}
+				}
+				info(xData[i][j]);
 			}
 			nRow++;
 		}

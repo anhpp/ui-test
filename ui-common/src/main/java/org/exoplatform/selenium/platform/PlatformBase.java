@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.testdata.UserDatabase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -826,15 +827,17 @@ public class PlatformBase extends TestBase {
 	 * @throws Exception 
 	 */
 	public void getDefaultUserPass() throws Exception{
+		UserDatabase userData = new UserDatabase();
+		userData.setUserData(userDataFile,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		ExcelUtils.setExcelFile(Utils.getAbsoluteFilePath(userDataFile),userSheet);
-		DATA_USER1 = ExcelUtils.getCellData(1, 0);
-		DATA_PASS = ExcelUtils.getCellData(1, 1);
-		DATA_USER2 = ExcelUtils.getCellData(2, 0);
+		DATA_USER1 = userData.userName.get(0);
+		DATA_PASS = userData.password.get(0);
+		DATA_USER2 = userData.userName.get(1);
 
-		USER_ROOT = ExcelUtils.getCellData(5, 0);
-		PASS_ROOT = ExcelUtils.getCellData(5, 1);
-		DATA_USER3 = ExcelUtils.getCellData(3, 0);
-		DATA_USER4 = ExcelUtils.getCellData(4, 0);
+		USER_ROOT = userData.userName.get(4);
+		PASS_ROOT = userData.password.get(4);
+		DATA_USER3 = userData.userName.get(2);
+		DATA_USER4 = userData.userName.get(3);
 	}
 	/**
 	 * 

@@ -5,7 +5,8 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
-import org.exoplatform.selenium.testdata.WikiDatabase;
+import org.exoplatform.selenium.testdata.AttachmentFileDatabase;
+import org.exoplatform.selenium.testdata.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -19,9 +20,8 @@ import org.testng.annotations.Test;
 public class Wiki_Attachment extends BasicAction {
 
 	ManageAccount magAc;
-	String filePath = "TestData/DataDriven/" + "wiki.xls";
-	String sheet = "wiki";
-	WikiDatabase wData;
+	AttachmentFileDatabase fData;
+	TextBoxDatabase txData;
 
 	@BeforeMethod
 	public void setUpBeforeTest() throws Exception{
@@ -30,8 +30,10 @@ public class Wiki_Attachment extends BasicAction {
 		magAc = new ManageAccount(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS); 
 		goToWiki();
-		wData = new WikiDatabase();
-		wData.setWikiData(wikiDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlWiki);
+		fData = new AttachmentFileDatabase();
+		txData = new TextBoxDatabase();
+		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 	}
 
 	@AfterMethod
@@ -48,12 +50,12 @@ public class Wiki_Attachment extends BasicAction {
 	 */
 	@Test
 	public void test01_UploadDownloadDeleteAttachment(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
-		String link = wData.linkAttach[0];
-		String newLink = wData.linkAttach[0];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
+		String link = fData.getAttachFileByTypeRandom(1);
+		String newLink = fData.getAttachFileByTypeRandom(1);
 		By imgElement = By.xpath("//img[contains(@src,"+newLink+")]");
 
 		info("Add new wiki page having attachment");

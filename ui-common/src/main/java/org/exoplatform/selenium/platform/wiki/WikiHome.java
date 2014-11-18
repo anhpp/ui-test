@@ -79,7 +79,7 @@ public class WikiHome extends PlatformBase{
 	 */
 	public void goToAPage(String title){
 		info("-- Go to wiki page --");
-		click(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", title));
+		click(ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", title.replace(" ", "_")));
 		waitForElementNotPresent(ELEMENT_WIKI_HOME_PAGE_TEXT);
 	}
 

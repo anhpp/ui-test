@@ -15,7 +15,9 @@ import org.exoplatform.selenium.platform.wiki.AddEditPageManagement;
 import org.exoplatform.selenium.platform.wiki.ManageDraft;
 import org.exoplatform.selenium.platform.wiki.RichTextMode;
 import org.exoplatform.selenium.platform.wiki.WikiHome;
-import org.exoplatform.selenium.testdata.WikiDatabase;
+import org.exoplatform.selenium.testdata.TextBoxDatabase;
+import org.exoplatform.selenium.testdata.WikiRichTextDatabase;
+import org.exoplatform.selenium.testdata.WikiTemplateDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -36,10 +38,12 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	Button but;
 	NavigationToolbar naTool;
 	HomePageActivity activity;
-	WikiDatabase wData;
+	WikiRichTextDatabase wData;
 	RichTextMode rtMode;
 	ManageDraft mDraft;
-
+	TextBoxDatabase txData;
+	WikiTemplateDatabase wTempData;
+	WikiRichTextDatabase wRichTextData;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		hp.goToWiki();
@@ -61,8 +65,12 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		apManagement = new AddEditPageManagement(driver);
 		mDraft = new ManageDraft(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		wData = new WikiDatabase();
-		wData.setWikiData(wikiDataFilePath,wikiSheet,isRandom,isUseFile,jdbcDriver,dbUrl,user,pass,sqlWiki);
+		txData = new TextBoxDatabase();
+		wTempData = new WikiTemplateDatabase();
+		wRichTextData = new WikiRichTextDatabase();
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		wTempData.setWikiTemplateData(wikiTemplateFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		wRichTextData.setWikiData(wikiRichTextFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 	}
 
 	@AfterTest
@@ -77,10 +85,10 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test01_CreatePageSourceEditor(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -108,17 +116,18 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test(priority = 0)
 	public void test02_CreatePageRichTextEditor(){
-		String title1 = wData.wikiTitle[index]+"1";
-		String content1 = wData.wikiTitle[index]+"1";
-		String title2 = wData.wikiTitle[index]+"2";
-		String content2 =  wData.wikiContent[index]+"2";
-		String newTitle2 = "newtitle"+wData.wikiTitle[index];
-		String color = wData.color[index];
-		String message = wData.msg[index];
-		String label = wData.label[index];
-		String tooltip = wData.tooltip[index];
-		String row = wData.row[index];
-		String column = wData.column[index];
+		String title1 = txData.getContentByTypeRandom(1)+"1";
+		String content1 =  txData.getContentByTypeRandom(1)+"1";
+		String title2 = txData.getContentByTypeRandom(1)+"2";
+		String content2 =  txData.getContentByTypeRandom(1)+"2";
+		String newTitle2 = "newtitle"+txData.getContentByTypeRandom(1)+"1";
+		int index = wRichTextData.getRandomIndexByType(1);
+		String color = wRichTextData.color.get(index);
+		String message = wRichTextData.msg.get(index);
+		String label = wRichTextData.label.get(index);
+		String tooltip = wRichTextData.tooltip.get(index);
+		String row = String.valueOf(wRichTextData.row.get(index));
+		String column = String.valueOf(wRichTextData.column.get(index));
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -136,7 +145,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		rtMode.typeEnterInRichText();
 		rtMode.insertPageLink2WikiPage(true, title1, label, tooltip);
 		rtMode.typeEnterInRichText();
-		rtMode.insertTable2WikiPage(row.substring(1), column.substring(1));
+		rtMode.insertTable2WikiPage(row, column);
 		apManagement.saveAddPage();
 		waitForAndGetElement(By.linkText(label));
 		waitForAndGetElement(By.xpath(wHome.ELEMENT_MARCRO_COLOR.replace("${color}", color).replace("${message}", message)));
@@ -169,8 +178,8 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test03_AutoSaveWhenAddingPage(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -190,10 +199,10 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test04_AddPageFromTemplate(){
-		String title = wData.wikiTitle[index];
-		String newcontent =  wData.wikiContent[index];
-		String template =  wData.template[index];
-
+		String title = txData.getContentByTypeRandom(1);
+		String newcontent =  txData.getContentByTypeRandom(1);
+		String template =  wTempData.getWikiTemplateRandom();
+				
 		info("Add page with select a template layout");
 		wHome.goToAddTemplateWikiPage();
 		apManagement.selectTemplateWikiPage(template);
@@ -220,7 +229,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test05_PreviewTemplate(){
-		String template =  wData.template[index];
+		String template =  wTempData.getWikiTemplateRandom();
 
 		info("Add page with select a template layout");
 		wHome.goToAddTemplateWikiPage();
@@ -238,9 +247,9 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test06_AutoSaveWhenAddingPageFormTemplate(){
-		String template =  wData.template[index+1];
-		String title = wData.wikiTitle[index];
-
+		String template =  wTempData.getWikiTemplateRandom();
+		String title = txData.getContentByTypeRandom(1);
+		
 		info("Add page with select a template layout");
 		wHome.goToAddTemplateWikiPage();
 		apManagement.selectTemplateWikiPage(template);
@@ -261,10 +270,10 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test07_ResumeDraft(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
 		String draftTitle = mDraft.ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}", title);
 
 		info("Add new wiki page at Source Editor");		
@@ -296,9 +305,9 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test08_EditParagraph(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index+1];
-		String newPara = wData.wikiContent[index+2];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(2);
+		String newPara = "newtitle"+txData.getContentByTypeRandom(2);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -327,12 +336,12 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test09_AutoSaveWhenEditingPage(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
-		String newTitle2 = "newtitle"+wData.wikiTitle[index]+"2";
-		String newContent2 = "newcontent"+wData.wikiContent[index]+"2";
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
+		String newTitle2 = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent2 = "newcontent"+txData.getContentByTypeRandom(1);
 		String draftTitle1 = mDraft.ELEMENT_DRAFT_OF_EDIT_PAGE.replace("${title}", newTitle);
 		String draftTitle2 = mDraft.ELEMENT_DRAFT_OF_EDIT_PAGE.replace("${title}", newTitle2);
 
@@ -374,10 +383,10 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test10_EditPageCheckPublicActivity(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -397,6 +406,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
 		info("Edit content of page -> check comment in activity");
+		hp.goToWiki();
 		wHome.goToHomeWikiPage();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
@@ -419,10 +429,10 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test11_EditPageUncheckPublicActivity(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -442,6 +452,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
 		info("Edit content of page -> check comment in activity");
+		hp.goToWiki();
 		wHome.goToHomeWikiPage();
 		wHome.goToAPage(title);
 		wHome.goToEditPage();
@@ -464,9 +475,9 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	 */
 	@Test
 	public void test12_01_RenamePageInLine(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
@@ -491,10 +502,10 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 
 	@Test
 	public void test12_02_RenamePageByEditingPage(){
-		String title = wData.wikiTitle[index];
-		String content =  wData.wikiContent[index];
-		String newTitle = "newtitle"+wData.wikiTitle[index];
-		String newContent = "newcontent"+wData.wikiContent[index];
+		String title = txData.getContentByTypeRandom(1);
+		String content =  txData.getContentByTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByTypeRandom(1);
 
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
