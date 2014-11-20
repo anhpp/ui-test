@@ -1,4 +1,4 @@
-package org.exoplatform.selenium;
+package org.exoplatform.selenium.platform.objectdatabase.common;
 
 import java.io.FileInputStream;
 import org.apache.poi.hssf.usermodel.HSSFCell;

@@ -1,7 +1,8 @@
-package org.exoplatform.selenium.testdata;
+package org.exoplatform.selenium.platform.objectdatabase.common;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 
 public class TextBoxDatabase {
 	public ArrayList<Integer> type;

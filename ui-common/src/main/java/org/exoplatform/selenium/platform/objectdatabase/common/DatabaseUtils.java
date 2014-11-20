@@ -1,4 +1,4 @@
-package org.exoplatform.selenium;
+package org.exoplatform.selenium.platform.objectdatabase.common;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -32,18 +32,38 @@ public class DatabaseUtils {
 		stmt.close();
 	}
 
+	private static int getRowCount(ResultSet resultSet) {
+		if (resultSet == null) {
+			return 0;
+		}
+		try {
+			resultSet.last();
+			return resultSet.getRow();
+		} catch (SQLException exp) {
+			exp.printStackTrace();
+		} finally {
+			try {
+				resultSet.beforeFirst();
+			} catch (SQLException exp) {
+				exp.printStackTrace();
+			}
+		}
+		return 0;
+	}
+
 	public static String[][] getData(String sql) throws SQLException{
-		String[][] xData = new String[100][1000];
 		stmt = conn.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int nColumn = rsmd.getColumnCount();
+		int nRow = getRowCount(rs);
+		String[][] xData = new String[nRow][nColumn];
 		int i = 0;
+		rs.beforeFirst();
 		while(rs.next()){
-			String title  = rs.getString("title");
-			String content = rs.getString("content");
-			String attachfile = rs.getString("attachfile");
-			xData[i][0]=title;
-			xData[i][1]=content;
-			xData[i][2]=attachfile;		
+			for(int j = 0; j<nColumn; j++){
+				xData[i][j]= rs.getString(j+1);
+			}
 			i++;
 		}
 		rs.close();

@@ -2,13 +2,13 @@ package org.exoplatform.selenium.platform.wiki.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.testdata.AttachmentFileDatabase;
-import org.exoplatform.selenium.testdata.SpaceRegistrationDatabase;
-import org.exoplatform.selenium.testdata.SpaceVisibilityDatabase;
-import org.exoplatform.selenium.testdata.TextBoxDatabase;
-import org.exoplatform.selenium.testdata.WikiTemplateDatabase;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.space.SpaceRegistrationDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.space.SpaceVisibilityDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.Version;
 import org.openqa.selenium.By;
@@ -34,7 +34,7 @@ public class Wiki_Information extends Version {
 	@BeforeTest
 	public void setBeforeTest() throws Exception{
 		initSeleniumTest();
-		getDefaultUserPass();
+		getDefaultUserPass(userDataFilePath,defaultSheet,false,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		but = new Button(driver);
@@ -44,6 +44,7 @@ public class Wiki_Information extends Version {
 		wTempData = new WikiTemplateDatabase();
 		sVisData = new SpaceVisibilityDatabase();
 		sRegData = new SpaceRegistrationDatabase();
+		fData = new AttachmentFileDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		wTempData.setWikiTemplateData(wikiTemplateFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);	
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

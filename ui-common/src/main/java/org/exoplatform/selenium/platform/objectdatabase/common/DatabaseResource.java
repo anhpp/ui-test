@@ -1,7 +1,5 @@
-package org.exoplatform.selenium.testdata;
+package org.exoplatform.selenium.platform.objectdatabase.common;
 
-import org.exoplatform.selenium.DatabaseUtils;
-import org.exoplatform.selenium.ExcelUtils;
 import org.exoplatform.selenium.Utils;
 
 public class DatabaseResource {
@@ -23,4 +21,6 @@ public class DatabaseResource {
 		}
 		return arrayData;
 	}
+	
+	
 }

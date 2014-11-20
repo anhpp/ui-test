@@ -6,6 +6,9 @@ import java.awt.event.KeyEvent;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
 import org.exoplatform.selenium.platform.HomePage;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -15,9 +18,6 @@ import org.exoplatform.selenium.platform.wiki.AddEditPageManagement;
 import org.exoplatform.selenium.platform.wiki.ManageDraft;
 import org.exoplatform.selenium.platform.wiki.RichTextMode;
 import org.exoplatform.selenium.platform.wiki.WikiHome;
-import org.exoplatform.selenium.testdata.TextBoxDatabase;
-import org.exoplatform.selenium.testdata.WikiRichTextDatabase;
-import org.exoplatform.selenium.testdata.WikiTemplateDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -52,7 +52,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	@BeforeTest
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
-		getDefaultUserPass();
+		getDefaultUserPass(texboxFilePath,defaultSheet,false,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		but = new Button(driver);

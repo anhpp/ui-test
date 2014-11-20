@@ -1,7 +1,9 @@
-package org.exoplatform.selenium.testdata;
+package org.exoplatform.selenium.platform.objectdatabase.space;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
 
 public class SpaceRegistrationDatabase {
 	public ArrayList<String> spaceReg;

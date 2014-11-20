@@ -3,10 +3,10 @@ package org.exoplatform.selenium.platform.wiki.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
-import org.exoplatform.selenium.testdata.AttachmentFileDatabase;
-import org.exoplatform.selenium.testdata.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

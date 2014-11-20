@@ -1,6 +1,8 @@
-package org.exoplatform.selenium.testdata;
+package org.exoplatform.selenium.platform.objectdatabase.user;
 
 import java.util.ArrayList;
+
+import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
 
 public class UserDatabase {
 	public ArrayList<Integer> type;

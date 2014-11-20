@@ -47,7 +47,7 @@ public class TestBase {
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
 	
-	protected String userDataFile;
+	protected String userDataFilePath;
 	protected String userSheet;
 	protected String wikiRichTextFilePath;
 	protected String attachmentFilePath;
@@ -56,14 +56,15 @@ public class TestBase {
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
 	protected String defaultSheet;
-	protected Boolean isRandom = true;
-	protected Boolean isUseFile = true;
-	protected String jdbcDriver = "com.mysql.jdbc.Driver";
-	protected String dbUrl = "jdbc:mysql://localhost:3306/selenium";
-	protected String user = "root";
-	protected String pass = "exo";
-	protected String sqlWiki = "select * from wiki order by id asc";
-	protected String sqlAttach = "select * from attachment_file order by id asc";
+	protected Boolean isRandom;
+	protected Boolean isUseFile;
+	protected String jdbcDriver;
+	protected String dbUrl;
+	protected String user;
+	protected String pass;
+	protected String sqlWiki;
+	protected String sqlAttach;
+	protected String sqlUser;
 	
 	/**
 	 * 4.0 : Version 4.0.x.
@@ -98,6 +99,7 @@ public class TestBase {
 	public final  String DEFAULT_USERPASS = "exo";
 	public final  String DEFAULT_SQLWIKI = "select * from wiki order by id asc";
 	public final  String DEFAULT_SQLATTACHMENT = "select * from space order by id asc";
+	public final  String DEFAULT_SQLUSER = "select type,username,password,email from user order by id asc";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -129,7 +131,7 @@ public class TestBase {
 	/*======== End of Term and conditions =====*/	
 	public void getSystemProperty(){
 		baseUrl = System.getProperty("baseUrl");
-		userDataFile = System.getProperty("userDataFile");
+		userDataFilePath = System.getProperty("userDataFilePath");
 		userSheet = System.getProperty("userSheet");
 		texboxFilePath = System.getProperty("texboxFilePath");
 		wikiRichTextFilePath = System.getProperty("wikiRichTextFilePath");
@@ -141,7 +143,7 @@ public class TestBase {
 		pass = System.getProperty("pass");
 		sqlWiki = System.getProperty("sqlWiki");
 
-		if (userDataFile==null) userDataFile = DEFAULT_USERFILEURL;
+		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
 		if (userSheet==null) userSheet = DEFAULT_USERSHEET;
 		if (wikiRichTextFilePath==null) wikiRichTextFilePath = DEFAULT_WIKIRICHTEXTFILEURL;
 		if (defaultSheet==null) defaultSheet = DEFAULT_SHEET;
@@ -154,6 +156,7 @@ public class TestBase {
 		if (pass==null) pass = DEFAULT_USERPASS;
 		if (sqlWiki==null) sqlWiki = DEFAULT_SQLWIKI;
 		if (sqlAttach==null) sqlAttach = DEFAULT_SQLATTACHMENT;
+		if (sqlUser==null) sqlUser = DEFAULT_SQLUSER;
 		if (attachmentFilePath==null) attachmentFilePath = DEFAULT_ATTACHMENTFILEURL;
 		if (wikiTemplateFilePath==null) wikiTemplateFilePath = DEFAULT_WIKITEMPLATEFILEURL;
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
