@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.Event;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
@@ -25,7 +26,7 @@ import org.testng.annotations.Test;
  * @date 31/10/2013
  *
  */
-public class PLF_Navigation_TopNavigation extends BasicAction {
+public class PLF_Navigation_TopNavigation extends PlatformBase {
 	//Platform
 	ManageAccount magAcc;
 	NavigationToolbar naviToolbar;
@@ -41,6 +42,7 @@ public class PLF_Navigation_TopNavigation extends BasicAction {
 	ForumManagePoll mngPoll;
 	ForumManageCategory mngCat;
 	ForumManageForum mngFru;
+	BasicAction ba;
 
 	@BeforeMethod
 	public void beforeMethods() {
@@ -57,6 +59,7 @@ public class PLF_Navigation_TopNavigation extends BasicAction {
 		mngFru = new ForumManageForum(driver, this.plfVersion);
 		actBar = new ActionBar(driver, this.plfVersion);
 		ecms = new EcmsBase(driver, this.plfVersion);
+		ba = new BasicAction(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 	}
 
@@ -256,14 +259,14 @@ public class PLF_Navigation_TopNavigation extends BasicAction {
 		//- The menu is updated to "Create a new Wiki Page:"
 		//- The wiki application is opened with the New Page editor opened
 		info("Add new wiki page at Rich Text mode");
-		addWikiPageSourceEditor(title, content);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		ba.addWikiPageSourceEditor(title, content);
+		click(ba.ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		
 		/*Clear data*/
 		info("-- Clear data --");
-		goToWikiHome();
+		ba.goToWikiHome();
 		click(By.linkText(title));
-		deleteCurrentWikiPage();
+		ba.deleteCurrentWikiPage();
 	}
 
 	/**

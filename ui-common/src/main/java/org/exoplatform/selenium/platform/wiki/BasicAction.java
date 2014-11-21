@@ -35,13 +35,12 @@ public class BasicAction extends Permission{
 	public final By ELEMENT_MEMBERS_TAB = By.xpath("//div[@id='UISpaceSetting']//a[text()='Members']");
 	public String ELEMENT_ACTION_USER_ON_SPACE = "//a[text()='${spaceName}']/../../..//button[text()='${action}']";
 	public final By ELEMENT_DELETE_OK_BUTTON = By.xpath("//*[@id='UIWikiDeletePageConfirm']//*[text()='OK']");
-
+	/**
+	 * constructor
+	 * @param dr
+	 */
 	public BasicAction(WebDriver dr){
 		this.driver=dr;
-	}
-	
-	public BasicAction(){
-		
 	}
 	// Wiki page
 	/*===================== Add Page ====================*/	

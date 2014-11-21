@@ -6,6 +6,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 
 /**
@@ -13,16 +14,17 @@ import org.exoplatform.selenium.platform.wiki.BasicAction;
  * @author HangNTT
  * @date: 13/12/2012
  */
-public class Wiki_Advanced_Search extends BasicAction {
+public class Wiki_Advanced_Search extends PlatformBase {
 
 	ManageAccount magAc;
+	BasicAction ba;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
-
+		ba = new BasicAction(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
@@ -33,17 +35,17 @@ public class Wiki_Advanced_Search extends BasicAction {
 		
 		String PAGE_NAME1 = "Wiki_Advanced_Search_01";
 
-		By ELEMENT_PAGE1 = By.xpath(ELEMENT_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1));
+		By ELEMENT_PAGE1 = By.xpath(ba.ELEMENT_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1));
 
-		goToWiki();
+		ba.goToWiki();
 
-		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
+		ba.addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		advancedSearch(PAGE_NAME1, "Intranet");
+		ba.advancedSearch(PAGE_NAME1, "Intranet");
 
 		click(ELEMENT_PAGE1);
 
-		deleteCurrentWikiPage();
+		ba.deleteCurrentWikiPage();
 	}
 	
 	//Qmetry ID: 69799
@@ -55,18 +57,18 @@ public class Wiki_Advanced_Search extends BasicAction {
 
 		By ELEMENT_PAGE1 = By.linkText(PAGE_NAME1);
 
-		goToWiki();
+		ba.goToWiki();
 
-		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
+		ba.addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		advancedSearch("bbb", "Intranet");
+		ba.advancedSearch("bbb", "Intranet");
 
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
-		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", "bbb"), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ba.ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", "bbb"), DEFAULT_TIMEOUT, 1, 2);
 			
 		click(ELEMENT_PAGE1);
 
-		deleteCurrentWikiPage();
+		ba.deleteCurrentWikiPage();
 	}
 	
 	//Qmetry ID: 69807
@@ -80,35 +82,35 @@ public class Wiki_Advanced_Search extends BasicAction {
 
 		By ELEMENT_PAGE1 = By.linkText(PAGE_NAME1);
 
-		goToWiki();
+		ba.goToWiki();
 
-		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
+		ba.addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		deletePagePermission("any");
+		ba.deletePagePermission("any");
 
-		addPagePermission(0,user1);
+		ba.addPagePermission(0,user1);
 
-		editPagePermission(DATA_USER3, false,false, false, 2);
+		ba.editPagePermission(DATA_USER3, false,false, false, 2);
 
 		magAc.signOut();
 
 		magAc.signIn(DATA_USER3, DATA_PASS);
 
-		goToWiki();
+		ba.goToWiki();
 
-		advancedSearch(PAGE_NAME1, "Intranet");
+		ba.advancedSearch(PAGE_NAME1, "Intranet");
 
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
-		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ba.ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1), DEFAULT_TIMEOUT, 1, 2);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 
-		goToWiki();
+		ba.goToWiki();
 
 		click(ELEMENT_PAGE1);
 
-		deleteCurrentWikiPage();
+		ba.deleteCurrentWikiPage();
 	}
 
 	@AfterMethod

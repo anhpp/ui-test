@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -17,19 +18,20 @@ import org.testng.annotations.Test;
  * @author lientm
  * @date: 1-July-2013
  */
-public class Wiki_Attachment extends BasicAction {
+public class Wiki_Attachment extends PlatformBase {
 
 	ManageAccount magAc;
 	AttachmentFileDatabase fData;
 	TextBoxDatabase txData;
-
+	BasicAction ba;
 	@BeforeMethod
 	public void setUpBeforeTest() throws Exception{
 		getDriverAutoSave();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
+		ba = new BasicAction(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS); 
-		goToWiki();
+		ba.goToWiki();
 		fData = new AttachmentFileDatabase();
 		txData = new TextBoxDatabase();
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

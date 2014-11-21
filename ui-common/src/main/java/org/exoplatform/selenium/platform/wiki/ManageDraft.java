@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.wiki;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 
 /**
  * Provides all methods of managing a draft of wiki's page. 
@@ -11,10 +10,6 @@ import org.openqa.selenium.WebDriver;
  * 
  */
 public class ManageDraft extends RichTextMode {
-	public ManageDraft(WebDriver dr) {
-		super(dr);
-		// TODO Auto-generated constructor stub
-	}
 
 	ManageAlert magAl;
 		

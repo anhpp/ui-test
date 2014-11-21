@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
@@ -17,7 +18,7 @@ import org.testng.annotations.*;
  * @author khanhnt
  *
  */
-public class Wiki_Space_Switcher extends BasicAction{
+public class Wiki_Space_Switcher extends PlatformBase{
 	ManageAccount magAc;
 	ManageMember magMember;
 

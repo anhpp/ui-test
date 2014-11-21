@@ -8,10 +8,10 @@ import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageApplications;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManagePoll;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
-import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
  * @author HangNTT
  *
  */
-public class PLF_HomepageGadgets_FeaturePoll extends BasicAction{
+public class PLF_HomepageGadgets_FeaturePoll extends PlatformBase{
 
 	//Platform
 	ManageAccount magAcc;
