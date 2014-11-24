@@ -44,9 +44,10 @@ public class PLF_Branding extends PlatformBase{
 	/**
 	 * caseID 79316: Branding portlet should be accessible by Administration menu
 	 * caseID 79317: The layout should be composed of 4 parts
+	 * Bug on IE9: PLF-4826
 	 */
 
-	@Test
+	@Test(groups="error")
 	public void test01_CheckDisplayOfBrandingPortlet() {
 		naviToolbar.goToPortalBranding();
 	}

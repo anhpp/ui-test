@@ -45,9 +45,9 @@ public class TestBase {
 	public WebDriver driver;
 	public WebDriver newDriver;
 
-	protected String baseUrl;
+	public static String baseUrl;
 	protected int DEFAULT_TIMEOUT = 60000; //milliseconds = 30 seconds
-	protected int WAIT_INTERVAL = 1000; //milliseconds  
+	protected int WAIT_INTERVAL = 500; //milliseconds  
 	public int loopCount = 0;	
 	public boolean ieFlag;	 
 	public boolean chromeFlag;
@@ -66,7 +66,7 @@ public class TestBase {
 	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
-	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	public final String DEFAULT_BASEURL="http://192.168.1.44:8080/portal";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -97,6 +97,7 @@ public class TestBase {
 
 	/*======== End of Term and conditions =====*/	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
+		System.setProperty("browser","iexplorer");
 		String browser = System.getProperty("browser");
 
 		baseUrl = System.getProperty("baseUrl");
@@ -437,11 +438,11 @@ public class TestBase {
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			click(locator, notDisplay);
+			clickByJavascript(locator, notDisplay);
 		} catch (ElementNotVisibleException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			click(locator, notDisplay);
+			clickByJavascript(locator, notDisplay);
 		} finally {
 			loopCount = 0;
 		}

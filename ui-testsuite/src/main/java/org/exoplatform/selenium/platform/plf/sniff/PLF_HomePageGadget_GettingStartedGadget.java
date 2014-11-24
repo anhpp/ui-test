@@ -90,7 +90,7 @@ public class PLF_HomePageGadget_GettingStartedGadget extends Activity{
 //		String user_login2 = "john";
 		String file = "ECMS_DMS_SE_Upload_imgfile.jpg";
 
-		waitForAndGetElement(homeGad.ELEMENT_PROFILE_PICTURE);
+		/*waitForAndGetElement(homeGad.ELEMENT_PROFILE_PICTURE);
 		waitForAndGetElement(homeGad.ELEMENT_CONNECT_TO_COWORKERS);
 		waitForAndGetElement(homeGad.ELEMENT_JOIN_A_SPACE);
 		waitForAndGetElement(homeGad.ELEMENT_POST_AN_ACTIVITY);
@@ -111,7 +111,7 @@ public class PLF_HomePageGadget_GettingStartedGadget extends Activity{
 		assert url.contains("#");
 		click(homeGad.ELEMENT_UPLOAD_A_DOCUMENT);
 		waitForAndGetElement(homeGad.ELEMENT_PERSONAL_DOCUMENT);
-		navToolBar.goToHomePage();
+		navToolBar.goToHomePage();*/
 		
 		// Perform an action on Getting started Gadget (upload file)
 		selectFile(driverName,true,folderPath,"",uploadFileName);

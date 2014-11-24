@@ -1035,7 +1035,7 @@ public class CalendarBase extends PlatformBase {
 			button.save();
 			if(verify){
 				if(isEvent){
-					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()),DEFAULT_TIMEOUT,1,2);
 					Utils.pause(3000);
 					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
 				}

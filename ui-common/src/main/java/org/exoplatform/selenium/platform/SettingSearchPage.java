@@ -194,12 +194,13 @@ public class SettingSearchPage extends PlatformBase {
 	 */
 	public void quickSearch(String searchText) {
 		info("-- Go to quick search --");
-		click(ELEMENT_QUICK_SEARCH_ICON);
+		clickByJavascript((ELEMENT_QUICK_SEARCH_ICON));
 		type(ELEMENT_QUICK_SEARCH_TEXTBOX, searchText, true);
 		Utils.pause(3000);
 		click(ELEMENT_SEE_ALL_SEARCH_RESULTS);
 		Utils.pause(1000);
 	}
+
 
 	/**
 	 * quick search a text

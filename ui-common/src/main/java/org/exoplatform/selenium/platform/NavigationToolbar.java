@@ -590,10 +590,9 @@ public class NavigationToolbar extends PlatformBase {
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
 				mouseOverAndClick(ELEMENT_ADD_ICON);
-				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
 				break;
 			}
-			mouseOver(ELEMENT_ADD_ICON, true);
+			mouseOverAndClick(ELEMENT_ADD_ICON);
 			if (waitForAndGetElement(ELEMENT_ADD_EVENT_TASK_ICON, 5000, 0) != null){
 				break;
 			}

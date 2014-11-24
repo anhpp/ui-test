@@ -175,7 +175,7 @@ public class Event extends CalendarBase{
 	 */
 	public void goToAddEventFromActionBar(){
 		info("Go to Add Event page");
-		click(ELEMENT_BUTTON_EVENT);
+		clickByJavascript(ELEMENT_BUTTON_EVENT);
 		waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP);
 	}
 
@@ -377,7 +377,8 @@ public class Event extends CalendarBase{
 			WebElement upload = waitForAndGetElement(ELEMENT_ADD_EVENT_UPLOAD_FILE,DEFAULT_TIMEOUT,1,2);
 			String path = Utils.getAbsoluteFilePath(opt[0]);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display='block';",upload);
-			upload.sendKeys(path);
+			((JavascriptExecutor)driver).executeScript("arguments[0].value="+path+";",upload);
+//			upload.sendKeys(path);
 			String[] links = opt[0].split("/");
 			waitForAndGetElement(ELEMENT_ATTACH_FILE_LABEL.replace("${file}", links[links.length - 1]),60000);
 			click(ELEMENT_ATTACH_FILE_SAVE_BUTTON);
