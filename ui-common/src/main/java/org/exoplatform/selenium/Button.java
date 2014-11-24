@@ -71,101 +71,101 @@ public class Button extends TestBase{
 	 */
 	public void confirm() {
 		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON);
-		click(ELEMENT_CONFIRM_BUTTON);
+		clickByJavascript(ELEMENT_CONFIRM_BUTTON);
 		Utils.pause(500);
 	}
 	public void save() {
 		waitForAndGetElement(ELEMENT_SAVE_BUTTON);
-		click(ELEMENT_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_SAVE_BUTTON);
 		Utils.pause(500);
 	}
 	public void ok() {
 		if (waitForAndGetElement(ELEMENT_OK_BUTTON, 5000, 0) != null){
-			click(ELEMENT_OK_BUTTON);
+			clickByJavascript(ELEMENT_OK_BUTTON);
 		}else {
-			click(ELEMENT_OK_BUTTON_LINK);
+			clickByJavascript(ELEMENT_OK_BUTTON_LINK);
 		}
 		Utils.pause(500);
 	}
 	public void no() {
 		waitForAndGetElement(ELEMENT_NO_BUTTON);
-		click(ELEMENT_NO_BUTTON);
+		clickByJavascript(ELEMENT_NO_BUTTON);
 		Utils.pause(500);
 	}
 	public void yes() {		
 		if (waitForAndGetElement(ELEMENT_YES_BUTTON, 3000, 0) != null){
-			click(ELEMENT_YES_BUTTON);
+			clickByJavascript(ELEMENT_YES_BUTTON);
 		}else if (waitForAndGetElement(ELEMENT_YES_BUTTON_AUX, 3000, 0) != null){
-			click(ELEMENT_YES_BUTTON_AUX);
+			clickByJavascript(ELEMENT_YES_BUTTON_AUX);
 		}
 		Utils.pause(500);
 	}
 	
 	public void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
-		click(ELEMENT_CLOSE_BUTTON);
+		clickByJavascript(ELEMENT_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_CLOSE_BUTTON);
 		Utils.pause(500);
 	}
 
 	public void cancel(){
 		if (waitForAndGetElement(ELEMENT_CANCEL_BUTTON, 3000, 0) != null){
-			click(ELEMENT_CANCEL_BUTTON);
+			clickByJavascript(ELEMENT_CANCEL_BUTTON);
 		}else {
-			click(ELEMENT_CANCEL_BUTTON_AUX);
+			clickByJavascript(ELEMENT_CANCEL_BUTTON_AUX);
 		}
 	}
 
 	public void add(){
 		waitForAndGetElement(ELEMENT_ADD_BUTTON);
-		click(ELEMENT_ADD_BUTTON);
+		clickByJavascript(ELEMENT_ADD_BUTTON);
 		waitForElementNotPresent(ELEMENT_ADD_BUTTON);
 		Utils.pause(500);
 	}
 
 	public void saveAndClose(){
 		if (waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON, 3000, 0) != null){
-			click(ELEMENT_SAVE_CLOSE_BUTTON);
+			clickByJavascript(ELEMENT_SAVE_CLOSE_BUTTON);
 		}else if (waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON_2, 3000, 0) != null){
-			click(ELEMENT_SAVE_CLOSE_BUTTON_2);
+			clickByJavascript(ELEMENT_SAVE_CLOSE_BUTTON_2);
 		}
 		Utils.pause(500);
 	}
 
 	public void apply(){
 		waitForAndGetElement(ELEMENT_APPLY_BUTTON);
-		click(ELEMENT_APPLY_BUTTON);
+		clickByJavascript(ELEMENT_APPLY_BUTTON);
 	}
 
 	public void next(){
 		waitForAndGetElement(ELEMENT_NEXT_BUTTON);
-		click(ELEMENT_NEXT_BUTTON);	
+		clickByJavascript(ELEMENT_NEXT_BUTTON);	
 		Utils.pause(500);
 	}
 
 	public void refresh(){	
 		waitForAndGetElement(ELEMENT_REFRESH_BUTTON);
-		click(ELEMENT_REFRESH_BUTTON);
+		clickByJavascript(ELEMENT_REFRESH_BUTTON);
 		Utils.pause(500);
 	}
 
 	public void rename(){
 		waitForAndGetElement(ELEMENT_RENAME_BUTTON);
-		click(ELEMENT_RENAME_BUTTON);
+		clickByJavascript(ELEMENT_RENAME_BUTTON);
 		Utils.pause(500);
 	}
 
 	public void previous(){
 		waitForAndGetElement(ELEMENT_PREVIOUS_BUTTON);
-		click(ELEMENT_PREVIOUS_BUTTON);	
+		clickByJavascript(ELEMENT_PREVIOUS_BUTTON);	
 		Utils.pause(500);
 	}
 
 	public void closeWindow(){
 		if (isElementPresent(ELEMENT_CLOSE_WINDOW)){
-			click(ELEMENT_CLOSE_WINDOW);
+			clickByJavascript(ELEMENT_CLOSE_WINDOW);
 		}else if (isElementPresent(By.xpath("//*[contains(@class, 'wikiPreviewHeader')]//*[contains(@class, 'uiIconClose')]"))){
-			click(By.xpath("//*[contains(@class, 'wikiPreviewHeader')]//*[contains(@class, 'uiIconClose')]"));
+			clickByJavascript(By.xpath("//*[contains(@class, 'wikiPreviewHeader')]//*[contains(@class, 'uiIconClose')]"));
 		}
 		Utils.pause(1000);
 	}

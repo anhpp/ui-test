@@ -26,13 +26,13 @@ public class Calendar_Calendar extends CalendarBase{
 	Task tsk;
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		acc = new ManageAccount(driver);
 		evt = new Event(driver, this.plfVersion);
 		tsk = new Task(driver);
 		acc.signIn(DATA_USER1, DATA_PASS);
 		goToCalendarPage();
-		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+	//	setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 	}
 
 	@AfterMethod
@@ -95,10 +95,10 @@ public class Calendar_Calendar extends CalendarBase{
 	@Test
 	public void test03_AddEditDeletePersonalCalendar() {
 		String calendar = "Calendar 69258";
-		String newCalendar = "new Calendar 69258";
+//		String newCalendar = "new Calendar 69258";
 		addCalendar(calendar,calendar,"red");
-		editCalendar(calendar,newCalendar, newCalendar,"light_purple");
-		deleteCalendar(newCalendar);
+		editCalendar(calendar, calendar, calendar,"light_purple");
+		deleteCalendar(calendar);
 	}
 
 	/** 
@@ -108,11 +108,11 @@ public class Calendar_Calendar extends CalendarBase{
 	@Test
 	public void test04_AddEditDeleteGroupCalendar() {
 		String calendar = "Calendar 69649";
-		String newCalendar = "new Calendar 69649";
+//		String newCalendar = "new Calendar 69649";
 		info("Add/Edit/Delete Group Calendar");
 		addCalendar(calendar,calendar,"red","/platform/administrators");
-		editCalendar(calendar,newCalendar, newCalendar,"light_purple","/platform/web-contributors");
-		deleteCalendar(newCalendar);
+		editCalendar(calendar, calendar, calendar,"light_purple","/platform/web-contributors");
+		deleteCalendar(calendar);
 	}
 
 	/** 
@@ -185,11 +185,11 @@ public class Calendar_Calendar extends CalendarBase{
 	public void test07_CheckCollapseExpandOnLeftPanel() {
 
 		info("Check collapse/expand on left panel");
-		click(ELEMENT_SHOW_HIDE_LEFT_PANEL);
+		clickByJavascript(ELEMENT_SHOW_HIDE_LEFT_PANEL);
 		waitForElementNotPresent(ELEMENT_CALENDAR_PANEL);
 		waitForElementNotPresent(ELEMENT_TOOLBAR_MINI_CALENDAR);
 		
-		click(ELEMENT_SHOW_HIDE_LEFT_PANEL);
+		clickByJavascript(ELEMENT_SHOW_HIDE_LEFT_PANEL);
 		waitForAndGetElement(ELEMENT_CALENDAR_PANEL);
 		waitForAndGetElement(ELEMENT_TOOLBAR_MINI_CALENDAR);
 	}

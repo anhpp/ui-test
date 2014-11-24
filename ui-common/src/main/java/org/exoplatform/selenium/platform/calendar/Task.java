@@ -124,7 +124,7 @@ public class Task extends CalendarBase{
 
 		String cell = "//td[contains(@startfull,'" + current + " " + time + ":00')]";
 		rightClickOnElement(cell);
-		click(ELEMENT_RIGHT_CLICK_ADD_TASK, 2);
+		clickByJavascript(ELEMENT_RIGHT_CLICK_ADD_TASK, 2);
 		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
 	}
 
@@ -141,7 +141,7 @@ public class Task extends CalendarBase{
 		else
 			rightClickOnElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", oldName),2);
 		Utils.pause(3000);
-		click(ELEMENT_TASK_MENU_EDIT);
+		clickByJavascript(ELEMENT_TASK_MENU_EDIT);
 		waitForAndGetElement(ELEMENT_ADD_EDIT_TASK_POPUP);
 	}
 
@@ -151,11 +151,11 @@ public class Task extends CalendarBase{
 	 */
 	public void gotoSetPopupReminder() {
 
-		click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
+		clickByJavascript(ELEMENT_BUTTON_TASK_MORE_DETAILS);
 		Utils.pause(3000);
-		click(ELEMENT_TAB_REMINDER);
+		clickByJavascript(ELEMENT_TAB_REMINDER);
 		Utils.pause(3000);
-		click(ELEMENT_CHECKBOX_POPUP_REMINDER);
+		clickByJavascript(ELEMENT_CHECKBOX_POPUP_REMINDER);
 	}
 
 	/**
@@ -163,9 +163,9 @@ public class Task extends CalendarBase{
 	 * 
 	 */
 	public void gotoSetEmailReminder() {
-		click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
+		clickByJavascript(ELEMENT_BUTTON_TASK_MORE_DETAILS);
 		Utils.pause(5000);
-		click(ELEMENT_TAB_REMINDER);
+		clickByJavascript(ELEMENT_TAB_REMINDER);
 	}	
 	/*==============End of =================*/
 
@@ -188,9 +188,11 @@ public class Task extends CalendarBase{
 		boolean quick = (waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP,5000,0) != null) ? true : false;
 		if(quick){
 			if (name != null){
+				clickByJavascript(ELEMENT_INPUT_TASK_TITLE);
 				type(ELEMENT_INPUT_TASK_TITLE, name, true);
 			}
 			if (note != null){
+				clickByJavascript(ELEMENT_INPUT_TASK_NOTE);
 				type(ELEMENT_INPUT_TASK_NOTE, note, true);
 			}
 
@@ -245,8 +247,8 @@ public class Task extends CalendarBase{
 					if(dateTimeFrom.length > 0)
 						type(ELEMENT_INPUT_TASK_FROM, dateTimeFrom[0], true);
 					if(dateTimeFrom.length > 1){
-						click(ELEMENT_INPUT_TASK_FROM_TIME_IN, 2);
-						click(ELEMENT_TASK_SELECT_FROM_TIME.replace("${time}", dateTimeFrom[1]));
+						clickByJavascript(ELEMENT_INPUT_TASK_FROM_TIME_IN, 2);
+						clickByJavascript(ELEMENT_TASK_SELECT_FROM_TIME.replace("${time}", dateTimeFrom[1]));
 					}
 					Utils.pause(1000);
 					//						type(ELEMENT_INPUT_TASK_FROM_TIME, dateTimeFrom[1], false);
@@ -257,8 +259,8 @@ public class Task extends CalendarBase{
 					if(dateTimeTo.length > 0)
 						type(ELEMENT_INPUT_TASK_TO, dateTimeTo[0], true);
 					if(dateTimeTo.length > 1){
-						click(ELEMENT_INPUT_TASK_TO_TIME_IN, 2);
-						click(ELEMENT_TASK_SELECT_TO_TIME.replace("${time}", dateTimeTo[1]));
+						clickByJavascript(ELEMENT_INPUT_TASK_TO_TIME_IN, 2);
+						clickByJavascript(ELEMENT_TASK_SELECT_TO_TIME.replace("${time}", dateTimeTo[1]));
 					}
 					Utils.pause(1000);
 					//						type(ELEMENT_INPUT_TASK_TO_TIME, dateTimeTo[1], false);
@@ -283,8 +285,8 @@ public class Task extends CalendarBase{
 					if(dateTime.length > 1){
 
 						//						type(ELEMENT_ADD_EDIT_TASK_FROM_TIME, dateTime[1], false);
-						click(ELEMENT_ADD_EDIT_TASK_FROM_TIME_IN, 2);
-						click(ELEMENT_ADD_EDIT_TASK_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
+						clickByJavascript(ELEMENT_ADD_EDIT_TASK_FROM_TIME_IN, 2);
+						clickByJavascript(ELEMENT_ADD_EDIT_TASK_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
 						Utils.pause(1000);
 					}
 				}
@@ -292,8 +294,8 @@ public class Task extends CalendarBase{
 					String[] dateTime = to.split(" ");
 					type(ELEMENT_ADD_EDIT_TASK_TO, dateTime[0], true);
 					if(dateTime.length > 1){
-						click(ELEMENT_ADD_EDIT_TASK_TO_TIME_IN, 2);
-						click(ELEMENT_ADD_EDIT_TASK_SELECT_TO_TIME.replace("${time}", dateTime[1]));
+						clickByJavascript(ELEMENT_ADD_EDIT_TASK_TO_TIME_IN, 2);
+						clickByJavascript(ELEMENT_ADD_EDIT_TASK_SELECT_TO_TIME.replace("${time}", dateTime[1]));
 
 						Utils.pause(1000);
 						//						type(ELEMENT_ADD_EDIT_TASK_TO_TIME, dateTime[1], false);
@@ -341,7 +343,7 @@ public class Task extends CalendarBase{
 		inputFromToTask(from, to, allDay);
 		if((path != "") & (path != null)){
 			attachFileToTask(path);
-			click(ELEMENT_ATTACH_SAVE_BUTTON);
+			clickByJavascript(ELEMENT_ATTACH_SAVE_BUTTON);
 		}
 		if((opt.length > 2) & (opt.length <= 3))
 			inputOtherFieldsTabDetailsTask(opt[2]);	
@@ -355,7 +357,7 @@ public class Task extends CalendarBase{
 	 */
 	public void attachFileToTask(String path){
 
-		click(ELEMENT_TASK_ADD_ATTACHMENT);
+		clickByJavascript(ELEMENT_TASK_ADD_ATTACHMENT);
 		WebElement eFile = waitForAndGetElement(ELEMENT_TASK_FILE_INPUT,DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
 
@@ -388,7 +390,7 @@ public class Task extends CalendarBase{
 		goToAddTaskFromActionBar();
 		inputBasicQuickTask(name, note, opt);
 		inputFromToTask(from, to, allDay);
-		click(ELEMENT_BUTTON_TASK_SAVE);
+		clickByJavascript(ELEMENT_BUTTON_TASK_SAVE);
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_SAVE);
 		/*if(allDay)
 			if(this.plfVersion.contains("4.0"))
@@ -406,7 +408,7 @@ public class Task extends CalendarBase{
 	public void inputDataTask(String name, String note, String from, String to, boolean allDay, String...opt){
 		inputBasicQuickTask(name, note, opt);
 		inputFromToTask(from, to, allDay);
-		click(ELEMENT_BUTTON_TASK_SAVE);
+		clickByJavascript(ELEMENT_BUTTON_TASK_SAVE);
 		if(allDay)
 			if(this.plfVersion.contains("4.0"))
 				waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", name));
@@ -434,8 +436,8 @@ public class Task extends CalendarBase{
 			info("Check time suggestion default");				
 		}else {
 			info("Check suggesion when select From time");
-			click(ELEMENT_INPUT_TASK_FROM_TIME_IN, 2);
-			click(ELEMENT_TASK_SELECT_FROM_TIME.replace("${time}", from));
+			clickByJavascript(ELEMENT_INPUT_TASK_FROM_TIME_IN, 2);
+			clickByJavascript(ELEMENT_TASK_SELECT_FROM_TIME.replace("${time}", from));
 			Utils.pause(2000);
 		}
 		String fromTime = waitForAndGetElement(ELEMENT_INPUT_TASK_FROM_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
@@ -480,7 +482,7 @@ public class Task extends CalendarBase{
 		info("Edit a task");
 		goToEditTaskForm(oldName);
 		inputDataTabDetailTask(name, note, from, to, allDay, path, opt);
-		click(ELEMENT_BUTTON_TASK_SAVE_EDIT);
+		clickByJavascript(ELEMENT_BUTTON_TASK_SAVE_EDIT);
 	}
 
 	/*================End of ....======================*/

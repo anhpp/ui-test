@@ -243,7 +243,7 @@ public class CalendarBase extends PlatformBase {
 	 */
 	public void goToCalendarPage(){	
 		info("--Go to calendar--");
-		click(ELEMENT_CALENDAR_LINK);
+		clickByJavascript(ELEMENT_CALENDAR_LINK);
 		waitForAndGetElement(ELEMENT_CALENDAR_PANEL);
 		ID_CALENDAR_PAGE = waitForAndGetElement(ELEMENT_GET_ID_PAGE).getAttribute("id");
 	}
@@ -321,26 +321,26 @@ public class CalendarBase extends PlatformBase {
 			case 0: type(ELEMENT_CAL_SHARE_INPUT,userGroup[i],false);
 			break;
 			case 1:
-				click(ELEMENT_CAL_SELECT_USER_ICON); 
+				clickByJavascript(ELEMENT_CAL_SELECT_USER_ICON); 
 				per.selectUserPermission(userGroup[i]); break;
 			case 2: 
 				String[] group = userGroup[i].split(":");
-				click(ELEMENT_CAL_SELECT_GROUP_ICON);
+				clickByJavascript(ELEMENT_CAL_SELECT_GROUP_ICON);
 				per.selectGroupPermission(group[0]); break;
 			case 3: 
 				String[] groupMem = userGroup[i].split(":");
 				String[] membership = groupMem[1].split(".");
-				click(ELEMENT_CAL_SELECT_MEMBERSHIP_ICON);
+				clickByJavascript(ELEMENT_CAL_SELECT_MEMBERSHIP_ICON);
 				per.selectGroupMembership(groupMem[0],membership[1]); break;
 			}
 		}
-		click(ELEMENT_CAL_SHARE_ADD_BUTTON);
+		clickByJavascript(ELEMENT_CAL_SHARE_ADD_BUTTON);
 		for(int j=0; j < canEdit.length; j++){
 			if(canEdit[j]==true){
 			check(ELEMENT_CAL_SHARE_EDIT_PERMISSION.replace("${user}", userGroup[j]),2);
 			}
 		}
-		click(ELEMENT_CAL_SHARE_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_CAL_SHARE_SAVE_BUTTON);
 	}
 
 	/** 
@@ -352,7 +352,7 @@ public class CalendarBase extends PlatformBase {
 	public void goToExportCalendar(String calendar){
 
 		openMenuOfCalendar(calendar);
-		click(ELEMENT_CAL_EXPORT_MENU);
+		clickByJavascript(ELEMENT_CAL_EXPORT_MENU);
 		waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_POPUP);
 	}
 
@@ -368,7 +368,7 @@ public class CalendarBase extends PlatformBase {
 		info("Export calendar");
 		goToExportCalendar(calendar);
 		type(ELEMENT_CAL_EXPORT_FILE_NAME,name,true);
-		click(ELEMENT_CAL_EXPORT_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_CAL_EXPORT_SAVE_BUTTON);
 		Utils.pause(3000);
 		driver.navigate().refresh();
 		Utils.pause(3000);
@@ -379,9 +379,9 @@ public class CalendarBase extends PlatformBase {
 	 * 
 	 */
 	public void goToAddCalendar(){
-		click(ELEMENT_CALENDAR_ACTIONS_ICON);
+		clickByJavascript(ELEMENT_CALENDAR_ACTIONS_ICON);
 		Utils.pause(3000);
-		click(ELEMENT_CALENDAR_ADD_MENU);
+		clickByJavascript(ELEMENT_CALENDAR_ADD_MENU);
 	}
 
 	/** 
@@ -389,8 +389,8 @@ public class CalendarBase extends PlatformBase {
 	 * 
 	 */
 	public void goToCalendarSettings(){
-		click(ELEMENT_CALENDAR_ACTIONS_ICON);
-		click(ELEMENT_CALENDAR_SETTINGS);
+		clickByJavascript(ELEMENT_CALENDAR_ACTIONS_ICON);
+		clickByJavascript(ELEMENT_CALENDAR_SETTINGS);
 	}
 
 	/** 
@@ -419,17 +419,17 @@ public class CalendarBase extends PlatformBase {
 		if(description != null)
 			type(ELEMENT_CAL_DESC_INPUT, description,true);
 		if(color != null){
-			click(ELEMENT_CAL_COLOR);
-			click(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
+			clickByJavascript(ELEMENT_CAL_COLOR);
+			clickByJavascript(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
 		}
 		if(groups.length > 0){
-			click(ELEMENT_CAL_GROUP_TAB);
+			clickByJavascript(ELEMENT_CAL_GROUP_TAB);
 			if(type.equals("0")){
-				click(ELEMENT_CAL_SELECT_GROUP_ICON);
-				click(ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", groups[0]));
+				clickByJavascript(ELEMENT_CAL_SELECT_GROUP_ICON);
+				clickByJavascript(ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", groups[0]));
 			}else
 				type(ELEMENT_CAL_GROUP_INPUT,groups[0],true);
-			click(button.ELEMENT_ADD_BUTTON);
+			clickByJavascript(button.ELEMENT_ADD_BUTTON);
 		}
 		Utils.pause(1000);
 	}
@@ -457,19 +457,19 @@ public class CalendarBase extends PlatformBase {
 			type(ELEMENT_NAME_FEEDS,name,true);
 		for(int i = 0; i < calendar.length; i++){
 			select(ELEMENT_ADD_MORE,calendar[i]);
-			click(ELEMENT_ADD_CALENDAR_BUTTON);
+			clickByJavascript(ELEMENT_ADD_CALENDAR_BUTTON);
 		}
 		int urlfeed = url.length > 0 ? url[0] : 0;
 		switch (urlfeed){
 		case 1:
-			click(ELEMENT_RESET_URL); break;
+			clickByJavascript(ELEMENT_RESET_URL); break;
 		case 2: 
-			click(ELEMENT_GENERATE_URL);break;
+			clickByJavascript(ELEMENT_GENERATE_URL);break;
 		default: break;
 		}
-		click(ELEMENT_FEEDS_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_FEEDS_SAVE_BUTTON);
 		waitForAndGetElement("//*[contains(text(),'"+VERIFY_MESSAGE_URL.replace("${name}", name)+"')]",60000);
-		click(ELEMENT_OK_POPUP_BUTTON);
+		clickByJavascript(ELEMENT_OK_POPUP_BUTTON);
 		waitForAndGetElement("//*[contains(text(),'"+name+"')]");
 	}
 
@@ -489,9 +489,9 @@ public class CalendarBase extends PlatformBase {
 	public void addFeeds(String name, String[] userGroup,int...url){
 		goToCalendarSettings();
 		info("--Verify feeds tab--");
-		click(ELEMENT_FEEDS);
+		clickByJavascript(ELEMENT_FEEDS);
 		waitForAndGetElement(ELEMENT_FEEDS);
-		click(ELEMENT_ADD_FEEDS_BUTTON);
+		clickByJavascript(ELEMENT_ADD_FEEDS_BUTTON);
 		inputFeedsData(name, userGroup, url);
 
 	}
@@ -512,7 +512,7 @@ public class CalendarBase extends PlatformBase {
 	 *           else: leave the Url field by default
 	 */
 	public void editFeeds(String oldName, String name, String[] userGroup, int...url){
-		click(ELEMENT_EDIT_FEEDS.replace("${namefeeds}", oldName));
+		clickByJavascript(ELEMENT_EDIT_FEEDS.replace("${namefeeds}", oldName));
 		waitForAndGetElement(ELEMENT_FEEDS);
 		inputFeedsData(name, userGroup, url);
 	}
@@ -524,10 +524,10 @@ public class CalendarBase extends PlatformBase {
 	public void deleteFeeds(String name){
 		alert = new ManageAlert(driver);
 		info("--Delete event--");
-		click(ELEMENT_DELETE_FEEDS);
+		clickByJavascript(ELEMENT_DELETE_FEEDS);
 		alert.verifyAlertMessage(MSG_FEEDS_DELETE);
 		waitForElementNotPresent(By.linkText(name));
-		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
 	}
 
 	/*============== End of Feeds ===============*/
@@ -556,8 +556,8 @@ public class CalendarBase extends PlatformBase {
 	 * 
 	 */
 	public void goToImportCalendar(){
-		click(ELEMENT_CALENDAR_ACTIONS_ICON);
-		click(ELEMENT_CALENDAR_IMPORT_MENU);
+		clickByJavascript(ELEMENT_CALENDAR_ACTIONS_ICON);
+		clickByJavascript(ELEMENT_CALENDAR_IMPORT_MENU);
 		waitForAndGetElement(ELEMENT_CAL_IMPORT_POPUP);
 	}
 
@@ -582,10 +582,10 @@ public class CalendarBase extends PlatformBase {
 			type(ELEMENT_CAL_IMPORT_DESC_INPUT,description,true);
 
 		if (color != null){
-			click(ELEMENT_CAL_COLOR);
-			click(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
+			clickByJavascript(ELEMENT_CAL_COLOR);
+			clickByJavascript(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
 		}
-		click(ELEMENT_CAL_IMPORT_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_CAL_IMPORT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_CAL_IMPORT_SAVE_BUTTON);
 		driver.navigate().refresh();
 		waitForAndGetElement(By.linkText(name));
@@ -670,7 +670,7 @@ public class CalendarBase extends PlatformBase {
 		default:
 			break;
 		}
-		click(ELEMENT_EVENT_TASK_DELETE_MENU);
+		clickByJavascript(ELEMENT_EVENT_TASK_DELETE_MENU);
 		if(waitForAndGetElement(By.xpath("//*[contains(text(),'"+MSG_EVENT_DELETE+"')]"),5000,0)==null)
 			alert.verifyAlertMessage(MSG_TASK_DELETE);
 		else
@@ -713,7 +713,7 @@ public class CalendarBase extends PlatformBase {
 		info("Add calendar");
 		goToAddCalendar();
 		inputAddCalendarForm(name,description,color,groups);
-		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_CAL_ADD_SAVE_BUTTON);
 
 		waitForAndGetElement(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("${calendar}", name));
 	}
@@ -764,7 +764,7 @@ public class CalendarBase extends PlatformBase {
 
 		executeActionCalendar(oldName,"EditCalendar");
 		inputAddCalendarForm(name,description,color,groups);
-		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_CAL_ADD_SAVE_BUTTON);
 		waitForAndGetElement(By.linkText(name));
 	}
 
@@ -826,12 +826,12 @@ public class CalendarBase extends PlatformBase {
 	 * 				time zone of calendar, e.g.: (GMT -11:00) Pacific/Samoa
 	 */
 	public void setTimezoneForCalendar(String timezoneOpt){
-		click(ELEMENT_CAL_SETTING_MENU);
+		clickByJavascript(ELEMENT_CAL_SETTING_MENU);
 		Utils.pause(3000);
 		info("-- Select filter option of Timezone --");
 		select(ELEMENT_TIME_ZONE,timezoneOpt);	
 		Utils.pause(1000);
-		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
 		Utils.pause(3000);
 	}
 
@@ -862,11 +862,11 @@ public class CalendarBase extends PlatformBase {
 	public void advanceSearchCalendar(String keyword){
 		info("----Open Advance Search window----");
 		waitForAndGetElement(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
-		click(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
+		clickByJavascript(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
 		info("----Input keyword----");
 		waitForAndGetElement(ELEMENT_INPUT_TEXT_ADVANCE_SEARCH);
 		type(ELEMENT_INPUT_TEXT_ADVANCE_SEARCH,keyword,true);
-		click(ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH);
+		clickByJavascript(ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH);
 		info("----Confirm search result displayed----");
 		Utils.pause(3000);
 		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
@@ -881,10 +881,10 @@ public class CalendarBase extends PlatformBase {
 	public void addEventCategory(String categoryName){
 		info("----Add new event category----");
 		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,categoryName,true);
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD);
+		clickByJavascript(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD);
 		info("----Verify if event category is added in Category List or not----");
 		waitForAndGetElement(ELEMENT_LIST_EVENT_CATEGORY.replace("${categoryName}", categoryName));
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	 
+		clickByJavascript(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	 
 	}
 
 	/** 
@@ -909,11 +909,11 @@ public class CalendarBase extends PlatformBase {
 		alert = new ManageAlert(driver);
 		button = new Button(driver);
 		waitForAndGetElement(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		click(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		clickByJavascript(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
 		alert.acceptAlert();
 		button.yes();
 		waitForElementNotPresent(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	
+		clickByJavascript(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	
 	}
 
 	/** 
@@ -927,11 +927,11 @@ public class CalendarBase extends PlatformBase {
 
 	public void editEventCategory(String categoryName, String editedCategoryName){
 		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		click(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		clickByJavascript(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",categoryName));
 		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,editedCategoryName,true);
-		click(ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE);
+		clickByJavascript(ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE);
 		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",editedCategoryName));
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);
+		clickByJavascript(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);
 	}
 
 	/** 
@@ -939,9 +939,9 @@ public class CalendarBase extends PlatformBase {
 	 * 
 	 */
 	public void gotoAddEventCategory(){
-		click(ELEMENT_CALENDAR_ACTIONS_ICON);
+		clickByJavascript(ELEMENT_CALENDAR_ACTIONS_ICON);
 		info("----Go to Add Event Category form----");
-		click(ELEMENT_ADD_EVENT_CATEGORY_ICON);
+		clickByJavascript(ELEMENT_ADD_EVENT_CATEGORY_ICON);
 		Utils.pause(3000);
 	}	 
 
@@ -960,11 +960,11 @@ public class CalendarBase extends PlatformBase {
 		info("==Open calendar actions menu==");
 		executeActionCalendar(calName, "EditCalendar");
 		Utils.pause(3000);
-		click(ELEMENT_SHOW_IN_GROUP_TAB);
+		clickByJavascript(ELEMENT_SHOW_IN_GROUP_TAB);
 		info("==Update Edit permission setting of calendar==");
 		//waitForAndGetElement(ELEMENT_EDIT_PERMISSION_INPUT.replace("${groupName}", Group));
 		type(ELEMENT_EDIT_PERMISSION_INPUT.replace("${groupName}", Group),editAcc, true);
-		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_CAL_ADD_SAVE_BUTTON);
 		Utils.pause(3000);
 	}
 	/**
@@ -1057,10 +1057,10 @@ public class CalendarBase extends PlatformBase {
 	public void goToActionOnCalendar(String cal, String action){
 		openMenuOfCalendar(cal);
 		if (action.equalsIgnoreCase("add task")){
-			click(ELEMENT_CAL_ADD_TASK_MENU);
+			clickByJavascript(ELEMENT_CAL_ADD_TASK_MENU);
 		}
 		if (action.equalsIgnoreCase("add event")){
-			click(ELEMENT_CAL_ADD_EVENT_MENU);
+			clickByJavascript(ELEMENT_CAL_ADD_EVENT_MENU);
 		}
 	}	
 
@@ -1105,7 +1105,7 @@ public class CalendarBase extends PlatformBase {
 		break;
 		}
 
-		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
 	}
 

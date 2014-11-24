@@ -22,7 +22,7 @@ public class Calendar_Category extends CalendarBase{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		acc = new ManageAccount(driver);
 		evt = new Event(driver);
 		tsk = new Task(driver);

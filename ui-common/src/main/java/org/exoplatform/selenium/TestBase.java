@@ -96,7 +96,7 @@ public class TestBase {
 
 	/*======== End of Term and conditions =====*/	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
-		//		System.setProperty("browser", "iexplorer");
+		System.setProperty("browser", "iexplorer");
 		String browser = System.getProperty("browser");
 
 		baseUrl = System.getProperty("baseUrl");

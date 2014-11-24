@@ -24,9 +24,9 @@ public class Event extends CalendarBase{
 	public By ELEMENT_RIGHT_CLICK_ADD_EVENT = By.xpath("//*[@id='tmpMenuElement']//*[@class='createEvent']");
 
 	//--------------------Event basic actions------------------------
-	public By ELEMENT_INPUT_EVENT_TITLE = By.id("eventName");
-	public By ELEMENT_INPUT_EVENT_DESCRIPTION = By.id("description");
-	public By ELEMENT_CHECKBOX_EVENT_ALLDAY = By.xpath("//form[@id='UIQuickAddEvent']//input[@id='allDay']");
+	public By ELEMENT_INPUT_EVENT_TITLE = By.cssSelector("#eventName");
+	public By ELEMENT_INPUT_EVENT_DESCRIPTION = By.cssSelector("#description");
+	public By ELEMENT_CHECKBOX_EVENT_ALLDAY = By.cssSelector("#allDay");
 	public By ELEMENT_INPUT_EVENT_FROM = By.name("from");
 	public By ELEMENT_INPUT_EVENT_TO = By.name("to");
 	public By ELEMENT_INPUT_ADD_QUICK_EVENT_FROM = By.xpath("//form[@id='UIQuickAddEvent']//*[@name='from']");
@@ -37,7 +37,7 @@ public class Event extends CalendarBase{
 	public By ELEMENT_INPUT_EVENT_TO_TIME_CURRENT_VALUE = By.xpath("//*[@id='UIQuickAddEventPopupWindow']//*[@name='toTime']");
 	public By ELEMENT_INPUT_EVENT_CALENDAR = By.name("calendar");
 	public By ELEMENT_INPUT_EVENT_CATEGORY = By.name("category");
-	public By ELEMENT_BUTTON_EVENT = By.id("UIActionBarQuickAddEvent");
+	public By ELEMENT_BUTTON_EVENT = By.cssSelector("#UIActionBarQuickAddEvent");
 	public By ELEMENT_MENU_EVENT_EDIT = By.xpath("//*[@id='tmpMenuElement']//i[@class='uiIconEdit uiIconLightGray']");
 	public By ELEMENT_ADD_EVENT_POPUP = By.id("UIQuickAddEventPopupWindow");
 	public By ELEMENT_INPUT_EVENT_FROM_TIME_IN = By.xpath("//*[@id='UIQuickAddEvent']//*[@id='fromTime']/..//*[@class='UIComboboxInput']");
@@ -48,7 +48,7 @@ public class Event extends CalendarBase{
 	public By ELEMENT_INPUT_EVENT_TO_TIME = By.xpath("//form[@id='UIQuickAddEvent']//*[@id='toTime']");
 	public By ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON = By.xpath("//*[@id='QuickAddEventContainer']//*[text()='Save']");
 	public By ELEMENT_ADD_EVENT_ATTACHMENT_BUTTON = By.xpath("//button[contains(.,'Add Attachment')]");
-	public By ELEMENT_ADD_EVENT_UPLOAD_FILE = By.xpath("//*[@name='file']");
+	public By ELEMENT_ADD_EVENT_UPLOAD_FILE = By.cssSelector("input[class='file']");//xpath("//*[@name='file']");
 	public String ELEMENT_ATTACH_FILE_LABEL = "//div[@class='fileNameLabel' and contains(text(),'${file}')]";
 	public By ELEMENT_ATTACH_FILE_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//button[text()='Save']");
 	public String ELEMENT_ADD_EVENT_FILE_ATTACHED = "//a[@data-original-title='${file}']";
@@ -175,7 +175,7 @@ public class Event extends CalendarBase{
 	 */
 	public void goToAddEventFromActionBar(){
 		info("Go to Add Event page");
-		click(ELEMENT_BUTTON_EVENT);
+		clickByJavascript(ELEMENT_BUTTON_EVENT);
 		waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP);
 	}
 
@@ -198,7 +198,7 @@ public class Event extends CalendarBase{
 
 		String cell = "//td[contains(@startfull,'" + current + " " + time + ":00')]";
 		rightClickOnElement(cell);
-		click(ELEMENT_RIGHT_CLICK_ADD_EVENT, 2);
+		clickByJavascript(ELEMENT_RIGHT_CLICK_ADD_EVENT, 2);
 		waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP);
 	}
 
@@ -211,7 +211,7 @@ public class Event extends CalendarBase{
 		info("Current date is " + current);
 		for (int i = 0; i < 5; i ++){
 			if (waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP, 5000, 0) == null){
-				click("//td[contains(@startfull,'" + current + " " + time + ":00')]", 2);
+				clickByJavascript("//td[contains(@startfull,'" + current + " " + time + ":00')]", 2);
 				info("Repeat " + i);
 			}
 		}
@@ -228,7 +228,7 @@ public class Event extends CalendarBase{
 			rightClickOnElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", oldEvent),2);
 		else
 			rightClickOnElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", oldEvent),2);
-		click(ELEMENT_MENU_EVENT_EDIT);
+		clickByJavascript(ELEMENT_MENU_EVENT_EDIT);
 		waitForAndGetElement(ELEMENT_EDIT_EVENT_POPUP);
 	}
 	//---------------End of go to------------------------//
@@ -250,9 +250,11 @@ public class Event extends CalendarBase{
 		boolean quick = (waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP,5000,0) != null) ? true : false; 
 		if(quick){
 			if (name != null){
+				clickByJavascript(ELEMENT_INPUT_EVENT_TITLE);
 				type(ELEMENT_INPUT_EVENT_TITLE, name, true);
 			}
 			if (description != null){
+				clickByJavascript(ELEMENT_INPUT_EVENT_DESCRIPTION);
 				type(ELEMENT_INPUT_EVENT_DESCRIPTION, description, true);
 			}
 			if (opt.length > 0 && opt[0] != null){
@@ -304,8 +306,8 @@ public class Event extends CalendarBase{
 					if(dateTime.length > 0)
 						type(ELEMENT_INPUT_EVENT_FROM, dateTime[0], true);
 					if(dateTime.length > 1){
-						click(ELEMENT_INPUT_EVENT_FROM_TIME_IN, 2);
-						click(ELEMENT_EVENT_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
+						clickByJavascript(ELEMENT_INPUT_EVENT_FROM_TIME_IN, 2);
+						clickByJavascript(ELEMENT_EVENT_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
 					}
 
 					Utils.pause(1000);
@@ -315,8 +317,8 @@ public class Event extends CalendarBase{
 					if(dateTime.length > 0)
 						type(ELEMENT_INPUT_EVENT_TO, dateTime[0], true);
 					if(dateTime.length > 1){
-						click(ELEMENT_INPUT_EVENT_TO_TIME_IN, 2);
-						click(ELEMENT_EVENT_SELECT_TO_TIME.replace("${time}", dateTime[1]));
+						clickByJavascript(ELEMENT_INPUT_EVENT_TO_TIME_IN, 2);
+						clickByJavascript(ELEMENT_EVENT_SELECT_TO_TIME.replace("${time}", dateTime[1]));
 					}
 
 					Utils.pause(1000);
@@ -339,8 +341,8 @@ public class Event extends CalendarBase{
 					if(dateTime.length > 0)
 						type(ELEMENT_ADD_EDIT_EVENT_FROM, dateTime[0], true);
 					if(dateTime.length > 1){
-						click(ELEMENT_ADD_EDIT_EVENT_FROM_TIME_IN, 2);
-						click(ELEMENT_ADD_EDIT_EVENT_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
+						clickByJavascript(ELEMENT_ADD_EDIT_EVENT_FROM_TIME_IN, 2);
+						clickByJavascript(ELEMENT_ADD_EDIT_EVENT_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
 					}
 					Utils.pause(1000);
 				}
@@ -350,8 +352,8 @@ public class Event extends CalendarBase{
 						type(ELEMENT_ADD_EDIT_EVENT_TO, dateTime[0], true);
 					if(dateTime.length > 1){
 						//						type(ELEMENT_ADD_EDIT_EVENT_TO_TIME, dateTime[1], true);
-						click(ELEMENT_ADD_EDIT_EVENT_TO_TIME_IN, 2);
-						click(ELEMENT_ADD_EDIT_EVENT_SELECT_TO_TIME.replace("${time}", dateTime[1]));
+						clickByJavascript(ELEMENT_ADD_EDIT_EVENT_TO_TIME_IN, 2);
+						clickByJavascript(ELEMENT_ADD_EDIT_EVENT_SELECT_TO_TIME.replace("${time}", dateTime[1]));
 					}
 					Utils.pause(1000);
 				}
@@ -373,14 +375,15 @@ public class Event extends CalendarBase{
 			type(ELEMENT_ADD_EDIT_EVENT_LOCATION,location,true);
 		}
 		if(opt.length>0){
-			click(ELEMENT_ADD_EVENT_ATTACHMENT_BUTTON);
-			WebElement upload = waitForAndGetElement(ELEMENT_ADD_EVENT_UPLOAD_FILE,DEFAULT_TIMEOUT,1,2);
+			clickByJavascript(ELEMENT_ADD_EVENT_ATTACHMENT_BUTTON);
+			WebElement upload = waitForAndGetElement(ELEMENT_ADD_EVENT_UPLOAD_FILE, DEFAULT_TIMEOUT, 1, 2); /*".uploadButton .btn"*/
 			String path = Utils.getAbsoluteFilePath(opt[0]);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display='block';",upload);
+			Utils.pause(5000);
 			upload.sendKeys(path);
 			String[] links = opt[0].split("/");
 			waitForAndGetElement(ELEMENT_ATTACH_FILE_LABEL.replace("${file}", links[links.length - 1]),60000);
-			click(ELEMENT_ATTACH_FILE_SAVE_BUTTON);
+			clickByJavascript(ELEMENT_ATTACH_FILE_SAVE_BUTTON);
 			waitForAndGetElement(ELEMENT_ADD_EVENT_FILE_ATTACHED.replace("${file}", links[links.length - 1]));
 		}
 
@@ -394,32 +397,32 @@ public class Event extends CalendarBase{
 	 * 			   opt[2]: available, 1: Busy, 2: Available, 3: Outside
 	 */
 	public void inputParticipantTab(String user, int sendInvitation,int...opt){
-		click(ELEMENT_PARTICIPANTS_TAB);
-		click(ELEMENT_PARTICIPANT_ADD_ICON);
-		click(ELEMENT_PARTICIPANT_PICK_USER);
+		clickByJavascript(ELEMENT_PARTICIPANTS_TAB);
+		clickByJavascript(ELEMENT_PARTICIPANT_ADD_ICON);
+		clickByJavascript(ELEMENT_PARTICIPANT_PICK_USER);
 		type(ELEMENT_PARTICIPANT_SEARCH_USER_INPUT,user,true);
-		click(ELEMENT_PARTICIPANT_SEARCH_USER_ICON);
+		clickByJavascript(ELEMENT_PARTICIPANT_SEARCH_USER_ICON);
 		check(ELEMENT_PARTICIPANT_SELECT_USER.replace("${user}", user),2);
-		click(ELEMENT_PARTICIPANT_ADD_BUTTON);
+		clickByJavascript(ELEMENT_PARTICIPANT_ADD_BUTTON);
 		waitForElementNotPresent(ELEMENT_PARTICIPANT_ADD_BUTTON);
-		click(ELEMENT_PARTICIPANT_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_PARTICIPANT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_PARTICIPANT_SAVE_BUTTON);
 		if(sendInvitation != 0)
 			switch (sendInvitation){
-			case 1: click(ELEMENT_PARTICIPANT_NEVER_RADIO,2);
+			case 1: clickByJavascript(ELEMENT_PARTICIPANT_NEVER_RADIO,2);
 			break;
-			case 2: click(ELEMENT_PARTICIPANT_ALWAYS_RADIO,2);
+			case 2: clickByJavascript(ELEMENT_PARTICIPANT_ALWAYS_RADIO,2);
 			break;
-			case 3: click(ELEMENT_PARTICIPANT_ASK_RADIO,2);
+			case 3: clickByJavascript(ELEMENT_PARTICIPANT_ASK_RADIO,2);
 			break;
 			default: break;
 			}
 		
 		if(opt.length > 0){
 			switch (opt[0]){
-			case 1: click(ELEMENT_PARTICIPANT_PRIVATE_RADIO,2);
+			case 1: clickByJavascript(ELEMENT_PARTICIPANT_PRIVATE_RADIO,2);
 			break;
-			case 2: click(ELEMENT_PARTICIPANT_PUBLIC_RADIO,2);
+			case 2: clickByJavascript(ELEMENT_PARTICIPANT_PUBLIC_RADIO,2);
 			break;
 			default: break;
 			}
@@ -427,11 +430,11 @@ public class Event extends CalendarBase{
 		
 		if(opt.length > 1){
 			switch (opt[1]){
-			case 1: click(ELEMENT_PARTICIPANT_BUSY_RADIO,2);
+			case 1: clickByJavascript(ELEMENT_PARTICIPANT_BUSY_RADIO,2);
 			break;
-			case 2: click(ELEMENT_PARTICIPANT_AVAILABLE_RADIO,2);
+			case 2: clickByJavascript(ELEMENT_PARTICIPANT_AVAILABLE_RADIO,2);
 			break;
-			case 3: click(ELEMENT_PARTICIPANT_OUTSIDE_RADIO,2);
+			case 3: clickByJavascript(ELEMENT_PARTICIPANT_OUTSIDE_RADIO,2);
 			break;
 			default: break;
 			}
@@ -518,7 +521,7 @@ public class Event extends CalendarBase{
 				break;
 			}
 		}
-		click(ELEMENT_SAVE_EVENT_OCCURRING);
+		clickByJavascript(ELEMENT_SAVE_EVENT_OCCURRING);
 	}
 
 	/**
@@ -620,7 +623,7 @@ public class Event extends CalendarBase{
 		info("Edit an event");
 		goToEditEventForm(oldEvent);
 		inputAddEventForm(name,description, location,from,to,allDay,opt);
-		click(ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_ADD_EVENT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_EDIT_EVENT_POPUP);
 	}
 
@@ -688,7 +691,7 @@ public class Event extends CalendarBase{
 		default:
 			break;
 		}
-		click(ELEMENT_EVENT_TASK_DELETE_MENU);
+		clickByJavascript(ELEMENT_EVENT_TASK_DELETE_MENU);
 		if(isElementPresent(ELEMENT_DELETE_RECURRING_EVENT_FORM)){
 			waitForAndGetElement(ELEMENT_DELETE_RECURRING_EVENT_FORM);
 			info(waitForAndGetElement(ELEMENT_CONFIRM_EDIT_DELETE_RECURRING_EVENT).getText());
@@ -708,7 +711,7 @@ public class Event extends CalendarBase{
 				check(ELEMENT_EDIT_DELETE_ALL_EVENT,2);
 				break;
 			}
-			click(ELEMENT_CONFIRM_DELETE_BUTTON);
+			clickByJavascript(ELEMENT_CONFIRM_DELETE_BUTTON);
 			waitForElementNotPresent(ELEMENT_DELETE_RECURRING_EVENT_FORM);
 		}
 		else{
@@ -787,11 +790,11 @@ public class Event extends CalendarBase{
 				rightClickOnElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", oldEvent),2);
 			break;
 		}
-		click(ELEMENT_MENU_EVENT_EDIT);
+		clickByJavascript(ELEMENT_MENU_EVENT_EDIT);
 		if(isElementPresent(ELEMENT_EDIT_EVENT_POPUP)){
 			waitForAndGetElement(ELEMENT_EDIT_EVENT_POPUP);
 			inputAddEventForm(name,description, location,from,to,allDay);
-			click(ELEMENT_ADD_EVENT_SAVE_BUTTON);
+			clickByJavascript(ELEMENT_ADD_EVENT_SAVE_BUTTON);
 			waitForAndGetElement(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
 			info(waitForAndGetElement(ELEMENT_CONFIRM_EDIT_DELETE_RECURRING_EVENT).getText());
 			assert waitForAndGetElement(ELEMENT_CONFIRM_EDIT_DELETE_RECURRING_EVENT).getText().contains(ELEMENT_CONFIRM_EDIT_MESSAGE);
@@ -810,13 +813,13 @@ public class Event extends CalendarBase{
 				check(ELEMENT_EDIT_DELETE_ALL_EVENT,2);
 				break;
 			}
-			click(ELEMENT_CONFIRM_EDIT_BUTTON);
+			clickByJavascript(ELEMENT_CONFIRM_EDIT_BUTTON);
 			waitForElementNotPresent(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
 			waitForElementNotPresent(ELEMENT_EDIT_EVENT_POPUP);
 		}
 		else{
 			inputAddEventForm(name,description, location,from,to,allDay);
-			click(ELEMENT_ADD_EVENT_SAVE_BUTTON);
+			clickByJavascript(ELEMENT_ADD_EVENT_SAVE_BUTTON);
 			waitForElementNotPresent(ELEMENT_EDIT_EVENT_POPUP);
 		}
 	}
@@ -868,7 +871,7 @@ public class Event extends CalendarBase{
 					((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", 
 							waitForAndGetElement(ELEMENT_EVENT_TASK_WEEK_PANEL));
 					if(waitForElementNotPresent(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE.replace("${taskName}", eventName).replace("${date}", dateTime)),5000,0)==null){
-						click(ELEMENT_NEXT_WEEK);
+						clickByJavascript(ELEMENT_NEXT_WEEK);
 						if(waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE.replace("${taskName}", eventName).replace("${date}", dateTime)),5000,0)!= null){
 							isPresentEvent = true;
 							info("it is shown in date " + dateTime);
@@ -877,7 +880,7 @@ public class Event extends CalendarBase{
 							isPresentEvent = false;
 							info("it is not shown in date " + dateTime);
 						}
-						click(ELEMENT_PREVIOUS_WEEK);
+						clickByJavascript(ELEMENT_PREVIOUS_WEEK);
 					}
 					else
 						isPresentEvent = true;
@@ -915,8 +918,8 @@ public class Event extends CalendarBase{
 			info("Check time suggestion default");				
 		}else {
 			info("Check suggesion when select From time");
-			click(ELEMENT_INPUT_EVENT_FROM_TIME_IN, 2);
-			click(ELEMENT_EVENT_SELECT_FROM_TIME.replace("${time}", from));
+			clickByJavascript(ELEMENT_INPUT_EVENT_FROM_TIME_IN, 2);
+			clickByJavascript(ELEMENT_EVENT_SELECT_FROM_TIME.replace("${time}", from));
 			Utils.pause(2000);
 		}
 		String fromTime = waitForAndGetElement(ELEMENT_INPUT_EVENT_FROM_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
