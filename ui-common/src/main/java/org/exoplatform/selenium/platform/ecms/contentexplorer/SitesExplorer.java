@@ -73,7 +73,7 @@ public class SitesExplorer extends EcmsBase{
 	public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
 
 	//Check status of documents
-	public final String ELEMENT_STATUS_DOCUMENT = "//*[@data-original-title='${title}']/../..//*[@data-original-title='status']";
+	public final String ELEMENT_STATUS_DOCUMENT = "//*[@data-original-title='${title} ']/../..//*[@data-original-title='status']";
 
 	//Other
 	public final String ELEMENT_BUTTON_WATCH_UNWATCH = "//*[@class='actionIcon' and contains(text(), ' Watch/Unwatch')]";

@@ -59,9 +59,9 @@ public class ECMS_SE_CreateNode_JSFile extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 66731
+	 * Qmetry ID: 102158
 	 * Create JS file with Active is True
-	 * Qmetry ID: 66732
+	 * Qmetry ID: 102159
 	 * Create JS file with valid values
 	 *  
 	 */
@@ -91,7 +91,7 @@ public class ECMS_SE_CreateNode_JSFile extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 67070
+	 * Qmetry ID: 102175
 	 * Check JS priority on Site Explorer when have two JS files which have been defined by calling function
 	 *  
 	 */
@@ -132,7 +132,7 @@ public class ECMS_SE_CreateNode_JSFile extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 67071
+	 * Qmetry ID: 102176
 	 * Check JS priority on Site Explorer when have two JS files which have been defined with the same function
 	 *  
 	 */
@@ -178,12 +178,11 @@ public class ECMS_SE_CreateNode_JSFile extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 67114
+	 * Qmetry ID: 102178
 	 * Check the affection of JS file in Shared site
-	 * ============ PENDING ========================
-	 * ============ Issue: ECMS-5508 =============== 
+	 * 
 	 */
-	//@Test(groups = {"Error"})
+	@Test
 	public void test04_CheckTheAffectionOfJSFileInSharedSite(){
 		String JS_FILE = "ECMS_SE_JS_FILE_04";
 		String data = "alert(\"Hello!\");";
@@ -213,6 +212,7 @@ public class ECMS_SE_CreateNode_JSFile extends PlatformBase{
 		
 		info("Restore data");
 		navToolBar.goToSiteExplorer();
+		magAlt.acceptAlert();
 		cMenu.deleteDocument(By.linkText(JS_FILE));
 	}
 }
