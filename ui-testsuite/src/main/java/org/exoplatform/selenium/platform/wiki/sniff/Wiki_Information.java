@@ -50,7 +50,7 @@ public class Wiki_Information extends Version {
 		String link = "Wiki_Sniff_Attachment_01.doc";
 		String newTitle = "Wiki_sniff_infor_page_title_01_update";
 		String newContent = "Wiki_sniff_infor_page_content_01_update";
-		
+		info("CaseId: 109192 -View Page General information");
 		addBlankWikiPageHasAttachment(title, content, link);
 		editWikiPage(newTitle, newContent, 0);
 

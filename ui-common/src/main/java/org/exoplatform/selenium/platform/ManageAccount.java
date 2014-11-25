@@ -74,7 +74,7 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_PASSWORD, password, true);
 		click(ELEMENT_SIGN_IN_BUTTON);
 		if(verify)
-			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON,100000);
+			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON,100000,1,2);
 		Utils.pause(2000);
 	}
 

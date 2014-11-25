@@ -7,11 +7,13 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -59,7 +61,7 @@ public class Wiki_Attachment extends BasicAction {
 		By imgElement = By.xpath("//img[contains(@src,"+newLink+")]");
 
 		Set<String> existingHandles = driver.getWindowHandles();
-		info("Add new wiki page having attachment");
+		/*info("Add new wiki page having attachment");
 		addBlankWikiPageHasAttachment(title, content, link);
 
 		info("Edit wiki page having attachment");
@@ -68,27 +70,42 @@ public class Wiki_Attachment extends BasicAction {
 		attachFileInWiki("TestData" + File.separator + newLink, 2);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "2"));
-		info("parent handle is " + driver.getWindowHandle());
+		info("parent handle is " + driver.getWindowHandle());*/
+		
+		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", newTitle));
 		info("Check download attachment successfully");
 		click(ELEMENT_ATTACHMENT_ICON);
 		
-		if(System.getProperty("browser").equalsIgnoreCase("iexplorer"))
-			clickAndSaveFileIE(waitForAndGetElement(By.linkText(newLink)));
+		if(System.getProperty("browser").equalsIgnoreCase("iexplorer")){
+			click(By.linkText(link));
+//		    driver.findElement(By.partialLinkText("click here")).click();
+		    String download = "TestData\\downloadFile.exe";
+		    String pathDownload = Utils.getAbsoluteFilePath(download);
+		    //This the code to call exe and pass the command line argument
+		    info("Path to save is " + Utils.getAbsoluteFilePath("TestData\\TestOutput\\"+link));
+		    try {
+				Process pb=new ProcessBuilder(pathDownload,"ie",Utils.getAbsoluteFilePath("TestData\\TestOutput\\"+link),"10").start();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+//			clickAndSaveFileIE(waitForAndGetElement(By.linkText(newLink)));
 		else
 			click(By.linkText(newLink));
-		String newhandle = FindNewWindowHandle(existingHandles,12000);
+		/*String newhandle = FindNewWindowHandle(existingHandles,12000);
 		info("new handle is " + newhandle);
 		driver.switchTo().window(newhandle);
 		//switchToNewWindow();
 		waitForAndGetElement(imgElement);
-		switchToParentWindow();
+		switchToParentWindow();*/
 
-		if(ieFlag)
+		/*if(ieFlag)
 			clickAndSaveFileIE(waitForAndGetElement(By.linkText(link)));
 		else
-			click(By.linkText(link));
+			click(By.linkText(link));*/
 		Utils.pause(3000);
-		assert checkFileExisted("TestOutput/"+link);
+		assert checkFileExisted("TestOutput\\"+link);
 
 
 		info("Delete attachment");

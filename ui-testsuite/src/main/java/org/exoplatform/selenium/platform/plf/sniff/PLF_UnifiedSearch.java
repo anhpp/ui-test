@@ -129,6 +129,7 @@ public class PLF_UnifiedSearch extends Template {
 		//- Login and go to intranet home page
 		//- Go to Search Administration via the Administration > Content > Search menu of the navigation bar 
 		//The search admin has a table with 3 columns : Content Type, Description, and Actions, as attachment searchAdmin.png
+		info("Administrate the unified search engine");
 		naviToolbar.goToSearch();
 
 		/*Step 2: Enable a content type*/ 
@@ -193,6 +194,7 @@ public class PLF_UnifiedSearch extends Template {
 		/*Declare variables*/
 		String searchText = "searchtext70919";
 
+		info("Configure Search page");
 		/*Step 1: Go to search page */
 		//- Login and go to intranet home page
 		//-Go to search page

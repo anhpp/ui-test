@@ -244,7 +244,7 @@ public class TestBase {
 		try {
 			elem = wDriver.findElement(by);
 		} catch (NoSuchElementException e) {
-
+			return null;
 		}
 		return elem;
 	}
@@ -275,6 +275,7 @@ public class TestBase {
 				if (isDisplay(by)) return e;
 			}
 		} catch (NoSuchElementException ex) {
+			return null;
 			//			info("NoSuchElementException");
 		}catch(StaleElementReferenceException ex)
 		{

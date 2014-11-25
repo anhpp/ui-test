@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.io.IOException;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -240,11 +242,18 @@ public class Activity extends SocialBase {
 		if (upload && uploadFileName!="")
 		{
 			info("-- Upload file --");
-			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
-			driver.switchTo().frame(frame);
+//			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+			clickByJavascript(By.cssSelector("a[class='BrowseLink']"),2);
+			/*driver.switchTo().frame(frame);
 			WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
-			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);*/
+			try {
+				Runtime.getRuntime().exec(Utils.getAbsoluteFilePath("TestData\\uploadFile.exe") + " " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
 			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
 			switchToParentWindow();
 			waitForAndGetElement(By.linkText(uploadFileName));

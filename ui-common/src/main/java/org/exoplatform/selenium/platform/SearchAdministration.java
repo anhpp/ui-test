@@ -13,7 +13,7 @@ public class SearchAdministration extends PlatformBase {
 
 	//Enable or Disable button of content type
 	public final String ELEMENT_CONTENT_TYPE_ENABLE_DISABLE_BUTTON = "//tr/td[text()='${contentType}']/..//input[@value='${action}']";
-	public final String ELEMENT_CONTENT_TYPE_ITEM_SEARCH = "//*[@id='lstContentTypes']/*[contains(text(),'${contentType}')]";
+	public final String ELEMENT_CONTENT_TYPE_ITEM_SEARCH = "//*[@id='lstContentTypes']/li[contains(.,'${contentType}')]";
 
 	SettingSearchPage qsPage;
 	public SearchAdministration(WebDriver dr){

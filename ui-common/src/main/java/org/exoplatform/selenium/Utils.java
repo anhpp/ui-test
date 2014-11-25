@@ -94,7 +94,7 @@ public class Utils {
 		if(displayM != null)
 			return new Rectangle(displayM.getWidth(), displayM.getHeight());
 		else
-			return new Rectangle(1000,1000);
+			return new Rectangle(1300,1000);
 	}
 
 	//
