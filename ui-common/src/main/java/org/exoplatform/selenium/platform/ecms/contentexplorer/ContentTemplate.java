@@ -273,7 +273,7 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_ACCESSIBLE_MEDIA_LINK = By
 			.xpath("//i[@data-original-title='Accessible Media']");
 	public final By ELEMENT_ACCESSIBLE_MEDIA_ALTERNATIVE_FRAME = By
-			.xpath("//*[@id='cke_contents_alternativeText']/iframe");
+			.xpath("//*[@id='cke_1_contents']/iframe");
 	public final By ELEMENT_ACCESSIBLE_MEDIA_TITLE = By.id("title0");
 	public final By ELEMENT_ACCESSIBLE_MEDIA_DESC = By.id("description0");
 
@@ -1065,7 +1065,12 @@ public class ContentTemplate extends EcmsBase {
 
 		info("-- Editing Illustrated Web Content -- " + title);
 		actBar.goToEditDocument(title);
-		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, contentToEdit, true);
+		
+		if (this.plfVersion.equalsIgnoreCase("4.0"))
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, contentToEdit, true);
+		else
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, contentToEdit, true);
+		
 		switchToParentWindow();
 
 		// Main Content tab

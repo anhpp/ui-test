@@ -35,16 +35,16 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	public void beforeMethod(){
 		initSeleniumTest();
 		driver.get(baseUrl);
-		magAcc = new ManageAccount(driver);
-		navToolBar = new NavigationToolbar(driver);
-		actBar = new ActionBar(driver);
-		ecms = new EcmsBase(driver);
-		cTemp = new ContentTemplate(driver);
+		magAcc = new ManageAccount(driver,this.plfVersion);
+		navToolBar = new NavigationToolbar(driver,this.plfVersion);
+		actBar = new ActionBar(driver,this.plfVersion);
+		ecms = new EcmsBase(driver,this.plfVersion);
+		cTemp = new ContentTemplate(driver,this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
 	/**
-	 * Qmetry ID: 74532 & 74533
+	 * Qmetry ID: 101466 & 101465
 	 * Sort & Revert the default sort of documents by "Date"
 	 */
 	@Test
@@ -70,7 +70,7 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 
 	/**
-	 * Qmetry ID: 74531 & 74534
+	 * Qmetry ID: 101467 & 101464
 	 * Sort & Revert the default sort of documents by "Name"
 	 */
 	@Test
@@ -95,7 +95,7 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 
 	/**
-	 * Qmetry ID: 74530 & 74535
+	 * Qmetry ID: 101468 & 101463
 	 * Sort & Revert the default sort of documents by "Size"
 	 */
 	@Test
@@ -122,7 +122,7 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 
 	/**
-	 * Qmetry ID: 74581 & 74587
+	 * Qmetry ID: 101500 & 101506
 	 * Show the DOWN/UP arrow for Descending ordering/ Ascending ordering"
 	 */
 	@Test
@@ -139,7 +139,7 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 	
 	/**
-	 * Qmetry ID: 74547
+	 * Qmetry ID: 101480
 	 * Show "Sort By" list"
 	 */
 	@Test

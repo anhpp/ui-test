@@ -29,12 +29,12 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
-		navToolBar = new NavigationToolbar(driver);
-		magAcc = new ManageAccount(driver);
+		navToolBar = new NavigationToolbar(driver,this.plfVersion);
+		magAcc = new ManageAccount(driver,this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS); 
-		ecms = new EcmsBase(driver);
-		actBar = new ActionBar(driver);
-		conTemp = new ContentTemplate(driver);
+		ecms = new EcmsBase(driver,this.plfVersion);
+		actBar = new ActionBar(driver,this.plfVersion);
+		conTemp = new ContentTemplate(driver,this.plfVersion);
 
 		info("Config New Content on action bar for admin view if it is not available on action bar");
 		navToolBar.goToPersonalDocuments();
@@ -43,7 +43,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 	}
-	
+
 	@AfterMethod
 	public void afterTest(){
 		//		magAcc.signOut();
@@ -52,7 +52,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 	}
 
 
-	/**CaseId: 67416, 78956, 78960
+	/**CaseId: 101455, 112008,101551
 	 * Add Edit Delete a File document
 	 */
 	@Test
@@ -73,7 +73,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(File_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78915, 78960
+	/**CaseId: 101518
 	 * Add/Delete a new folder
 	 */
 	@Test
@@ -88,7 +88,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Folder_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78917
+	/**CaseId: 101519
 	 * Create JS file
 	 */
 	@Test
@@ -107,7 +107,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Js_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78918
+	/**CaseId: 101520
 	 * Create a web Link
 	 */
 	@Test
@@ -129,7 +129,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Web_Link_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78920
+	/**CaseId: 101521
 	 * Create an Accessible media
 	 */
 	@Test
@@ -138,7 +138,8 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		String lang = "en";
 		info("Create an Accessible media");
 		actBar.goToAddNewContent();
-		//		Create new accessible media here
+
+		//	Create new accessible media here
 		conTemp.createAccessibleMedia(name,lang,name,name,name);
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 
@@ -147,7 +148,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 	}
 
-	/**CaseId: 78922
+	/**CaseId: 101522
 	 * Create an Announcement
 	 */
 	@Test
@@ -166,7 +167,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Announcement_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78923
+	/**CaseId: 101523
 	 * Create a new css file
 	 */
 	@Test
@@ -186,7 +187,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(CssFile_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78925
+	/**CaseId: 101524
 	 * Add new HTML File document
 	 */
 	@Test
@@ -197,7 +198,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		info("Add new HTML File document");
 		actBar.goToAddNewContent();
-		conTemp.createNewHtmlFile(Html_File_Name,"", Html_content);
+		conTemp.createNewHtmlFile(Html_File_Name,"", Html_content); 
 
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 
@@ -206,7 +207,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Html_File_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78926
+	/**CaseId: 101525
 	 * Add new Illustrated Web Content
 	 */
 	@Test
@@ -227,7 +228,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Illustrated_WC_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78927
+	/**CaseId: 101526
 	 * Add new Web Content
 	 */
 	@Test
@@ -246,7 +247,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(WC_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78928
+	/**CaseId: 101527
 	 * Add new Product
 	 */
 	@Test
@@ -267,7 +268,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Product_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78930
+	/**CaseId: 101528
 	 * Add new Contact us
 	 */
 	@Test
@@ -291,7 +292,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 	}
 
-	/**CaseId: 78957
+	/**CaseId: 101548
 	 *Edit illustrated web content
 	 */
 	@Test
@@ -313,15 +314,5 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.actionsOnElement(Illustrated_WC_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 78960
-	 * Delete Uploaded file
-	 */
-	@Test
-	public void test15_DeleteAnUploadedFile(){
-		String FILE_PDF_NAME = "ECMS_DMS_SE_Upload_pdffile.pdf";
-		info("Delete Uploaded file");
-		conTemp.uploadFile("TestData/" + FILE_PDF_NAME);
 
-		actBar.actionsOnElement(FILE_PDF_NAME, actionType.DELETE);		
-	}
 }
