@@ -68,14 +68,14 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 60);
 		evt.checkSuggestionEventTime("08:00", 60);
 		evt.inputAddEventForm(event, null, null, null, null, false, calendar);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 
 		info("Edit event");
 		evt.goToEditEventForm(event);
 		evt.inputAddEventForm(newEvent, note, null, getDate(0,"MM/dd/yyyy") + " 12:00", "", false);
 		assert waitForAndGetElement(evt.ELEMENT_ADD_EDIT_EVENT_TO_TIME).getAttribute("value").equals("13:00");
-		click(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_EDIT_EVENT_POPUP);
 		
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", newEvent)));
@@ -133,7 +133,7 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 60);
 		evt.checkSuggestionEventTime("08:00", 60);
 		evt.inputAddEventForm(event, null, null, null, null, false, calendar);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 
 		info("Edit event");
@@ -217,7 +217,7 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 60);
 		evt.checkSuggestionEventTime("08:00", 60);
 		evt.inputAddEventForm(EVENT_03, null, null, null, null, false, CAL_03, EVENT_CATEGORY);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 
 		info("Edit event");
@@ -733,7 +733,7 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 60);
 		evt.checkSuggestionEventTime("08:00", 60);
 		evt.inputAddEventForm(event1, null, null, null, null, false, calendar);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		
 		info("Check date suggestion when add event from click setting on action bar");
@@ -741,7 +741,7 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 60);
 		evt.checkSuggestionEventTime("09:00", 60);
 		evt.inputAddEventForm(event2, null, null, null, null, false, calendar);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		
 		info("Check date suggestion when add event from click on block time in main panel");
@@ -749,7 +749,7 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 30);
 		evt.checkSuggestionEventTime("11:00", 60);
 		evt.inputAddEventForm(event3, null, null, null, null, false, calendar);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		
 		info("Check date suggestion when add event from right click on main panel");
@@ -757,7 +757,7 @@ public class Calendar_Event extends CalendarBase {
 		evt.checkSuggestionEventTime(null, 60);
 		evt.checkSuggestionEventTime("14:00", 60);
 		evt.inputAddEventForm(event4, null, null, null, null, false, calendar);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_QUICK_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		
 		deleteCalendar(calendar);

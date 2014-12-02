@@ -48,7 +48,7 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_MINI_CALENDAR_DATE_HIGHLIGHT = "//td[contains(@class,'highLight') and contains(text(),'${date}')]";
 
 	//---------------Working pane---------------------
-	public String ELEMENT_WORKING_PANE_23H = "//td[@class='tdTime center']/div[contains(text(),'23:00')]";
+	public String ELEMENT_WORKING_PANE_23H = "//td[@class='tdTime center']/div[contains(text(),'"+getHours()+":00')]";
 
 	//-----------Calendar Settings ----------
 	public By ELEMENT_SETTINGS_TAB = By.xpath("//a[@data-toggle='tab' and text()='Settings']");
@@ -145,6 +145,7 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_EVENT_TASK_ALL_DAY_PLF41 = "//*[@id='UIWeekViewGridAllDay']//div[contains(@class,'eventAlldayContent') and contains(.,'${event}')]";
 	public String ELEMENT_EVENT_TASK_ALL_DAY_PLF41_DAY_VIEW = ".//*[@id='UIDayView']//div[@class='eventAllDay']//*[contains(@class,'eventContainer asparagus') and contains(.,'${event}')]";
 	//public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]/parent::div[@class='clearfix']/div[@class='eventContainerBar eventTitle pull-left']";
+	public String ELEMENT_EVENT_TASK_RECURRING_ICON = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'${date}')]//*[@class='uiIconCalRecurring']";
 	public String ELEMENT_EVENT_TASK_DETAIL_DATE = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'${date}')]//div[contains(text(),'${taskName}')]";
 	public String ELEMENT_EVENT_TASK_DETAIL_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'${date}')]//div[contains(text(),'${event}')]";
 	public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]";
@@ -640,7 +641,7 @@ public class CalendarBase extends PlatformBase {
 	public void deleteEventTask(String event, selectDayOption... options){
 		alert = new ManageAlert(driver);
 		button = new Button(driver);
-		waitForAndGetElement(ELEMENT_WORKING_PANE_23H);
+//		waitForAndGetElement(ELEMENT_WORKING_PANE_23H);
 		selectDayOption optDay = (waitForAndGetElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event), 5000,0) == null) ? selectDayOption.ALLDAY : selectDayOption.ONEDAY;
 
 		info("--Delete an Event/Task--");

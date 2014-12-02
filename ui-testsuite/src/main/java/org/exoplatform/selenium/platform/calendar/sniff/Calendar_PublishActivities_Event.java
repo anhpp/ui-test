@@ -41,7 +41,7 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		homeAct = new HomePageActivity(driver, this.plfVersion);
 		button = new Button(driver, this.plfVersion);
 		goToCalendarPage();
-		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+	//	setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 	}
 
 	@AfterMethod
@@ -226,7 +226,7 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		//Open event from activity
 		toolBar.goToHomePage();
 		homeAct.checkEventActivity(event, getCurrentDate("dd"), getCurrentDate("MMM"));
-		click(By.linkText(event));
+		clickByJavascript(By.linkText(event));
 		waitForAndGetElement(evt.ELEMENT_EVENT_PREVIEW_TITLE.replace("${event}", event));
 		button.close();
 		waitForAndGetElement(sp.ELEMENT_SPACE_BREAD.replace("${space}", space));
@@ -275,11 +275,11 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		evt.goToAddEventFromActionBar();
 		evt.inputBasicQuickEvent(name, description);
 		evt.inputFromToEvent(getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
-		click(evt.ELEMENT_BUTTON_EVENT_MORE_DETAILS);
+		clickByJavascript(evt.ELEMENT_BUTTON_EVENT_MORE_DETAILS);
 		Utils.pause(1000);
 		check(evt.ELEMENT_IS_REPEAT_CHECKBOX,2);
 		evt.inputRecurringInfoEvent(repeatType.Daily, null, null, repeatEndType.After);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		Utils.pause(1000);
 		info("Confirm added event displays in the calendar");
@@ -366,11 +366,11 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		evt.goToAddEventFromActionBar();
 		evt.inputBasicQuickEvent(name, description);
 		evt.inputFromToEvent(getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
-		click(evt.ELEMENT_BUTTON_EVENT_MORE_DETAILS);
+		clickByJavascript(evt.ELEMENT_BUTTON_EVENT_MORE_DETAILS);
 		Utils.pause(1000);
 		check(evt.ELEMENT_IS_REPEAT_CHECKBOX,2);
 		evt.inputRecurringInfoEvent(repeatType.Daily, null, null, repeatEndType.After);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		Utils.pause(1000);
 		toolBar.goToHomePage();
@@ -469,7 +469,7 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		evt.goToEditEventForm(name);
 		check(evt.ELEMENT_IS_REPEAT_CHECKBOX,2);
 		evt.inputRecurringInfoEvent(repeatType.Daily, null, null, repeatEndType.After);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		Utils.pause(1000);
 		
@@ -529,11 +529,11 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		evt.goToAddEventFromActionBar();
 		evt.inputBasicQuickEvent(name, description);
 		evt.inputFromToEvent(getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
-		click(evt.ELEMENT_BUTTON_EVENT_MORE_DETAILS);
+		clickByJavascript(evt.ELEMENT_BUTTON_EVENT_MORE_DETAILS);
 		Utils.pause(1000);
 		check(evt.ELEMENT_IS_REPEAT_CHECKBOX,2);
 		evt.inputRecurringInfoEvent(repeatType.Daily, null, null, repeatEndType.After);
-		click(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		clickByJavascript(evt.ELEMENT_ADD_EVENT_SAVE_BUTTON);
 		waitForElementNotPresent(evt.ELEMENT_ADD_EVENT_POPUP);
 		Utils.pause(1000);
 		info("Confirm added event displays in the calendar");

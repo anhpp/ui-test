@@ -521,7 +521,7 @@ public class Event extends CalendarBase{
 				break;
 			}
 		}
-		clickByJavascript(ELEMENT_SAVE_EVENT_OCCURRING);
+		click(ELEMENT_SAVE_EVENT_OCCURRING);
 	}
 
 	/**
@@ -578,7 +578,8 @@ public class Event extends CalendarBase{
 		goToAddEventFromActionBar();
 		inputBasicQuickEvent(name, description, opt);
 		inputFromToEvent(from, to, allDay);
-		button.save();
+		click(By.xpath("//*[text()='Save']"));
+		Utils.pause(3000);
 		waitForElementNotPresent(ELEMENT_ADD_EVENT_POPUP);
 		Utils.pause(1000);
 		/*if((from != null) & (from != "")){
@@ -655,7 +656,7 @@ public class Event extends CalendarBase{
 		selectDayOption optDay = (selectDayOption) (options.length > 0 ? options[0]: selectDayOption.ALLDAY);
 		recurringType optDeleteType = (recurringType) (options.length > 1 ? options[1]: recurringType.ALL_EVENT);
 		String dateTime = (String)(options.length > 2 ? options[2]: "");
-		waitForAndGetElement(ELEMENT_WORKING_PANE_23H);
+//		waitForAndGetElement(ELEMENT_WORKING_PANE_23H);
 
 		info("--Delete an Recurring Event--");
 		switch (optDay) {
@@ -684,7 +685,7 @@ public class Event extends CalendarBase{
 		case ONEDAY:
 			Utils.pause(3000);
 			if(dateTime!="")
-				rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE.replace("${taskName}", event).replace("${date}", dateTime)),2);
+				rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE.replace("${taskName}", event).replace("${date}", getDate(0, "dd yyyy"))),2);
 			else
 				rightClickOnElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event),2);
 			break;			
@@ -715,7 +716,7 @@ public class Event extends CalendarBase{
 			waitForElementNotPresent(ELEMENT_DELETE_RECURRING_EVENT_FORM);
 		}
 		else{
-			alert.verifyAlertMessage(MSG_TASK_DELETE);
+			alert.verifyAlertMessage(MSG_EVENT_DELETE);
 			button.yes();
 			driver.navigate().refresh();
 			Utils.pause(1000);
@@ -772,7 +773,7 @@ public class Event extends CalendarBase{
 			}
 			else{ //this.plfVersion.contains("4.1")
 				if(dateTime!="")
-					rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_ALL_DAY.replace("${event}", oldEvent).replace("${date}", dateTime)),2);
+					rightClickOnElement(By.xpath((ELEMENT_EVENT_TASK_DETAIL_DATE.replace("${taskName}", oldEvent)).replace("${date}", getDate(0, "dd yyyy"))),2);
 				else{
 					if(waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY_PLF41.replace("${event}", oldEvent), 5000, 0) == null){
 						rightClickOnElement(ELEMENT_EVENT_TASK_WORKING_PANE_PLF41.replace("${event}", oldEvent),2);
@@ -910,8 +911,8 @@ public class Event extends CalendarBase{
 		info("Check date is current date");
 		String dateFrom = getValue(ELEMENT_INPUT_EVENT_FROM);
 		String dateTo = getValue(ELEMENT_INPUT_EVENT_TO);
-		assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
-		assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
+		assert dateFrom.equals(getCurrentDate("dd/MM/yyyy"));
+		assert dateTo.equals(getCurrentDate("dd/MM/yyyy"));
 
 		info("Check suggestion time");
 		if (from == null){

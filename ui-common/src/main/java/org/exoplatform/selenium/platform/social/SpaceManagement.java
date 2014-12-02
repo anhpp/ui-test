@@ -148,7 +148,7 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void switchTabs(By tab) {
 		waitForAndGetElement(tab);
-		click(tab);
+		clickByJavascript(tab);
 	}
 	/**
 	 * Migrate to PLF 4
@@ -176,9 +176,9 @@ public class SpaceManagement extends SocialBase {
 	public void addNewSpace(String name, String desc, int... params) {
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
 		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
-			click(ELEMENT_ADDNEWSPACE_BUTTON);
+			clickByJavascript(ELEMENT_ADDNEWSPACE_BUTTON);
 		}else {
-			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
+			clickByJavascript(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
 		}
 		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
@@ -187,7 +187,7 @@ public class SpaceManagement extends SocialBase {
 		waitForAndGetElement(By.linkText(name), iTimeout);
 		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"),iTimeout);
 		if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
-			click(By.linkText(name));
+			clickByJavascript(By.linkText(name));
 			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
 		}
 			
@@ -261,9 +261,9 @@ public class SpaceManagement extends SocialBase {
 	 * @param childGroupName : The child group to invite users
 	 */
 	public void addUserGroupToInvite(String groupPath, String childGroupName) {
-		click(ELEMENT_USER_GROUP_CHECKBOX);
+		clickByJavascript(ELEMENT_USER_GROUP_CHECKBOX);
 		userGroup.selectGroup(groupPath);
-		click(By.linkText(childGroupName));
+		clickByJavascript(By.linkText(childGroupName));
 	}
 
 	/**
@@ -333,7 +333,7 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void changeAvatar(String file){
 		info("-- changeAvatar --");
-		click(ELEMENT_CHANGE_AVATAR_BUTTON);
+		clickByJavascript(ELEMENT_CHANGE_AVATAR_BUTTON);
 		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
@@ -345,7 +345,7 @@ public class SpaceManagement extends SocialBase {
 		Utils.pause(1000);
 		button.confirm();
 		waitForAndGetElement(ELEMENT_AVATAR_SAVE_BUTTON);
-		click(ELEMENT_AVATAR_SAVE_BUTTON);
+		clickByJavascript(ELEMENT_AVATAR_SAVE_BUTTON);
 		Utils.pause(1000);
 	}
 
@@ -379,9 +379,9 @@ public class SpaceManagement extends SocialBase {
 		if(!(actBar.isActionsOnActionBarPresent(eItem))){
 			actBar.addItem2ActionBar(item, eItem, view, tab);
 			goToMySpacePage();
-			click(By.linkText(spacename));
+			clickByJavascript(By.linkText(spacename));
 			waitForAndGetElement(ELEMENT_DOCUMENTS_TAB);
-			click(ELEMENT_DOCUMENTS_TAB);
+			clickByJavascript(ELEMENT_DOCUMENTS_TAB);
 			actBar.goToViewMode(view);
 		}
 	}
@@ -401,16 +401,16 @@ public class SpaceManagement extends SocialBase {
 			eMenuItem = ELEMENT_SPACE_MENU_ITEM;
 
 		if(waitForAndGetElement(eMenuItem.replace("${menuItem}", menuItem),timeout,0) != null)
-			click(By.xpath(eMenuItem.replace("${menuItem}", menuItem)));
+			clickByJavascript(By.xpath(eMenuItem.replace("${menuItem}", menuItem)));
 		else{
-			click(ELEMENT_SPACE_MORE_ITEM);
+			clickByJavascript(ELEMENT_SPACE_MORE_ITEM);
 			Utils.pause(2000);
 			String []items = menuItem.split(" ");
 			if(items.length>1){
-				click(By.xpath(eMenuItem.replace("${menuItem}", menuItem.split(" ")[0]+" ...")));
+				clickByJavascript(By.xpath(eMenuItem.replace("${menuItem}", menuItem.split(" ")[0]+" ...")));
 			}
 			else{
-				click(By.xpath(eMenuItem.replace("${menuItem}", menuItem)));
+				clickByJavascript(By.xpath(eMenuItem.replace("${menuItem}", menuItem)));
 			}
 		}	
 
@@ -425,7 +425,7 @@ public class SpaceManagement extends SocialBase {
 		info("-- Verify " + menuItem + " --");
 		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),DEFAULT_TIMEOUT,0)==null){
 			info("-- Click More button --");
-			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", "More")));
+			clickByJavascript(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", "More")));
 			String []items = menuItem.split(" ");
 			if(items.length>1)
 				waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem.split(" ")[0]+" ..."));
@@ -440,7 +440,7 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void goToSpaceFromMySpaceNavigation(String spaceName){
 		info("-- Go to space "+spaceName+" --");
-		click(ELEMENT_SPACE_IN_MY_SPACE_LIST.replace("${space}", spaceName));
+		clickByJavascript(ELEMENT_SPACE_IN_MY_SPACE_LIST.replace("${space}", spaceName));
 		waitForAndGetElement(ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET,60000,1);
 	}
 	
@@ -451,9 +451,9 @@ public class SpaceManagement extends SocialBase {
 	public void deleteSpaceMenu(String tabName){
 		info("Delete app " + tabName + " from space");
 		if (waitForAndGetElement(ELEMENT_APPLICATIONS_IN_SPACE.replace("${app}", tabName), 5000, 0) == null){
-			click(ELEMENT_APPLICATIONS_TAB_IN_MENU_SETTING);
+			clickByJavascript(ELEMENT_APPLICATIONS_TAB_IN_MENU_SETTING);
 		}
-		click(ELEMENT_APPLICATIONS_DELETE_ICON_IN_MENU_SETTING.replace("${app}", tabName));
+		clickByJavascript(ELEMENT_APPLICATIONS_DELETE_ICON_IN_MENU_SETTING.replace("${app}", tabName));
 		waitForElementNotPresent(ELEMENT_APPLICATIONS_IN_SPACE.replace("${app}", tabName));
 	}
 }
