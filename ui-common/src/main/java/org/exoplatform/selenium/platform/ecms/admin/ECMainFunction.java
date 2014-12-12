@@ -38,6 +38,7 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_METADATA_LINK = By.className("uiIconEcmsMetadataManager");
 
 	//Explorer Tab
+	//public final By ELEMENT_EXPLORER_TAB = By.xpath("//*[@id='accordion']/..//a[contains(text(),'Explorer')]");
 	public final By ELEMENT_EXPLORER_TAB = By.xpath("//*[text()='Explorer']");
 	public final By ELEMENT_DRIVES_TAB = By.className("uiIconEcmsDriveManager");
 

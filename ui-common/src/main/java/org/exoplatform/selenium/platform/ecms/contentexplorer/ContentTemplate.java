@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
 /**
  * 
  * @author vuna2
+ * updated by anhpp
  * 
  */
 public class ContentTemplate extends EcmsBase {
@@ -311,11 +312,7 @@ public class ContentTemplate extends EcmsBase {
 		boolean lines = (Boolean) (params.length > 0 ? params[0] : false);
 		String optionLang = (String) (params.length > 1 ? params[1] : "");
 		By eWebContentSum;
-		
-		if (this.plfVersion.equalsIgnoreCase("4.0"))
-			eWebContentSum = ELEMENT_WEBCONTENT_SUMMARY_FRAME;
-		else
-			eWebContentSum = ELEMENT_WEBCONTENT_SUMMARY_FRAME_41;
+		eWebContentSum = ELEMENT_WEBCONTENT_SUMMARY_FRAME_41;
 		
 		info("-- Creating a new Web Content --");
 		Utils.pause(500);
@@ -325,10 +322,7 @@ public class ContentTemplate extends EcmsBase {
 			selectOption(ELEMENT_PIC_LANG, optionLang);
 		}
 		if (cont != "") {
-			if (this.plfVersion.equalsIgnoreCase("4.0"))
-				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, cont,true);
-			else
-				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,true);
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,true);
 			switchToParentWindow();
 			/*if (this.plfVersion.equalsIgnoreCase("4.1"))
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,
@@ -681,6 +675,7 @@ public class ContentTemplate extends EcmsBase {
 			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace(
 					"${content}", title)));
 		}
+			
 		Utils.pause(1000);
 	}
 

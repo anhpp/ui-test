@@ -45,7 +45,7 @@ public class TestBase {
 	public WebDriver driver;
 	public WebDriver newDriver;
 
-	protected String baseUrl;
+	protected static String baseUrl;
 	protected int DEFAULT_TIMEOUT = 60000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  
 	public int loopCount = 0;	
@@ -80,6 +80,8 @@ public class TestBase {
 	public final By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue' and @class='btn active']");
 	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
 	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
+	public final By ELEMENT_OK_BUTTON = By.xpath("//*[text()='OK']");
+	public final By ELEMENT_CANCEL_BUTTON = By.xpath("//*[text()='Cancel']");
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_PLF_INFORMATION = By.id("platformInfoDiv");
