@@ -24,7 +24,7 @@ import org.testng.annotations.Test;
  * 
  * @author vuna2
  * August, 2nd, 2013	
- *
+ * updated by anhpp
  */
 public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	//Platform
@@ -68,7 +68,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	 * Cancel uploading an existing file in Document
 	 * 
 	 */
-	@Test
+	//@Test
 	public void test01_CancelUploadingExistingFileInDocument(){
 		String FILE_PDF_NAME = "ECMS_DMS_SE_Upload_pdffile";
 
@@ -88,7 +88,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 		waitForAndGetElement(ecms.ELEMENT_CANCEL_UPLOAD_FILE.replace("${title}", FILE_PDF_NAME + ".pdf"));
 
 		info("Restore data");
-		actBar.actionsOnElement(FILE_PDF_NAME, actionType.DELETE);		
+		actBar.actionsOnElement(FILE_PDF_NAME, actionType.DELETE, false, true);		
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 		click(ecms.ELEMENT_UPLOAD_FILE_ACTION.replace("${action}", "Keep both"));	
 
 		info("Check: A new file is created with an increment number in the path");
-		waitForAndGetElement(ecms.ELEMENT_HREF_NODE_LINK.replace("${nodeName}", FILE_MOFFICE_NAME), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ecms.ELEMENT_NODE_LINK.replace("${nodeName}", FILE_MOFFICE_NAME), DEFAULT_TIMEOUT, 1, 2);
 		click(ecms.ELEMENT_FILE_CLONE_CHECKBOX.replace("${node}", FILE_MOFFICE_NAME + ".doc[2]"), 2);
 		click(cMenu.ELEMENT_MENU_DELETE);
 		dialog.deleteInDialog();
@@ -133,7 +133,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	 * Replace an existing file in Document
 	 * 
 	 */
-	@Test
+	//@Test
 	public void test03_ReplaceAnExistingFileInDocument(){
 		String FILE_OPOFFICE_NAME = "Delete_multiple_files_folder_1";
 		String editTitle = "newTitle";
@@ -182,7 +182,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	 * Keep existing files when uploading in Site Explorer
 	 * 
 	 */
-	@Test
+	//@Test
 	public void test04_KeepExistingFilesWhenUploadingInSiteExplorer(){
 		String FILE_NAME = "ECMS_CSS_File_After";
 
@@ -216,7 +216,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	 * Replace an existing file in Site Explorer
 	 * 
 	 */
-	@Test
+	//@Test
 	public void test05_ReplaceAnExistingFileInSiteExplorer(){
 		String FILE_NAME = "ECMS_CSS_File_Before.txt";
 
@@ -255,7 +255,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	 * Cancel uploading an existing file in Site Explorer
 	 * 
 	 */
-	@Test
+	//@Test
 	public void test06_CancelUploadingAnExistingFileInSiteExplorer(){
 		String FILE_NAME = "ECMS_DMS_SE_Upload_htmlfile.html";
 

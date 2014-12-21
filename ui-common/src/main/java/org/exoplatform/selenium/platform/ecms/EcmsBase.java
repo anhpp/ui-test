@@ -1,5 +1,7 @@
 package org.exoplatform.selenium.platform.ecms;
 
+import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -9,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import static org.exoplatform.selenium.TestLogger.info;
 
 /**
  * 
@@ -288,6 +289,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_WARNING_UPLOAD_FILE_ICON = By.xpath("//*[contains(@class, 'uiIconWarning')]");
 	public final String ELEMENT_UPLOAD_FILE_ACTION = "//*[contains(@class, 'uiIconWarning')]/../..//*[text()='${action}']";
 	public final String ELEMENT_HREF_NODE_LINK = "//*[contains(@href, '${nodeName}')]"; 
+	public final String ELEMENT_NODE_LINK = "//*[contains(text(), '${nodeName}')]"; 
 	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
 	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
 	

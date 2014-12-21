@@ -8,34 +8,34 @@
 			</run>
 		</groups>
 		<classes>
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Category" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebContent" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_CSSFile" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Document" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_File" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Folder" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_JSFile" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebLink" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebContent" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebLink" />			
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_PictureOnHeadLayout" />
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Category" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebContent" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_CSSFile" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Document" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_File" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Folder" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_JSFile" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebLink" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebContent" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebLink" />			 -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_PictureOnHeadLayout" /> -->
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_Action_FileExisting" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_Action_Other" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_FileTypes" />
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_Action_Other" /> -->
+<!-- 			<class -->
+<!-- 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_FileTypes" /> -->
 		</classes>
 	</test>
 	<listeners>

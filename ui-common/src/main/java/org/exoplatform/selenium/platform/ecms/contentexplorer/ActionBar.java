@@ -722,14 +722,17 @@ public class ActionBar extends EcmsBase{
 				if (waitForAndGetElement(ELEMENT_SELECT_CHECKBOX.replace("${name}", node), 3000, 0, 2) != null){
 //					check(ELEMENT_SELECT_CHECKBOX.replace("${name}", node), 2);
 					info("check click of selenium ");
-					waitForAndGetElement(ELEMENT_SELECT_CHECKBOX.replace("${name}", node),DEFAULT_TIMEOUT,1,2).click();
+					WebElement checkbox = waitForAndGetElement(ELEMENT_SELECT_CHECKBOX.replace("${name}", node),DEFAULT_TIMEOUT,1,2);
+					System.out.println(checkbox);
+					checkbox.click();
 				}else{
 					check(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node) + "/../../../div[@class='columnCheckbox']", 2);
 				}
 			}
 		}else{
-			if (waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 3000, 0, 2) != null){
-				check(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 2);
+			WebElement element = waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 3000, 0, 2);
+			if (element != null){
+				element.click();
 			}else{
 				check(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", elementName) + "/../../../div[@class='columnCheckbox']", 2);
 			}

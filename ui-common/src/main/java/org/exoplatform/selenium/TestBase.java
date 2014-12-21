@@ -1251,10 +1251,10 @@ public class TestBase {
 	 * Upload file on IE
 	 * @param file: name of file
 	 */
-	public void uploadFile(String file){
+	protected void uploadFile(String file){
 		String fs = File.separator;
 		try {
-			Process proc=Runtime.getRuntime().exec(Utils.getAbsoluteFilePath("TestData\\uploadFile.exe") + " " + Utils.getAbsoluteFilePath(file.replace("/", fs)));
+			Process proc=Runtime.getRuntime().exec(Utils.getAbsoluteFilePath("TestData" + fs + "uploadFile.exe") + " " + Utils.getAbsoluteFilePath(file.replace("/", fs)));
 			InputStream is = proc.getInputStream();
 			int retCode = 0;
 			while(retCode != -1)
